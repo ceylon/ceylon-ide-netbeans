@@ -1,0 +1,34 @@
+native("jvm")
+module com.redhat.ceylon.ide.netbeansDependencies "1.2.0" {
+    shared import org.netbeans.api.templates "current";
+    shared import org.netbeans.api.progress "current";
+    shared import org.netbeans.core.multiview "current";
+    shared import org.netbeans.modules.csl.api "current";
+    shared import org.netbeans.modules.editor "current";
+    shared import org.netbeans.modules.editor.bracesmatching "current";
+    shared import org.netbeans.modules.editor.completion "current";
+    shared import org.netbeans.modules.editor.fold "current";
+    shared import org.netbeans.modules.editor.lib "current";
+    shared import org.netbeans.modules.editor.lib2 "current";
+    shared import org.netbeans.modules.editor.mimelookup "current";
+    shared import org.netbeans.modules.lexer "current";
+    shared import org.netbeans.modules.parsing.api "current";
+    shared import org.netbeans.modules.projectapi "current";
+    shared import org.netbeans.modules.projectuiapi.base "current";
+    shared import org.netbeans.spi.editor.hints "current";
+    shared import org.openide.dialogs "current";
+    shared import org.openide.awt "current";
+    shared import org.openide.loaders "current";
+    shared import org.openide.nodes "current";
+    shared import org.openide.text "current";
+    shared import org.openide.util "current";
+    shared import org.openide.util.lookup "current";
+    shared import org.openide.util.ui "current";
+    shared import org.openide.windows "current";
+    shared import org.openide.filesystems "current";
+    shared import org.openide.filesystems.compat8 "current";
+    shared import org.openide.filesystems.nb "current";
+    shared import org.netbeans.modules.java.project "current";
+    shared import org.netbeans.modules.editor.settings "current";
+    //shared import org.netbeans.modules.java.j2seproject "current";
+}

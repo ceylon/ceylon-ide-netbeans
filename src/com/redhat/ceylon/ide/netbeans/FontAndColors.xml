@@ -1,0 +1,23 @@
+<!DOCTYPE fontscolors PUBLIC
+    "-//NetBeans//DTD Editor Fonts and Colors settings 1.1//EN"
+    "http://www.netbeans.org/dtds/EditorFontsColors-1_1.dtd">
+<fontscolors>
+    <fontcolor name="comment" foreColor="808080"/>
+    <fontcolor name="badcode" bgColor="FFBABA"/>
+    <fontcolor name="keyword" foreColor="4C4C4C"/>
+    <!-- import path -->
+    <fontcolor name="mod-custom1" foreColor="808080"/>
+    <!-- qualified members -->
+    <fontcolor name="mod-custom2" foreColor="663399"/>
+    <fontcolor name="mod-annotation-type" foreColor="3399CC"/>
+    <fontcolor name="typeAttribute" foreColor="990066"/>
+    <fontcolor name="identifierAttribute" foreColor="003399"/>
+    <fontcolor name="numberAttribute" foreColor="0000FF"/>
+    <fontcolor name="annotationStringAttribute" foreColor="008080"/>
+    <fontcolor name="charAttribute" foreColor="0000FF"/>
+    <fontcolor name="stringAttribute" foreColor="0000FF"/>
+    <fontcolor name="typeLiteralAttribute" foreColor="FF336633"/>
+    <fontcolor name="semiAttribute" foreColor="000000"/>
+    <fontcolor name="braceAttribute" foreColor="000000"/>
+    <fontcolor name="foo" default="default"/>
+</fontscolors>

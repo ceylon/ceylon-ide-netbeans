@@ -1,0 +1,50 @@
+<overrides xmlns="http://www.ceylon-lang.org/xsd/overrides">
+    <module module="org.openide.filesystems">
+        <add module="org.openide.util" version="current" shared="true"/>
+    </module>
+    <module module="org.openide.text">
+        <add module="org.openide.util" version="current" shared="true"/>
+    </module>
+    <module module="org.netbeans.modules.editor">
+        <add module="org.openide.filesystems" version="current"/>
+    </module>
+    <module module="org.netbeans.modules.parsing.api">
+        <add module="org.openide.filesystems" version="current"/>
+    </module>
+    <module module="org.netbeans.modules.projectapi">
+        <add module="org.openide.util" version="current"/>
+        <add module="org.openide.filesystems" version="current"/>
+    </module>
+    <module module="org.netbeans.modules.csl.api">
+        <add module="org.netbeans.modules.parsing.api" version="current"/>
+        <add module="org.netbeans.modules.lexer" version="current"/>
+    </module>
+    <module module="org.openide.nodes">
+        <add module="org.openide.awt" version="current"/>
+    </module>
+    <module module="org.netbeans.modules.editor.mimelookup">
+        <add module="org.openide.util" version="current"/>
+    </module>
+    <module module="org.openide.util.lookup">
+        <add module="org.openide.util" version="current"/>
+    </module>
+    <module module="org.openide.dialogs">
+        <add module="org.netbeans.api.progress" version="current"/>
+        <add module="org.openide.util" version="current"/>
+    </module>
+    
+    <module module="org.openide.loaders">
+        <add module="org.openide.util" version="current"/>
+        <add module="org.openide.filesystems" version="current"/>
+        <add module="org.openide.nodes" version="current"/>
+        <filter>
+            <exclude path="org/openide/text/**"/>
+        </filter>
+    </module>
+    
+    <module module="org.openide.util.ui">
+        <filter>
+            <exclude path="org/openide/*"/>
+        </filter>
+    </module>
+</overrides>
