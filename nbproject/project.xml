@@ -282,38 +282,6 @@
             </module-dependencies>
             <public-packages/>
             <class-path-extension>
-                <runtime-relative-path>ext/com.redhat.ceylon.typechecker-1.2.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/com.redhat.ceylon.typechecker-1.2.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/ceylon.runtime-1.2.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/ceylon.runtime-1.2.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/com.redhat.ceylon.common-1.2.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/com.redhat.ceylon.common-1.2.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/ceylon.language-1.2.0.car</runtime-relative-path>
-                <binary-origin>release/modules/ext/ceylon.language-1.2.0.car</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/com.redhat.ceylon.module-resolver-1.2.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/com.redhat.ceylon.module-resolver-1.2.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/com.redhat.ceylon.model-1.2.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/com.redhat.ceylon.model-1.2.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/ceylon.interop.java-1.2.0.car</runtime-relative-path>
-                <binary-origin>release/modules/ext/ceylon.interop.java-1.2.0.car</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/com.redhat.ceylon.ide.common-1.2.1.car</runtime-relative-path>
-                <binary-origin>release/modules/ext/com.redhat.ceylon.ide.common-1.2.1.car</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
                 <runtime-relative-path>ext/com.redhat.ceylon.ide.netbeans-1.2.0.car</runtime-relative-path>
                 <binary-origin>release/modules/ext/com.redhat.ceylon.ide.netbeans-1.2.0.car</binary-origin>
             </class-path-extension>
@@ -322,16 +290,56 @@
                 <binary-origin>release/modules/ext/org.antlr.runtime-3.4.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
-                <runtime-relative-path>ext/ceylon.collection-1.2.0.car</runtime-relative-path>
-                <binary-origin>release/modules/ext/ceylon.collection-1.2.0.car</binary-origin>
+                <runtime-relative-path>ext/com.redhat.ceylon.common-1.2.0.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/com.redhat.ceylon.common-1.2.0.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/com.redhat.ceylon.typechecker-1.2.0.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/com.redhat.ceylon.typechecker-1.2.0.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
                 <runtime-relative-path>ext/org.jboss.modules-1.3.3.Final.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/org.jboss.modules-1.3.3.Final.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
+                <runtime-relative-path>ext/com.redhat.ceylon.module-resolver-1.2.0.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/com.redhat.ceylon.module-resolver-1.2.0.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/ceylon.runtime-1.2.0.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/ceylon.runtime-1.2.0.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
                 <runtime-relative-path>ext/com.github.rjeschke.txtmark-0.13.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/com.github.rjeschke.txtmark-0.13.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/ceylon.language-1.2.0.car</runtime-relative-path>
+                <binary-origin>release/modules/ext/ceylon.language-1.2.0.car</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/com.redhat.ceylon.ide.common-1.2.1.car</runtime-relative-path>
+                <binary-origin>release/modules/ext/com.redhat.ceylon.ide.common-1.2.1.car</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/ceylon.formatter-1.2.1.car</runtime-relative-path>
+                <binary-origin>release/modules/ext/ceylon.formatter-1.2.1.car</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/ceylon.file-1.2.1.car</runtime-relative-path>
+                <binary-origin>release/modules/ext/ceylon.file-1.2.1.car</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/ceylon.interop.java-1.2.0.car</runtime-relative-path>
+                <binary-origin>release/modules/ext/ceylon.interop.java-1.2.0.car</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/com.redhat.ceylon.model-1.2.0.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/com.redhat.ceylon.model-1.2.0.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/ceylon.collection-1.2.0.car</runtime-relative-path>
+                <binary-origin>release/modules/ext/ceylon.collection-1.2.0.car</binary-origin>
             </class-path-extension>
         </data>
     </configuration>
