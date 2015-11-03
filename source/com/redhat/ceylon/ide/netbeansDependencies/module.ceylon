@@ -8,6 +8,7 @@ module com.redhat.ceylon.ide.netbeansDependencies "1.2.0" {
     shared import org.netbeans.modules.editor.bracesmatching "current";
     shared import org.netbeans.modules.editor.completion "current";
     shared import org.netbeans.modules.editor.fold "current";
+    shared import org.netbeans.modules.editor.indent "current";
     shared import org.netbeans.modules.editor.lib "current";
     shared import org.netbeans.modules.editor.lib2 "current";
     shared import org.netbeans.modules.editor.mimelookup "current";

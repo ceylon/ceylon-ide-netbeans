@@ -18,6 +18,7 @@
     <module module="org.netbeans.modules.csl.api">
         <add module="org.netbeans.modules.parsing.api" version="current"/>
         <add module="org.netbeans.modules.lexer" version="current"/>
+        <add module="org.netbeans.modules.editor.indent" version="current"/>
     </module>
     <module module="org.openide.nodes">
         <add module="org.openide.awt" version="current"/>

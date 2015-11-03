@@ -15,8 +15,7 @@ to NetBeans.
 * a few quick fixes (mainly to add/remove annotations)
 * code completion
 * organize imports
-* format code
-
+* format code (using [ceylon.formatter](https://github.com/ceylon/ceylon.formatter))
 
 ## How to build
 

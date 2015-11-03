@@ -1,8 +1,10 @@
 package com.redhat.ceylon.ide.netbeans.lang;
 
 import com.redhat.ceylon.ide.netbeans.editor.CeylonSemanticAnalyzer;
+import com.redhat.ceylon.ide.netbeans.editor.codeFormatter_;
 import com.redhat.ceylon.ide.netbeans.structure.ceylonStructureScanner_;
 import org.netbeans.api.lexer.Language;
+import org.netbeans.modules.csl.api.Formatter;
 import org.netbeans.modules.csl.api.SemanticAnalyzer;
 import org.netbeans.modules.csl.api.StructureScanner;
 import org.netbeans.modules.csl.spi.DefaultLanguageConfig;
@@ -41,5 +43,15 @@ public class AnnotatedCeylonLanguage extends DefaultLanguageConfig {
     @Override
     public SemanticAnalyzer getSemanticAnalyzer() {
         return new CeylonSemanticAnalyzer();
+    }
+
+    @Override
+    public boolean hasFormatter() {
+        return true;
+    }
+
+    @Override
+    public Formatter getFormatter() {
+        return codeFormatter_.get_();
     }
 }

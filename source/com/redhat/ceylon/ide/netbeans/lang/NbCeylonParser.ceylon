@@ -5,7 +5,8 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 
 import java.util {
     Collections,
-    List
+    List,
+    ArrayList
 }
 
 import javax.swing.event {
@@ -15,7 +16,8 @@ import javax.swing.event {
 import org.antlr.runtime {
     ANTLRStringStream,
     CommonTokenStream,
-    RecognitionException
+    RecognitionException,
+    CommonToken
 }
 import org.netbeans.modules.csl.api {
     Error
@@ -38,31 +40,41 @@ import org.openide.util {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree
 }
+import ceylon.interop.java {
+    CeylonIterable
+}
 
 shared class NBCeylonParser() extends Parser() {
-    variable Snapshot? snapshot = null;
-    variable CeylonParser? ceylonParser = null;
-    variable Tree.CompilationUnit? rootNode = null;
-     
+    variable CeylonParserResult? result = null;
+    
     shared actual void parse(Snapshot snapshot, Task task, SourceModificationEvent event) {
-        this.snapshot = snapshot;
         ANTLRStringStream input = ANTLRStringStream(snapshot.text.string);
         CeylonLexer ceylonLexer = CeylonLexer(input);
         CommonTokenStream cts = CommonTokenStream(ceylonLexer);
-
-        ceylonParser = CeylonParser(cts);
+        cts.fill();
+        
         try {
-            assert(exists parser = ceylonParser);
-            rootNode = parser.compilationUnit();
+            value parser = CeylonParser(cts);
+            
+            value tokens = ArrayList<CommonToken>();
+            for (tok in CeylonIterable(cts.tokens)) {
+                assert(is CommonToken tok);
+                tokens.add(tok);
+            }
+
+            // TODO fix com.redhat.ceylon.model.loader.ModelResolutionException: Failed to resolve org.antlr.runtime.CommonToken
+            //assert(is List<CommonToken> tokens = cts.tokens);
+            
+            result = CeylonParserResult(snapshot, parser,
+                parser.compilationUnit(), tokens);
         } catch (RecognitionException ex) {
+            result = null;
             Exceptions.printStackTrace(ex);
         }
     }
     
-    shared actual Result getResult(Task task) {
-        assert(exists snap = snapshot, exists parser = ceylonParser,
-               exists rn = rootNode);
-        return CeylonParserResult(snap, parser, rn);
+    shared actual Result? getResult(Task task) {
+        return result;
     }
     
     shared actual void cancel() {
@@ -75,7 +87,8 @@ shared class NBCeylonParser() extends Parser() {
     }
     
     shared class CeylonParserResult(Snapshot snapshot, CeylonParser parser,
-        shared Tree.CompilationUnit rootNode)
+        shared Tree.CompilationUnit rootNode,
+        shared List<CommonToken> tokens)
             extends ParserResult(snapshot) {
         
         variable Boolean valid = true;
