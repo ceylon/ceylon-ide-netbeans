@@ -73,7 +73,7 @@ shared object nbCompletionManager
             => CeylonCompletionItem(escapedText, text, offset, prefix, nbIcons.correct);
     
     shared actual CeylonCompletionItem newControlStructureCompletionProposal(Integer offset, String prefix,
-        String desc, String text, Declaration dec, CeylonParseController cpc)
+        String desc, String text, Declaration dec, CeylonParseController cpc, Node? node)
             => CeylonCompletionItem(text, desc, offset, prefix, nbIcons.correct);
     
     shared actual CeylonCompletionItem newCurrentPackageProposal(Integer offset, String prefix,
