@@ -20,7 +20,8 @@ import com.redhat.ceylon.ide.common.correct {
     CreateQuickFix,
     RefineFormalMembersQuickFix,
     RemoveAnnotationQuickFix,
-    ChangeReferenceQuickFix
+    ChangeReferenceQuickFix,
+    SpecifyTypeQuickFix
 }
 import com.redhat.ceylon.ide.common.refactoring {
     DefaultRegion
@@ -87,6 +88,11 @@ shared object nbQuickFixManager
     
     shared actual RemoveAnnotationQuickFix<FileObject,Document,InsertEdit,TextEdit,TextChange,DefaultRegion,Project,NbQuickFixData,CeylonCompletionItem> removeAnnotations
             => annotationsFix;
+    
+    shared actual SpecifyTypeQuickFix<FileObject,Document,InsertEdit,TextEdit,
+        TextChange,DefaultRegion,Project,NbQuickFixData,CeylonCompletionItem,
+        Object> specifyTypeQuickFix => nothing; // TODO
+    
 }
 
 shared class NbQuickFixData(shared actual Tree.CompilationUnit rootNode, 

@@ -157,8 +157,13 @@ shared class NbDocGenerator(CeylonParseController cpc)
         }
     }
 
-    shared actual String buildLink(Referenceable model, String text, String protocol)
-            => "<a href=\"``protocol``:``buildUrl(model)``\">``text``</a>";
+    shared actual String buildLink(Referenceable|String model, String text,
+        String protocol) {
+        
+        String href = if (is String model) then model else buildUrl(model);
+         
+        return "<a href=\"``protocol``:``href``\">``text``</a>";
+    }
     
     shared actual String color(Object? what, Colors how)
             => "<span style='color: blue'>`` what?.string else "" ``</span>"; // TODO proper highlight
@@ -219,6 +224,7 @@ shared class NbDocGenerator(CeylonParseController cpc)
     shared actual Boolean showMembers => false;
     
     shared actual AbstractModuleImportUtil<out Anything,out Anything,out Anything,out Anything,out Anything,out Anything> moduleImportUtil
-            => nothing; // TODO
+            => nothing;// TODO
     
+    shared actual Boolean supportsQuickAssists => false;
 }
