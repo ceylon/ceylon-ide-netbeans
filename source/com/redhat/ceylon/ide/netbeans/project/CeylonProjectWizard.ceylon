@@ -41,18 +41,19 @@ shared class CeylonProjectWizard() extends AmbiguousOverloadsResolver() {
         wizardDescriptor.title = "New Ceylon project";
     }
     
-    // Should not be callsed because we implement
+    // Should not be called because we implement
     //  WizardDescriptor.ProgressInstantiatingIterator
     suppressWarnings("expressionTypeNothing")
     shared actual Set<out Object> instantiate() => nothing;
 
+    // TODO this does not create and open a new project, atm it only creates files
     shared actual Set<FileObject> instantiate(ProgressHandle handle) {
         assert(exists wizard = wiz);
         assert(is File projectDir = wizard.getProperty("projdir"));
 
         Set<FileObject> files = LinkedHashSet<FileObject>();
         
-        handle.start(1);
+        handle.start(2);
         
         value ceylonDir = File(projectDir, ".ceylon");
         ceylonDir.mkdirs();
@@ -61,8 +62,17 @@ shared class CeylonProjectWizard() extends AmbiguousOverloadsResolver() {
         
         files.add(FileUtil.toFileObject(ceylonDir));
         files.add(FileUtil.toFileObject(ceylonConfig));
-        
+
         handle.progress(1);
+
+        value sourceDir = File(projectDir, "source");
+        sourceDir.mkdirs();
+
+        files.add(FileUtil.toFileObject(sourceDir));
+        
+        handle.progress(2);
+        
+        handle.finish();
         
         return files;
     }

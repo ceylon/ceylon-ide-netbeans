@@ -6,27 +6,16 @@ import ceylon.formatter.options {
 }
 
 import com.redhat.ceylon.ide.common.editor {
-    AbstractFormatAction
+    formatAction
 }
 import com.redhat.ceylon.ide.common.refactoring {
     DefaultRegion
 }
-import com.redhat.ceylon.ide.common.util {
-    Indents
-}
 import com.redhat.ceylon.ide.netbeans.correct {
-    InsertEdit,
-    TextEdit,
-    TextChange,
-    NbDocumentChanges,
-    nbIndents
+    NbDocument
 }
 import com.redhat.ceylon.ide.netbeans.lang {
     NBCeylonParser
-}
-
-import javax.swing.text {
-    Document
 }
 
 import org.netbeans.modules.csl.api {
@@ -38,15 +27,13 @@ import org.netbeans.modules.csl.spi {
 import org.netbeans.modules.editor.indent.spi {
     Context
 }
-shared object codeFormatter 
-        satisfies Formatter
-                & AbstractFormatAction<Document,InsertEdit,TextEdit,TextChange>
-                & NbDocumentChanges {
+
+shared object codeFormatter satisfies Formatter {
     
     shared actual void reformat(Context context, ParserResult? result) {
         if (is NBCeylonParser.CeylonParserResult result) {
             value rn = result.rootNode;
-            value doc = context.document();
+            value doc = NbDocument(context.document());
             value selection = DefaultRegion(context.startOffset(),
                 context.endOffset() - context.startOffset());
             value options = SparseFormattingOptions {
@@ -55,10 +42,10 @@ shared object codeFormatter
             };
             value profile = FormattingOptions();
             
-            if (exists change = format(rn, result.tokens, doc,
-                doc.length, selection, options, profile)) {
+            if (exists change = formatAction.format(rn, result.tokens, doc,
+                doc.size, selection, options, profile)) {
                 
-                change.applyChanges();
+                change.apply();
             }
         }
     }
@@ -72,10 +59,4 @@ shared object codeFormatter
     shared actual Integer indentSize() => 4;
     
     shared actual Integer hangingIndentSize() => 4;
-
-
-    shared actual Indents<Document> indents => nbIndents;
-    
-    shared actual TextChange newTextChange(String desc, Document doc)
-            => TextChange(doc);
 }

@@ -2,9 +2,6 @@ import java.awt {
     Component
 }
 
-import javax.swing {
-    JPanel
-}
 import javax.swing.event {
     ChangeListener
 }
@@ -19,13 +16,16 @@ import org.openide {
 import org.openide.util {
     HelpCtx
 }
+import java.io {
+    File
+}
 
 class ConfigureProjectPanel()
         satisfies Panel<WizardDescriptor>
                 & ValidatingPanel<WizardDescriptor>
                 & FinishablePanel<WizardDescriptor> {
     
-    JPanel rootPanel = ConfigureProjectVisual();
+    value rootPanel = ConfigureProjectVisual();
     
     shared actual void addChangeListener(ChangeListener? changeListener) {}
     
@@ -39,7 +39,12 @@ class ConfigureProjectPanel()
     
     shared actual void removeChangeListener(ChangeListener? changeListener) {}
     
-    shared actual void storeSettings(WizardDescriptor? data) {}
+    shared actual void storeSettings(WizardDescriptor data) {
+        value projdir = File(rootPanel.projectLocation.text
+            + File.separator + rootPanel.projectName.text);
+        
+        data.putProperty("projdir", projdir);
+    }
     
     shared actual Boolean valid => true;
     

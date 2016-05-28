@@ -2,6 +2,7 @@ package com.redhat.ceylon.ide.netbeans.project;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
 import org.openide.filesystems.FileChooserBuilder;
 
 /**
@@ -16,7 +17,7 @@ public class ConfigureProjectVisual extends javax.swing.JPanel {
     public ConfigureProjectVisual() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,4 +176,12 @@ public class ConfigureProjectVisual extends javax.swing.JPanel {
     private javax.swing.JCheckBox showWarning;
     private javax.swing.JCheckBox workOffline;
     // End of variables declaration//GEN-END:variables
+
+    public JTextField getProjectLocation() {
+        return projectLocation;
+    }
+
+    public JTextField getProjectName() {
+        return projectName;
+    }
 }

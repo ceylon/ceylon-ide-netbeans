@@ -60,7 +60,7 @@ shared object ceylonBuilder {
         
         value repositoryManager = CeylonUtils.repoManager()
                 .offline(true)
-                .systemRepo("/Users/bastien/.ceylon/repo") // TODO
+                .systemRepo("/Users/bastien/Dev/ceylon/ceylon/dist/dist/repo") // TODO
                 .isJDKIncluded(true)
                 .buildManager();
         

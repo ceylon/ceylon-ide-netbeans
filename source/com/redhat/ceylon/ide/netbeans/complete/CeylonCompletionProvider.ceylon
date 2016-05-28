@@ -1,5 +1,6 @@
 import com.redhat.ceylon.ide.common.util {
-    ProgressMonitor
+    ProgressMonitorImpl,
+    ProgressMonitorChild
 }
 import com.redhat.ceylon.ide.netbeans.doc {
     NbDocGenerator
@@ -55,12 +56,12 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
                 CeylonParseController controller = CeylonParseController.get(document);
                 controller.typeCheck(null);
                 nbCompletionItemPosition.reset();
-                value proposals = nbCompletionManager.getContentProposals(controller.lastCompilationUnit,
-                    controller, caretOffset, 1, false, DummyProgress());
-                
-                for (proposal in proposals) {
-                    completionResultSet.addItem(proposal);
-                }
+                //value proposals = completionManager.getContentProposals(controller.lastCompilationUnit,
+                //    controller, caretOffset, 1, false, DummyProgress());
+                //
+                //for (proposal in proposals) {
+                //    completionResultSet.addItem(proposal);
+                //}
                 
                 completionResultSet.finish();
             }
@@ -68,15 +69,17 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
     }
 }
 
-class DummyProgress() satisfies ProgressMonitor {
+class DummyProgress() extends ProgressMonitorImpl<String>.wrap("") {
+    shared actual Boolean cancelled => false;
     
-    shared actual variable Integer workRemaining = 0;
+    shared actual ProgressMonitorChild<String> newChild(Integer allocatedWork)
+            => this;
     
-    shared actual Object worked(Integer l) {
-        return l;
-    }
+    shared actual void subTask(String subTaskDescription) {}
     
-    shared actual Object? subTask(String? string) {
-        return string;
-    }
+    shared actual void updateRemainingWork(Integer remainingWork) {}
+    
+    shared actual void worked(Integer amount) {}
+    
+    shared actual String wrapped => "";
 }

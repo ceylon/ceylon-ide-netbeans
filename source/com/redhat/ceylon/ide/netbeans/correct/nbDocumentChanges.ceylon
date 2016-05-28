@@ -2,8 +2,14 @@ import ceylon.collection {
     ArrayList
 }
 
-import com.redhat.ceylon.ide.common.correct {
-    DocumentChanges
+import com.redhat.ceylon.ide.common.platform {
+    CommonDocument,
+    TextChange,
+    TextEdit
+}
+
+import java.lang {
+    Runnable
 }
 
 import javax.swing.text {
@@ -16,68 +22,54 @@ import org.openide.util {
     Exceptions
 }
 import org.openide.text {
-    NbDocument
-}
-import java.lang {
-    Runnable
+    DocumentUtil=NbDocument
 }
 
-shared interface NbDocumentChanges satisfies DocumentChanges<Document,InsertEdit,TextEdit,TextChange> {
+shared class NbDocument(nativeDocument) satisfies CommonDocument {
+    shared Document nativeDocument;
+
+    defaultLineDelimiter => "\n";
     
-    shared actual void addEditToChange(TextChange tc, TextEdit te) {
-        tc.addChange(te);
-    }
+    shared actual Integer getLineEndOffset(Integer line) => nothing;
     
-    shared actual Document getDocumentForChange(TextChange tc) {
-        return tc.document;
-    }
+    shared actual Integer getLineOfOffset(Integer offset) => nothing;
     
-    shared actual String getInsertedText(InsertEdit ie) {
-        return ie.text;
-    }
+    shared actual Integer getLineStartOffset(Integer line)
+            => nothing;
     
-    shared actual void initMultiEditChange(TextChange tc) {
-        // nothing
-    }
+    getText(Integer offset, Integer length)
+            => nativeDocument.getText(offset, length);
     
-    shared actual TextEdit newDeleteEdit(Integer start, Integer len) {
-        return DeleteEdit(start, len);
-    }
+    size => nativeDocument.length;
     
-    shared actual InsertEdit newInsertEdit(Integer position, String string) {
-        return InsertEdit(position, string);
-    }
-    
-    shared actual TextEdit newReplaceEdit(Integer position, Integer length, String string) {
-        return ReplaceEdit(position, length, string);
-    }
 }
 
-shared class TextChange(shared Document document) {
+
+shared class NbTextChange(shared actual NbDocument document) satisfies TextChange {
     
-    value changes = ArrayList<TextEdit>();
+    value edits = ArrayList<TextEdit>();
     
-    shared void addChange(TextEdit change) {
-        changes.add(change);
+    shared actual void addEdit(TextEdit change) {
+        edits.add(change);
     }
     
-    shared void applyChanges() {
+    shared actual void apply() {
         try {
-            Integer len = document.length;
+            Integer len = document.size;
             String text = document.getText(0, len);
-            value newText = mergeToCharArray(text, len, changes);
+            value newText = mergeToCharArray(text, len, edits);
 
             if (is StyledDocument document) {
                 // TODO the editor scrolls down when we do this, and the cursor is at the end of the doc
-                NbDocument.runAtomic(document, object satisfies Runnable {
+                DocumentUtil.runAtomic(document, object satisfies Runnable {
                     shared actual void run() {
                         document.remove(0, len);
                         document.insertString(0, newText, null);
                     }
                 });
             } else { 
-                document.remove(0, len);
-                document.insertString(0, newText, null);
+                document.nativeDocument.remove(0, len);
+                document.nativeDocument.insertString(0, newText, null);
             }
         } catch (BadLocationException ex) {
             Exceptions.printStackTrace(ex);
@@ -110,24 +102,13 @@ shared class TextChange(shared Document document) {
         }
         return String(data);
     }
-}
-
-shared interface TextEdit {
-    shared formal Integer start;
-    shared formal Integer end;
-    shared formal String text;
-}
-
-shared class InsertEdit(Integer position, shared actual String text) satisfies TextEdit {
-    shared actual Integer start => position;
-    shared actual Integer end => position;
-}
-
-shared class DeleteEdit(shared actual Integer start, Integer length) satisfies TextEdit {
-    shared actual Integer end => start + length;
-    shared actual String text => "";
-}
-
-shared class ReplaceEdit(shared actual Integer start, Integer length, shared actual String text) satisfies TextEdit {
-    shared actual Integer end => start + length;
+    
+    hasEdits => edits.size > 0;
+    
+    initMultiEdit() => noop();
+    
+    length => if (exists e = edits.first) then e.length else 0;
+    
+    offset => if (exists e = edits.first) then e.start else 0;
+    
 }

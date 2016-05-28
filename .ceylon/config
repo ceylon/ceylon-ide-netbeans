@@ -9,3 +9,4 @@ overrides=overrides.xml
 
 [repositories]
 lookup=flat:./flat-repo
+lookup=../ceylon-ide-common/repo

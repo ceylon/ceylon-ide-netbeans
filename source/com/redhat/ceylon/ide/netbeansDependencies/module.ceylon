@@ -1,7 +1,8 @@
 native("jvm")
-module com.redhat.ceylon.ide.netbeansDependencies "1.2.0" {
+module com.redhat.ceylon.ide.netbeansDependencies "current" {
     shared import org.netbeans.api.templates "current";
     shared import org.netbeans.api.progress "current";
+    shared import org.netbeans.api.progress.nb "current";
     shared import org.netbeans.core.multiview "current";
     shared import org.netbeans.modules.csl.api "current";
     shared import org.netbeans.modules.editor "current";
@@ -30,6 +31,9 @@ module com.redhat.ceylon.ide.netbeansDependencies "1.2.0" {
     shared import org.openide.filesystems.compat8 "current";
     shared import org.openide.filesystems.nb "current";
     shared import org.netbeans.modules.java.project "current";
+    shared import org.netbeans.modules.java.source "current";
+    shared import org.netbeans.modules.java.source.base "current";
     shared import org.netbeans.modules.editor.settings "current";
+    shared import org.netbeans.api.java.classpath "current";
     //shared import org.netbeans.modules.java.j2seproject "current";
 }

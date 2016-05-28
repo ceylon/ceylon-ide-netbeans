@@ -49,18 +49,20 @@ cd release/modules/ext
 
 # TODO download from herd if it's not in the local repo
 
-ln -s /Users/bastien/.ceylon/repo/org/antlr/runtime/3.4/org.antlr.runtime-3.4.jar .
-ln -s ~/.ceylon/repo/ceylon/collection/$distVersion/ceylon.collection-$distVersion.car
-ln -s ~/.ceylon/repo/ceylon/interop/java/$distVersion/ceylon.interop.java-$distVersion.car
-ln -s ~/.ceylon/repo/ceylon/language/$distVersion/ceylon.language-$distVersion.car
-ln -s ~/.ceylon/repo/ceylon/runtime/$distVersion/ceylon.runtime-$distVersion.jar
-ln -s ~/.ceylon/repo/com/redhat/ceylon/common/$distVersion/com.redhat.ceylon.common-$distVersion.jar
-ln -s ~/.ceylon/repo/com/redhat/ceylon/model/$distVersion/com.redhat.ceylon.model-$distVersion.jar
-ln -s ~/.ceylon/repo/com/redhat/ceylon/module-resolver/$distVersion/com.redhat.ceylon.module-resolver-$distVersion.jar
-ln -s ~/.ceylon/repo/com/redhat/ceylon/typechecker/$distVersion/com.redhat.ceylon.typechecker-$distVersion.jar
+ln -s ../../../../ceylon/dist/dist/repo/org/antlr/runtime/3.4/org.antlr.runtime-3.4.jar .
+ln -s ../../../../ceylon-sdk/modules/ceylon/collection/$distVersion/ceylon.collection-$distVersion.car
+ln -s ../../../../ceylon-sdk/modules/ceylon/interop/java/$distVersion/ceylon.interop.java-$distVersion.car
+ln -s ../../../../ceylon/dist/dist/repo/ceylon/language/$distVersion/ceylon.language-$distVersion.car
+ln -s ../../../../ceylon/dist/dist/repo/ceylon/runtime/$distVersion/ceylon.runtime-$distVersion.jar
+ln -s ../../../../ceylon/dist/dist/repo/com/redhat/ceylon/common/$distVersion/com.redhat.ceylon.common-$distVersion.jar
+ln -s ../../../../ceylon/dist/dist/repo/com/redhat/ceylon/model/$distVersion/com.redhat.ceylon.model-$distVersion.jar
+ln -s ../../../../ceylon/dist/dist/repo/com/redhat/ceylon/module-resolver/$distVersion/com.redhat.ceylon.module-resolver-$distVersion.jar
+ln -s ../../../../ceylon/dist/dist/repo/com/redhat/ceylon/typechecker/$distVersion/com.redhat.ceylon.typechecker-$distVersion.jar
 ln -s ../../../../ceylon-ide-common/modules/com/redhat/ceylon/ide/common/$ideCommonVersion/com.redhat.ceylon.ide.common-$ideCommonVersion.car
-ln -s ../../../../ceylon.formatter/modules/ceylon/formatter/1.2.1/ceylon.formatter-1.2.1.car
-ln -s ../../../../ceylon-sdk/modules/ceylon/file/1.2.1/ceylon.file-1.2.1.car
+ln -s ../../../../ceylon-ide-common/repo/org/jgrapht/core/0.9.1/org.jgrapht.core-0.9.1.jar
+ln -s ../../../../ceylon-ide-common/repo/net/lingala/zip4j/1.3.2/net.lingala.zip4j-1.3.2.jar
+ln -s ../../../../ceylon.formatter/modules/ceylon/formatter/$distVersion/ceylon.formatter-$distVersion.car
+ln -s ../../../../ceylon-sdk/modules/ceylon/file/$distVersion/ceylon.file-$distVersion.car
 ln -s ../../../modules/com/redhat/ceylon/ide/netbeans/$ideNetbeansVersion/com.redhat.ceylon.ide.netbeans-$ideNetbeansVersion.car
-ln -s ~/.ceylon/repo/org/jboss/modules/1.3.3.Final/org.jboss.modules-1.3.3.Final.jar
-ln -s ~/.ceylon/repo/com/github/rjeschke/txtmark/0.13/com.github.rjeschke.txtmark-0.13.jar
+ln -s ../../../../ceylon/dist/dist/repo/org/jboss/modules/1.4.4.Final/org.jboss.modules-1.4.4.Final.jar
+ln -s ../../../../ceylon/dist/dist/repo/com/github/rjeschke/txtmark/0.13/com.github.rjeschke.txtmark-0.13.jar

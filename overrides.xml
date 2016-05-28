@@ -48,4 +48,17 @@
             <exclude path="org/openide/*"/>
         </filter>
     </module>
+    
+    <module module="org.netbeans.api.java.classpath">
+        <add module="org.openide.filesystems" version="current"/>
+    </module>
+    
+    <module module="org.netbeans.modules.java.source">
+        <add module="org.openide.filesystems" version="current"/>
+        <add module="org.netbeans.api.java.classpath" version="current"/>
+    </module>
+    
+    <module module="org.netbeans.modules.java.project">
+        <add module="org.openide.filesystems" version="current"/>
+    </module>
 </overrides>

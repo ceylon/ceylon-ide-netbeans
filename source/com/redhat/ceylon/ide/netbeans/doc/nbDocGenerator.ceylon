@@ -2,6 +2,10 @@ import ceylon.interop.java {
     javaClass
 }
 
+import com.github.rjeschke.txtmark {
+    Configuration,
+    Processor
+}
 import com.redhat.ceylon.compiler.typechecker.context {
     PhasedUnit
 }
@@ -46,23 +50,8 @@ import java.io {
     BufferedReader
 }
 
-import javax.swing.text {
-    Document
-}
-
-import org.netbeans.api.project {
-    Project
-}
-import com.github.rjeschke.txtmark {
-    Configuration,
-    Processor
-}
-import com.redhat.ceylon.ide.common.imports {
-    AbstractModuleImportUtil
-}
-
 shared class NbDocGenerator(CeylonParseController cpc)
-        satisfies DocGenerator<Document,Project> {
+        satisfies DocGenerator {
     
     Image? getUrl(Icons thing) {
         return switch (thing)
@@ -188,10 +177,10 @@ shared class NbDocGenerator(CeylonParseController cpc)
     
     shared actual String getUnitName(Unit u) => u.filename;
     
-    shared actual String highlight(String text, LocalAnalysisResult<Document,Project> cmp)
+    shared actual String highlight(String text, LocalAnalysisResult cmp)
             => "<code>``text``</code>"; // TODO
     
-    shared actual String markdown(String text, LocalAnalysisResult<Document,Project> cmp, Scope? linkScope, Unit? unit) {
+    shared actual String markdown(String text, LocalAnalysisResult cmp, Scope? linkScope, Unit? unit) {
         value builder = Configuration.builder().forceExtentedProfile();
         builder.setCodeBlockEmitter(CeylonBlockEmitter());
 
@@ -223,8 +212,8 @@ shared class NbDocGenerator(CeylonParseController cpc)
     
     shared actual Boolean showMembers => false;
     
-    shared actual AbstractModuleImportUtil<out Anything,out Anything,out Anything,out Anything,out Anything,out Anything> moduleImportUtil
-            => nothing;// TODO
-    
     shared actual Boolean supportsQuickAssists => false;
+
+    shared actual TypePrinter verbosePrinter => nothing;
+    
 }
