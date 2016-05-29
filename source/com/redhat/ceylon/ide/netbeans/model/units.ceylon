@@ -3,26 +3,33 @@ import com.redhat.ceylon.ide.common.model {
     IJavaModelAware,
     CrossProjectBinaryUnit,
     JavaCompilationUnit,
-    JavaClassFile
+    JavaClassFile,
+    CrossProjectJavaCompilationUnit,
+    BaseCeylonProject
 }
-import org.netbeans.api.project {
-    Project
+import com.redhat.ceylon.ide.common.util {
+    BaseProgressMonitor
 }
-import javax.lang.model.element {
-    TypeElement
+import com.redhat.ceylon.model.loader.model {
+    LazyPackage
 }
 import com.redhat.ceylon.model.typechecker.model {
     Package,
     Declaration
 }
-import com.redhat.ceylon.ide.common.util {
-    BaseProgressMonitor
+
+import javax.lang.model.element {
+    TypeElement
+}
+
+import org.netbeans.api.project {
+    Project
 }
 import org.openide.filesystems {
     FileObject
 }
 
-interface NbJavaModelAware
+shared interface NbJavaModelAware
         satisfies IJavaModelAware<Project,TypeElement,TypeElement> {
     
     shared actual Project javaClassRootToNativeProject(TypeElement javaClassRoot)
@@ -32,7 +39,7 @@ interface NbJavaModelAware
         BaseProgressMonitor? monitor) => null; // TODO
 }
 
-class NbCeylonBinaryUnit(
+shared class NbCeylonBinaryUnit(
     TypeElement cls,
     String filename,
     String relativePath,
@@ -45,7 +52,7 @@ class NbCeylonBinaryUnit(
     
 }
 
-class NbCrossProjectBinaryUnit(
+shared class NbCrossProjectBinaryUnit(
     TypeElement cls,
     String filename,
     String relativePath,
@@ -58,12 +65,12 @@ class NbCrossProjectBinaryUnit(
     
 }
 
-class NbJavaCompilationUnit(
+shared class NbJavaCompilationUnit(
     TypeElement cls,
     String filename,
     String relativePath,
     String fullPath,
-    Package pkg
+    LazyPackage pkg
 )
         extends JavaCompilationUnit<Project,FileObject,FileObject,TypeElement,TypeElement>
         (cls, filename, relativePath, fullPath, pkg)
@@ -76,12 +83,12 @@ class NbJavaCompilationUnit(
     shared actual FileObject? javaClassRootToNativeRootFolder(TypeElement javaClassRoot) => null;
 }
 
-class NbJavaClassFile(
+shared class NbJavaClassFile(
     TypeElement cls,
     String filename,
     String relativePath,
     String fullPath,
-    Package pkg
+    LazyPackage pkg
 )
         extends JavaClassFile<Project,FileObject,FileObject,TypeElement,TypeElement>
         (cls, filename, relativePath, fullPath, pkg)
@@ -92,4 +99,22 @@ class NbJavaClassFile(
     
     // TODO
     shared actual FileObject? javaClassRootToNativeRootFolder(TypeElement javaClassRoot) => null;
+}
+
+shared class NbCrossProjectJavaCompilationUnit(
+    BaseCeylonProject ceylonProject,
+    TypeElement cls,
+    String filename,
+    String relativePath,
+    String fullPath,
+    LazyPackage pkg)
+        extends CrossProjectJavaCompilationUnit<Project,FileObject,FileObject,TypeElement,TypeElement>
+        (ceylonProject, cls, filename, relativePath, fullPath, pkg)
+        satisfies NbJavaModelAware {
+    
+    shared actual FileObject javaClassRootToNativeFile(TypeElement cls)
+            => nothing; // TODO cls.containingFile.virtualFile;
+    
+    shared actual FileObject javaClassRootToNativeRootFolder(TypeElement cls)
+            => nothing; // TODO cls.containingFile.virtualFile.parent;
 }

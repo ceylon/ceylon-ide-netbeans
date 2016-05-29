@@ -4,7 +4,8 @@ import com.redhat.ceylon.ide.common.platform {
     ModelServices,
     LinkedMode,
     CompletionServices,
-    CommonDocument
+    CommonDocument,
+    JavaModelServices
 }
 import com.redhat.ceylon.ide.common.util {
     unsafeCast
@@ -32,4 +33,9 @@ shared object nbPlatformServices satisfies PlatformServices {
     shared actual VfsServices<NativeProject,NativeResource,NativeFolder,NativeFile>
     vfs<NativeProject, NativeResource, NativeFolder, NativeFile>()
             => unsafeCast<VfsServices<NativeProject,NativeResource,NativeFolder,NativeFile>>(nbVfsServices);
+    
+    shared actual JavaModelServices<JavaClassRoot> 
+    javaModel<JavaClassRoot>()
+            => unsafeCast<JavaModelServices<JavaClassRoot>>(nbJavaModelServices);
+    
 }

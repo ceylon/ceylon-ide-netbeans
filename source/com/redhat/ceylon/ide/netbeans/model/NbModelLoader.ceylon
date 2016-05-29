@@ -7,15 +7,15 @@ import com.redhat.ceylon.ide.common.model {
     IdeModelLoader,
     BaseIdeModule
 }
+import com.redhat.ceylon.ide.netbeans.model.mirrors {
+    TypeElementMirror
+}
 import com.redhat.ceylon.model.cmr {
     ArtifactResult
 }
 import com.redhat.ceylon.model.loader.mirror {
     ClassMirror,
     MethodMirror
-}
-import com.redhat.ceylon.model.loader.model {
-    LazyPackage
 }
 import com.redhat.ceylon.model.typechecker.model {
     Modules
@@ -52,15 +52,10 @@ import org.openide.filesystems {
     FileObject,
     FileUtil
 }
-import com.redhat.ceylon.ide.netbeans.model.mirrors {
-    TypeElementMirror
-}
 
 class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceMapper msm, Modules modules)
         extends IdeModelLoader<Project,FileObject,FileObject,FileObject,TypeElement,TypeElement>
         (mm, msm, modules) {
-    
-    value ceylonClasspath = "classpath/ceylon";
     
     value cpProvider = project.ideArtifact.lookup
             .lookup(javaClass<ClassPathProvider>());
@@ -133,8 +128,6 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         return null;
     }
     
-    shared actual TypeElement? getJavaClassRoot(ClassMirror classMirror) => null;
-    
     shared actual Boolean isOverloadingMethod(MethodMirror? methodMirror) {
         return false;
     }
@@ -144,21 +137,6 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
     shared actual Boolean moduleContainsClass(BaseIdeModule ideModule, 
         String packageName, String className) => false;
     
-    newCeylonBinaryUnit(TypeElement typeRoot, String relativePath,
-        String fileName, String fullPath, LazyPackage pkg)
-            => NbCeylonBinaryUnit(typeRoot, fileName, relativePath, fullPath, pkg);
-    
-    newCrossProjectBinaryUnit(TypeElement typeRoot, 
-        String relativePath, String fileName, String fullPath, LazyPackage pkg)
-            => NbCrossProjectBinaryUnit(typeRoot, fileName, relativePath, fullPath, pkg);
-    
-    newJavaClassFile(TypeElement typeRoot, 
-        String relativePath, String fileName, String fullPath, LazyPackage pkg)
-            => NbJavaClassFile(typeRoot, fileName, relativePath, fullPath, pkg);
-    
-    newJavaCompilationUnit(TypeElement typeRoot, 
-        String relativePath, String fileName, String fullPath, LazyPackage pkg)
-            => NbJavaCompilationUnit(typeRoot, fileName, relativePath, fullPath, pkg);
     
     typeExists(TypeElement type) => true;
     

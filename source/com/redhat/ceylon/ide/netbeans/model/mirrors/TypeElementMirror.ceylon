@@ -30,7 +30,7 @@ import javax.lang.model.element {
 }
 
 
-shared class TypeElementMirror(TypeElement te) satisfies ClassMirror {
+shared class TypeElementMirror(shared TypeElement te) satisfies ClassMirror {
     
     variable String? cacheKey = null;
 
