@@ -20,9 +20,9 @@ to NetBeans.
 ## How to build
 
 1. Clone this project
-2. Run the script `./dependencies.sh`
-3. Open the project in Eclipse<sup>1</sup>, this will build `com.redhat.ceylon.ide.netbeans-1.x.x.car`
-4. Open the project in NetBeans, it should run as is
+2. Run the Ant build using `ant clean netbeans`
+3. Open the project in Eclipse<sup>1</sup> to make changes to Ceylon files in `source`
+4. Open the project in NetBeans, to make changes to Java files in `src` and run the NetBeans module
 
 <sup>1</sup> This is needed because most of the plugin is written in Ceylon, and
 the plugin cannot build Ceylon code yet.

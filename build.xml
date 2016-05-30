@@ -5,4 +5,116 @@
 <project name="com.redhat.ceylon.ide.netbeans" default="netbeans" basedir=".">
     <description>Builds, tests, and runs the project com.redhat.ceylon.ide.netbeans.</description>
     <import file="nbproject/build-impl.xml"/>
+
+    <property file="config.properties"/>
+    
+    <property name="ceylon.verbosity" value="false" />
+    <property name="ceylon.executable" value="${dist.bin.dir}/ceylon" />
+    <property name="out.repo" location="modules" />
+
+    <property name="ceylon.repo.dir" location="${user.home}/.ceylon/repo" />
+    <property name="nb.repo.dir" location="${basedir}/flat-repo" />
+
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="${ceylon.root.dir}/lib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <path id="ant-tasks">
+        <pathelement location="${ceylon.ant.lib}" />
+    </path>
+
+    <target name="ceylondefs">
+        <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
+
+        <moduleset id="modules.source">
+            <module name="com.redhat.ceylon.ide.netbeansDependencies" />
+            <module name="com.redhat.ceylon.ide.netbeans" />
+        </moduleset>
+
+        <reposet id="reposet.compile">
+            <repo url="${out.repo}" />
+            <repo url="flat:${nb.repo.dir}"/>
+            <repo url="${basedir}/../ceylon-ide-common/repo"/>
+            <repo url="${ceylon.repo.dir}" />
+        </reposet>
+    </target>
+
+    <!-- Clean -->
+    <target name="clean-ceylon">
+        <delete dir="${basedir}/flat-repo"/>
+        <delete dir="${basedir}/modules"/>
+    </target>
+    <target name="clean" depends="clean-ceylon,projectized-common.clean"/>    
+
+    <!-- Prepare dependencies -->
+    <target name="nb-deps-up-to-date">
+        <uptodate targetfile="${basedir}/modules/com/redhat/ceylon/ide/netbeans/current/com.redhat.ceylon.ide.netbeans-current.car"
+                  property="nb.deps.uptodate">
+            <srcfiles dir="nbproject">
+                <include name="project.xml"/>
+                <include name="project.properties"/>
+            </srcfiles>
+        </uptodate>
+    </target>
+    <target name="ceylon-init-flatrepo" depends="nb-deps-up-to-date" unless="nb.deps.uptodate">
+        <echo message="Preparing flat repository"/>
+        <mkdir dir="${basedir}/flat-repo"/>
+        <foreach target="copy-netbeans-dep" param="filepath">
+            <fileset dir="${basedir}/build/public-package-jars" casesensitive="yes">
+                <include name="*.jar"/>
+            </fileset>
+        </foreach>
+    </target>
+    <target name="ceylon-init-cluster">
+        <echo message="Gathering Ceylon dependencies"/>
+        <mkdir dir="${basedir}/build/cluster/modules/ext"/>
+
+        <copy file="${basedir}/../ceylon-sdk/modules/ceylon/collection/${ceylon.dist.version}/ceylon.collection-${ceylon.dist.version}.car" todir="${basedir}/build/cluster/modules/ext"/>
+        <copy file="${basedir}/../ceylon-sdk/modules/ceylon/file/${ceylon.dist.version}/ceylon.file-${ceylon.dist.version}.car" todir="${basedir}/build/cluster/modules/ext"/>
+        <copy file="${basedir}/../ceylon-sdk/modules/ceylon/interop/java/${ceylon.dist.version}/ceylon.interop.java-${ceylon.dist.version}.car" todir="${basedir}/build/cluster/modules/ext"/>
+
+        <copy file="${basedir}/../ceylon-ide-common/modules/com/redhat/ceylon/ide/common/${ceylon.dist.version}/com.redhat.ceylon.ide.common-${ceylon.dist.version}.car" todir="${basedir}/build/cluster/modules/ext"/>
+        <copy file="${basedir}/../ceylon-ide-common/repo/org/jgrapht/core/0.9.1/org.jgrapht.core-0.9.1.jar" todir="${basedir}/build/cluster/modules/ext"/>
+        <copy file="${basedir}/../ceylon-ide-common/repo/net/lingala/zip4j/1.3.2/net.lingala.zip4j-1.3.2.jar" todir="${basedir}/build/cluster/modules/ext"/>
+
+        <copy file="${basedir}/../ceylon.formatter/modules/ceylon/formatter/${ceylon.dist.version}/ceylon.formatter-${ceylon.dist.version}.car" todir="${basedir}/build/cluster/modules/ext"/>
+
+        <copy todir="${basedir}/build/cluster/embeddedDist">
+            <fileset dir="${basedir}/../ceylon/dist/dist"/>
+        </copy>
+    </target>
+    <target name="copy-netbeans-dep">
+        <basename property="filename" file="${filepath}" />
+        <propertyregex property="filename2"
+                       input="${filename}"
+                       regexp="-"
+                       replace="."
+                       global="yes"/>
+        <propertyregex property="filename3"
+                       input="${filename2}"
+                       regexp="\.jar"
+                       replace="-current.jar"/>
+        <copy file="${filepath}"
+              tofile="${basedir}/flat-repo/${filename3}"/>
+    </target>
+    <target name="init" depends="harness.init,ceylon-init-flatrepo,ceylon-init-cluster"/>
+
+    <!-- Compile -->
+    <target name="compile-ceylon" depends="ceylondefs">
+        <ceylon-compile executable="${ceylon.executable}"
+                        verbose="${ceylon.verbosity}"
+                        encoding="UTF-8"
+                        pack200="true"
+                        fork="true"
+                        mavenoverrides="${basedir}/overrides.xml"
+                        out="${out.repo}">
+            <source value="${basedir}/source"/>
+            <reposet refid="reposet.compile"/>
+            <moduleset refid="modules.source"/>
+        </ceylon-compile>
+        <copy file="${basedir}/modules/com/redhat/ceylon/ide/netbeans/current/com.redhat.ceylon.ide.netbeans-current.car" todir="${basedir}/build/cluster/modules/ext"/>
+    </target>
+    <target name="compile" depends="compile-ceylon,projectized-common.compile"/>
 </project>

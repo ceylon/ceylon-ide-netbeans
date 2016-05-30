@@ -2,7 +2,6 @@
 /modules/
 /.exploded/
 /flat-repo/
-/release/modules/ext/
 /build/
 /nbproject/private/
 /src/rebel.xml
