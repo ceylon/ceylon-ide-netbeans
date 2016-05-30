@@ -9,9 +9,6 @@ import com.github.rjeschke.txtmark {
 import com.redhat.ceylon.compiler.typechecker.context {
     PhasedUnit
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
-    Node
-}
 import com.redhat.ceylon.ide.common.doc {
     DocGenerator,
     Icons,
@@ -19,9 +16,6 @@ import com.redhat.ceylon.ide.common.doc {
 }
 import com.redhat.ceylon.ide.common.typechecker {
     LocalAnalysisResult
-}
-import com.redhat.ceylon.ide.common.util {
-    FindReferencedNodeVisitor
 }
 import com.redhat.ceylon.ide.netbeans {
     nbIcons
@@ -162,18 +156,6 @@ shared class NbDocGenerator(CeylonParseController cpc)
     
     shared actual PhasedUnit? getPhasedUnit(Unit u)
             => cpc.typeChecker.getPhasedUnitFromRelativePath(u.relativePath);
-    
-    shared actual Node? getReferencedNode(Declaration dec) {
-        value relPath = dec.unit.relativePath;
-
-        if (exists unit = cpc.typeChecker.getPhasedUnitFromRelativePath(relPath)) {
-            value visitor = FindReferencedNodeVisitor(dec);
-            unit.compilationUnit.visit(visitor);
-            return visitor.declarationNode;
-        }
-        
-        return null;
-    }
     
     shared actual String getUnitName(Unit u) => u.filename;
     
