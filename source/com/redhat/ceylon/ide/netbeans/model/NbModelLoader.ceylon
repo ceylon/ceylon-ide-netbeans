@@ -107,8 +107,7 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         
         for (candidate in candidates) {
             if (candidate.qualifiedName == name) {
-                value js = JavaSource.create(cpInfo,
-                    project.sourceFolders.first?.nativeResource);
+                value js = JavaSource.create(cpInfo);
                 
                 variable TypeElement? te = null;
                 
