@@ -154,11 +154,6 @@ shared class NbDocGenerator(CeylonParseController cpc)
     shared actual String? getLiveValue(Declaration dec, Unit unit)
             => null;
     
-    shared actual PhasedUnit? getPhasedUnit(Unit u)
-            => cpc.typeChecker.getPhasedUnitFromRelativePath(u.relativePath);
-    
-    shared actual String getUnitName(Unit u) => u.filename;
-    
     shared actual String highlight(String text, LocalAnalysisResult cmp)
             => "<code>``text``</code>"; // TODO
     
