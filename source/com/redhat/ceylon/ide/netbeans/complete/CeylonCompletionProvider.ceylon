@@ -6,7 +6,7 @@ import com.redhat.ceylon.ide.netbeans.doc {
     NbDocGenerator
 }
 import com.redhat.ceylon.ide.netbeans.model {
-    CeylonParseController
+    findParseController
 }
 
 import javax.swing.text {
@@ -32,10 +32,12 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
         } else if (queryType == CompletionProvider.\iDOCUMENTATION_QUERY_TYPE) {
             return AsyncCompletionTask(object extends AsyncCompletionQuery() {
                 shared actual void query(CompletionResultSet completionResultSet, Document document, Integer caretOffset) {
-                    value cpc = CeylonParseController.get(jtc.document);
+                    value cpc = findParseController(jtc.document);
                     value offset = jtc.caret.dot;
                     
-                    if (exists doc = NbDocGenerator(cpc).getDocumentation(cpc.lastCompilationUnit, offset, cpc)) {
+                    if (exists cpc,
+                        exists lastAnalysis = cpc.lastAnalysis,
+                        exists doc = NbDocGenerator(cpc).getDocumentation(lastAnalysis.lastCompilationUnit, offset, lastAnalysis)) {
                         completionResultSet.setDocumentation(CeylonCompletionDocumentation(doc, cpc));
                     }
                     completionResultSet.finish();
@@ -53,9 +55,10 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
     AsyncCompletionTask createCompletionTask(JTextComponent jtc) {
         return AsyncCompletionTask(object extends AsyncCompletionQuery() {
             shared actual void query(CompletionResultSet completionResultSet, Document document, Integer caretOffset) {
-                CeylonParseController controller = CeylonParseController.get(document);
-                controller.typeCheck(null);
-                nbCompletionItemPosition.reset();
+                if (exists controller = findParseController(document)) {
+                    //controller.typeCheck(null);
+                    nbCompletionItemPosition.reset();
+                }
                 //value proposals = completionManager.getContentProposals(controller.lastCompilationUnit,
                 //    controller, caretOffset, 1, false, DummyProgress());
                 //

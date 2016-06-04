@@ -33,7 +33,7 @@ public class CeylonDataObject extends MultiDataObject {
 
     @MultiViewElement.Registration(
             displayName = "#LBL_Ceylon_EDITOR",
-            iconBase = "icons/ceylon.png",
+            iconBase = "icons/ceylonFile.png",
             mimeType = AnnotatedCeylonLanguage.MIME_TYPE,
             persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED,
             preferredID = "Ceylon",

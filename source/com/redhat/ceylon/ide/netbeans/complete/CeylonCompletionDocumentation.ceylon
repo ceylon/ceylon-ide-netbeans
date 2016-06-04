@@ -56,7 +56,7 @@ class CeylonCompletionDocumentation(shared actual String text, CeylonParseContro
             
             String moduleName = moduleNameAndVersion.spanTo(loc - 1);
             String moduleVersion = moduleNameAndVersion.spanFrom(loc + 1);
-            value tc = cpc.typeChecker;
+            assert(exists tc = cpc.lastAnalysis?.typeChecker);
             value mod = CeylonIterable(tc.context.modules.listOfModules).find(
                 (m) => m.nameAsString==moduleName && m.version==moduleVersion
             );
@@ -105,11 +105,14 @@ class CeylonCompletionDocumentation(shared actual String text, CeylonParseContro
     }
     
     String getDoc(Referenceable ref) {
-        value pu = cpc.typeChecker.getPhasedUnitFromRelativePath(ref.unit.relativePath);
-        value cu = pu.compilationUnit;
-        
-        return NbDocGenerator(cpc).getDocumentationText(ref, null, cu, cpc)
+        if (exists lastAnalysis = cpc.lastAnalysis) {
+            value pu = lastAnalysis.typeChecker.getPhasedUnitFromRelativePath(ref.unit.relativePath);
+            value cu = pu.compilationUnit;
+            
+            return NbDocGenerator(cpc).getDocumentationText(ref, null, cu, lastAnalysis)
                 else "Couldn't retrieve doc :-(";
+        }
+        return "";
     }
     shared actual URL? url => null;
 }

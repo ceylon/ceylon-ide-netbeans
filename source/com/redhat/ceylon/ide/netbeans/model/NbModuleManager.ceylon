@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-    javaClass
-}
-
 import com.redhat.ceylon.cmr.api {
     RepositoryManager
 }
@@ -23,7 +19,7 @@ import org.netbeans.api.java.project {
 }
 import org.netbeans.api.project {
     Project,
-    Sources
+    ProjectUtils
 }
 import org.openide.filesystems {
     FileObject
@@ -35,8 +31,7 @@ class NbModuleManager(shared RepositoryManager repositoryManager, NbCeylonProjec
     shared actual Boolean moduleFileInProject(String moduleName, 
         BaseCeylonProject? ceylonProject) {
         
-        value sources = project.ideArtifact.lookup
-                .lookup(javaClass<Sources>())
+        value sources = ProjectUtils.getSources(project.ideArtifact)
                 .getSourceGroups(JavaProjectConstants.sourcesTypeJava);
         
         value modulePath = moduleName.replace(".", "/") + Module.defaultModuleName;

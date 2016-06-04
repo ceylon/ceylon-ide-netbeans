@@ -5,8 +5,14 @@
     <module module="org.openide.text">
         <add module="org.openide.util" version="current" shared="true"/>
     </module>
+    <module module="org.netbeans.modules.editor.lib">
+        <add module="org.netbeans.modules.editor.document" version="current"/>
+    </module>
     <module module="org.netbeans.modules.editor">
         <add module="org.openide.filesystems" version="current"/>
+        <add module="java.desktop" version="7"/>
+        <add module="org.netbeans.modules.editor.lib" version="current"/>
+        <add module="org.openide.text" version="current"/>
     </module>
     <module module="org.netbeans.modules.parsing.api">
         <add module="org.openide.filesystems" version="current"/>
@@ -60,5 +66,8 @@
     
     <module module="org.netbeans.modules.java.project">
         <add module="org.openide.filesystems" version="current"/>
+    </module>
+    <module module="org.openide.windows">
+        <add module="org.openide.util" version="current"/>
     </module>
 </overrides>

@@ -24,18 +24,29 @@ import org.openide.util {
 import org.openide.text {
     DocumentUtil=NbDocument
 }
+import org.netbeans.modules.editor {
+    NbEditorUtilities
+}
 
 shared class NbDocument(nativeDocument) satisfies CommonDocument {
     shared Document nativeDocument;
 
     defaultLineDelimiter => "\n";
     
-    shared actual Integer getLineEndOffset(Integer line) => nothing;
+    shared actual Integer getLineEndOffset(Integer line) {
+        value start = getLineStartOffset(line);
+        return nativeDocument.defaultRootElement.getElement(
+            nativeDocument.defaultRootElement.getElementIndex(start)
+        ).endOffset;
+    }
     
-    shared actual Integer getLineOfOffset(Integer offset) => nothing;
+    getLineOfOffset(Integer offset)
+            => NbEditorUtilities.getLine(nativeDocument, offset, false).lineNumber;
     
-    shared actual Integer getLineStartOffset(Integer line)
-            => nothing;
+    shared actual Integer getLineStartOffset(Integer line) {
+        assert(is StyledDocument nativeDocument);
+        return DocumentUtil.findLineOffset(nativeDocument, line);
+    }
     
     getText(Integer offset, Integer length)
             => nativeDocument.getText(offset, length);

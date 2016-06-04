@@ -1,3 +1,6 @@
+import ceylon.collection {
+    HashMap
+}
 import ceylon.interop.java {
     javaClass,
     createJavaObjectArray
@@ -29,12 +32,21 @@ import com.redhat.ceylon.ide.common.platform {
 import com.redhat.ceylon.ide.common.util {
     BaseProgressMonitorChild
 }
+import com.redhat.ceylon.ide.common.vfs {
+    FolderVirtualFile
+}
+import com.redhat.ceylon.model.typechecker.model {
+    Package
+}
 import com.redhat.ceylon.model.typechecker.util {
     ModuleManager
 }
 
 import java.io {
     File
+}
+import java.lang.ref {
+    WeakReference
 }
 
 import org.netbeans.api.java.classpath {
@@ -56,6 +68,17 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
         extends CeylonProject<Project,FileObject,FileObject,FileObject>() {
 
     variable Boolean languageModuleAdded = false;
+
+    shared object filePropertyHolder {
+        shared HashMap<FileObject,WeakReference<Package>> packages =
+                HashMap<FileObject, WeakReference<Package>>();
+
+        shared HashMap<FileObject,Boolean> rootIsSources =
+                HashMap<FileObject, Boolean>();
+
+        shared HashMap<FileObject,WeakReference<FolderVirtualFile<Project,FileObject,FileObject,FileObject>>> roots =
+                HashMap<FileObject, WeakReference<FolderVirtualFile<Project,FileObject,FileObject,FileObject>>>();
+    }
 
     object addModuleArchiveHook
             satisfies BuildHook<Project,FileObject,FileObject,FileObject> {

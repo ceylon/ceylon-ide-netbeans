@@ -1,11 +1,8 @@
 import com.redhat.ceylon.ide.common.imports {
     AbstractImportsCleaner
 }
-import com.redhat.ceylon.ide.netbeans.correct {
-    NbDocument
-}
 import com.redhat.ceylon.ide.netbeans.model {
-    CeylonParseController
+    findParseController
 }
 import com.redhat.ceylon.model.typechecker.model {
     Declaration
@@ -27,8 +24,11 @@ shared class OrganizeImportsActions() extends BaseAction()
         satisfies AbstractImportsCleaner {
     
     shared actual void actionPerformed(ActionEvent actionEvent, JTextComponent comp) {
-        value cpc = CeylonParseController.get(comp.document);
-        cleanImports(cpc.lastCompilationUnit, NbDocument(comp.document));
+        if (exists cpc = findParseController(comp.document),
+            exists lastAnalysis = cpc.lastAnalysis) {
+            
+            cleanImports(lastAnalysis.lastCompilationUnit, cpc.commonDocument);
+        }
     }
     
     shared actual Declaration? select(List<Declaration> proposals)

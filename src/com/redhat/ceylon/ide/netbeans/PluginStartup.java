@@ -10,6 +10,11 @@ import com.redhat.ceylon.cmr.impl.FlatRepository;
 import com.redhat.ceylon.common.Constants;
 import com.redhat.ceylon.compiler.java.runtime.metamodel.Metamodel;
 import com.redhat.ceylon.model.cmr.ArtifactResult;
+import com.redhat.ceylon.model.cmr.ArtifactResultType;
+import com.redhat.ceylon.model.cmr.ImportType;
+import com.redhat.ceylon.model.cmr.PathFilter;
+import com.redhat.ceylon.model.cmr.Repository;
+import com.redhat.ceylon.model.cmr.VisibilityType;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -23,11 +28,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -91,7 +96,7 @@ public class PluginStartup implements Runnable {
                     meth.setAccessible(true);
                     File jarFile = (File) meth.invoke(depInfo);
 
-                    System.out.println(jarFile.getAbsolutePath());
+                    registerNetbeansModule(jarFile, depName.replaceAll("-", "."));
                 } catch (ReflectiveOperationException ex) {
                     // TODO look for JARs in platform/core and platform/lib
                     Logger.getLogger(getClass().getName()).warning(
@@ -99,6 +104,62 @@ public class PluginStartup implements Runnable {
                 }
             }
         }
+    }
+
+    private void registerNetbeansModule(final File jar, final String moduleName) {
+        ArtifactResult artifactResult = new ArtifactResult() {
+            @Override
+            public String name() {
+                return moduleName;
+            }
+
+            @Override
+            public String version() {
+                return "current";
+            }
+
+            @Override
+            public ImportType importType() {
+                return ImportType.EXPORT;
+            }
+
+            @Override
+            public ArtifactResultType type() {
+                return ArtifactResultType.CEYLON;
+            }
+
+            @Override
+            public VisibilityType visibilityType() {
+                return VisibilityType.STRICT;
+            }
+
+            @Override
+            public File artifact() {
+                return jar;
+            }
+
+            @Override
+            public PathFilter filter() {
+                return null;
+            }
+
+            @Override
+            public List<ArtifactResult> dependencies() {
+                return Collections.emptyList();
+            }
+
+            @Override
+            public String repositoryDisplayString() {
+                return null;
+            }
+
+            @Override
+            public Repository repository() {
+                return null;
+            }
+        };
+        
+        registerModule(artifactResult, getClass().getClassLoader());
     }
 
     private void registerCeylonModules() throws RuntimeException {

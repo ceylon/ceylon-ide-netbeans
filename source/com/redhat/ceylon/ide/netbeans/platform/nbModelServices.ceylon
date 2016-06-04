@@ -1,7 +1,8 @@
-import ceylon.interop.java {
-    javaClass
+import com.redhat.ceylon.ide.common.model {
+    ProjectSourceFile,
+    EditedSourceFile,
+    CrossProjectSourceFile
 }
-
 import com.redhat.ceylon.ide.common.model.parsing {
     RootFolderScanner
 }
@@ -20,16 +21,12 @@ import org.netbeans.api.java.project {
 }
 import org.netbeans.api.project {
     Project,
-    Sources,
-    SourceGroup
+    SourceGroup,
+    ProjectUtils
 }
 import org.openide.filesystems {
-    FileObject
-}
-import com.redhat.ceylon.ide.common.model {
-    ProjectSourceFile,
-    EditedSourceFile,
-    CrossProjectSourceFile
+    FileObject,
+    FileUtil
 }
 
 object nbModelServices 
@@ -38,6 +35,16 @@ object nbModelServices
     shared actual Boolean isResourceContainedInProject(FileObject resource, 
         CeylonProjectAlias ceylonProject) {
         
+        value roots = ProjectUtils.getSources(ceylonProject.ideArtifact)
+                .getSourceGroups(JavaProjectConstants.sourcesTypeJava);
+
+        for (root in roots) {
+            if (FileUtil.isParentOf(root.rootFolder, resource)
+                || root.rootFolder == resource) {
+                
+                return true;
+            }
+        }
         return false;
     }
     
@@ -64,9 +71,10 @@ object nbModelServices
     }
     
     void visit(FileObject obj, RootFolderScanner<Project,FileObject,FileObject,FileObject> scanner) {
+        scanner.visitNativeResource(obj);
+
         if (obj.folder) {
             for (child in obj.children) {
-                scanner.visitNativeResource(child);
                 visit(child, scanner);
             }
         }
@@ -77,7 +85,7 @@ object nbModelServices
     
     {FileObject*} listFolders(CeylonProjectAlias ceylonProject, String type) {
         if (is NbCeylonProject ceylonProject) {
-            value sources = ceylonProject.ideArtifact.lookup.lookup(javaClass<Sources>());
+            value sources = ProjectUtils.getSources(ceylonProject.ideArtifact);
             
             return sources.getSourceGroups(type)
                     .iterable.coalesced

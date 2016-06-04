@@ -45,7 +45,8 @@ shared object ceylonStructureScanner satisfies StructureScanner {
             
             // TODO when we select a closed file in the Projects view,
             // there's no document so we show an empty structure
-            CeylonParseController.get(doc).typeCheck(result.rootNode);
+            // -> query the global model
+            //CeylonParseController.get(doc).typeCheck(result.rootNode);
             StructureVisitor(myScan).visitCompilationUnit(result.rootNode);
         }
         

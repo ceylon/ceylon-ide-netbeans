@@ -14,7 +14,8 @@ import com.redhat.ceylon.ide.common.vfs {
     ResourceVirtualFile
 }
 import com.redhat.ceylon.ide.netbeans.model {
-    NbCeylonProjects
+    NbCeylonProjects,
+    NbCeylonProject
 }
 import com.redhat.ceylon.model.typechecker.model {
     Package
@@ -72,24 +73,35 @@ object nbVfsServices
     
     getJavaFile(FileObject resource) => FileUtil.toFile(resource);
     
-    // TODO
     getPackagePropertyForNativeFolder(CeylonProjectAlias ceylonProject, FileObject folder)
-            => null;
+            => if (is NbCeylonProject ceylonProject)
+                then ceylonProject.filePropertyHolder.packages.get(folder)
+                else null;
     
     getParent(FileObject resource) => resource.parent;
     
-    // TODO
-    shared actual Path? getProjectRelativePath(FileObject resource, CeylonProjectAlias|Project project) => null;
+    shared actual Path? getProjectRelativePath(FileObject resource, CeylonProjectAlias|Project project) {
+        return if (exists path = getProjectRelativePathString(resource, project))
+        then Path(path)
+        else null;
+    }
     
-    // TODO
-    shared actual String? getProjectRelativePathString(FileObject resource, CeylonProjectAlias|Project project) => null;
+    shared actual String? getProjectRelativePathString(FileObject resource, CeylonProjectAlias|Project project) {
+        value p = if (is Project project) then project else project.ideArtifact;
+        
+        return FileUtil.getRelativePath(p.projectDirectory, resource);
+    }
     
-    // TODO
-    shared actual Boolean? getRootIsSourceProperty(CeylonProjectAlias ceylonProject, FileObject rootFolder) => false;
+    getRootIsSourceProperty(CeylonProjectAlias ceylonProject, FileObject rootFolder)
+            => if (is NbCeylonProject ceylonProject)
+                then ceylonProject.filePropertyHolder.rootIsSources.get(rootFolder)
+                else null;
     
-    // TODO
-    getRootPropertyForNativeFolder(CeylonProjectAlias ceylonProject, FileObject folder) => null;
-    
+    getRootPropertyForNativeFolder(CeylonProjectAlias ceylonProject, FileObject folder)
+            => if (is NbCeylonProject ceylonProject)
+                then ceylonProject.filePropertyHolder.roots.get(folder)
+                else null;
+
     getShortName(FileObject resource) => resource.nameExt;
     
     getVirtualFilePath(FileObject resource) => Path(resource.path);
@@ -98,30 +110,54 @@ object nbVfsServices
     
     isFolder(FileObject resource) => resource.folder;
     
-    // TODO
-    shared actual void removePackagePropertyForNativeFolder(CeylonProjectAlias ceylonProject, FileObject folder) {}
+    shared actual void removePackagePropertyForNativeFolder
+    (CeylonProjectAlias ceylonProject, FileObject folder) {
+        if (is NbCeylonProject ceylonProject) {
+            ceylonProject.filePropertyHolder.packages.remove(folder);
+        }
+    }
     
-    // TODO
-    shared actual void removeRootIsSourceProperty(CeylonProjectAlias ceylonProject, FileObject rootFolder) {}
+    shared actual void removeRootIsSourceProperty
+    (CeylonProjectAlias ceylonProject, FileObject folder) {
+        if (is NbCeylonProject ceylonProject) {
+            ceylonProject.filePropertyHolder.rootIsSources.remove(folder);
+        }
+    }
     
-    // TODO
-    shared actual void removeRootPropertyForNativeFolder(CeylonProjectAlias ceylonProject, FileObject folder) {}
+    shared actual void removeRootPropertyForNativeFolder
+    (CeylonProjectAlias ceylonProject, FileObject folder) {
+        if (is NbCeylonProject ceylonProject) {
+            ceylonProject.filePropertyHolder.roots.remove(folder);
+        }
+    }
     
-    // TODO
-    shared actual void setPackagePropertyForNativeFolder(CeylonProjectAlias ceylonProject, FileObject folder, WeakReference<Package> p) {}
+    shared actual void setPackagePropertyForNativeFolder
+    (CeylonProjectAlias ceylonProject, FileObject folder, WeakReference<Package> p) {
+        if (is NbCeylonProject ceylonProject) {
+            ceylonProject.filePropertyHolder.packages.put(folder, p);
+        }
+    }
     
-    // TODO
-    shared actual void setRootIsSourceProperty(CeylonProjectAlias ceylonProject, FileObject rootFolder, Boolean isSource) {}
+    shared actual void setRootIsSourceProperty
+    (CeylonProjectAlias ceylonProject, FileObject folder, Boolean isSource) {
+        if (is NbCeylonProject ceylonProject) {
+            ceylonProject.filePropertyHolder.rootIsSources.put(folder, isSource);
+        }
+    }
     
-    // TODO
-    shared actual void setRootPropertyForNativeFolder(CeylonProjectAlias ceylonProject, FileObject folder, WeakReference<FolderVirtualFileAlias> root) {}
+    shared actual void setRootPropertyForNativeFolder
+    (CeylonProjectAlias ceylonProject, FileObject folder, WeakReference<FolderVirtualFileAlias> root) {
+        if (is NbCeylonProject ceylonProject) {
+            ceylonProject.filePropertyHolder.roots.put(folder, root);
+        }
+    }
     
     toPackageName(FileObject resource, FileObject sourceDir)
             => FileUtil.getRelativePath(sourceDir, resource)
                 .split('/'.equals).sequence();
 }
 
-class NbFileVirtualFile(Project project, FileObject fo)
+shared class NbFileVirtualFile(Project project, FileObject fo)
         satisfies FileVirtualFile<Project,FileObject,FileObject,FileObject> {
     
     ceylonProject
@@ -148,7 +184,7 @@ class NbFileVirtualFile(Project project, FileObject fo)
     }
 }
 
-class NbFolderVirtualFile(Project project, FileObject fo)
+shared class NbFolderVirtualFile(Project project, FileObject fo)
         satisfies FolderVirtualFile<Project,FileObject,FileObject,FileObject> {
     
     ceylonProject

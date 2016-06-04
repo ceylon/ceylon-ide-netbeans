@@ -31,7 +31,8 @@ import org.netbeans.modules.editor.indent.spi {
 shared object codeFormatter satisfies Formatter {
     
     shared actual void reformat(Context context, ParserResult? result) {
-        if (is NBCeylonParser.CeylonParserResult result) {
+        if (is NBCeylonParser.CeylonParserResult result,
+            context.document().length > 0) {
             value rn = result.rootNode;
             value doc = NbDocument(context.document());
             value selection = DefaultRegion(context.startOffset(),

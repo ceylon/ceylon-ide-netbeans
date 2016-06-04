@@ -30,7 +30,7 @@ class CeylonStructureItem(Tree.Declaration decl) satisfies StructureItem {
     shared actual Integer endPosition => decl.endIndex.intValue();
     
     shared actual String getHtml(HtmlFormatter? htmlFormatter)
-            => decl.identifier.text;
+            => decl.identifier?.text else "<unnamed>";
     
     shared actual ElementKind kind {
         return switch (decl)
@@ -58,7 +58,7 @@ class CeylonStructureItem(Tree.Declaration decl) satisfies StructureItem {
         return mods;
     }
     
-    shared actual String name => decl.identifier.text;
+    shared actual String name => decl.identifier?.text else "<unnamed>";
     
     shared actual List<out StructureItem> nestedItems {
         value children = ArrayList<StructureItem>();
