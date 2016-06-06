@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-    javaClass
-}
-
 import com.redhat.ceylon.compiler.typechecker.context {
     PhasedUnit
 }
@@ -16,22 +12,16 @@ import com.redhat.ceylon.ide.netbeans.correct {
     NbFileObjectDocument,
     NbCompositeChange
 }
+import com.redhat.ceylon.ide.netbeans.util {
+    editorUtil
+}
 
 import java.io {
     File
 }
 
-import org.netbeans.api.editor.document {
-    EditorDocumentUtils
-}
-import org.openide.cookies {
-    EditorCookie
-}
 import org.openide.filesystems {
     FileUtil
-}
-import org.openide.windows {
-    TopComponent
 }
 
 object nbDocumentServices satisfies DocumentServices {
@@ -42,16 +32,8 @@ object nbDocumentServices satisfies DocumentServices {
         value file = File(pu.unit.fullPath);
         value fo = FileUtil.toFileObject(file);
         
-        // TODO move in editorUtil
-        for (tc in TopComponent.registry.opened) {
-            for (node in tc.activatedNodes) {
-                if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
-                    exists doc = cookie.document,
-                    EditorDocumentUtils.getFileObject(doc) == fo) {
-                    
-                    return NbDocument(doc);
-                }
-            }
+        if (exists doc = editorUtil.findOpenedDocument(fo)) {
+            return NbDocument(doc);
         }
 
         return NbFileObjectDocument(fo);

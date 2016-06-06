@@ -20,13 +20,13 @@ class NbCeylonLexer(LexerRestartInfo<CeylonTokenId> info) satisfies Lexer<Ceylon
         value token = ceylonLexer.nextToken();
         Token<CeylonTokenId>? resultToken;
         
-        if (token.type != CeylonLexer.\iEOF) {
+        if (token.type != CeylonLexer.eof) {
             value tokenId = ceylonLanguageHierarchy.getToken(token.type);
             resultToken = info.tokenFactory().createToken(tokenId);
         } else if (info.input().readLength() > 0) {
             value tokenId = ceylonLanguageHierarchy.getToken(ceylonLanguageHierarchy.badToken);
             resultToken = info.tokenFactory().createToken(tokenId, 
-                info.input().readLength(), PartType.\iMIDDLE);
+                info.input().readLength(), PartType.middle);
         } else {
             resultToken = null;
         }

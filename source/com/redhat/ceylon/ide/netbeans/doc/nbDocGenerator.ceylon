@@ -6,9 +6,6 @@ import com.github.rjeschke.txtmark {
     Configuration,
     Processor
 }
-import com.redhat.ceylon.compiler.typechecker.context {
-    PhasedUnit
-}
 import com.redhat.ceylon.ide.common.doc {
     DocGenerator,
     Icons,

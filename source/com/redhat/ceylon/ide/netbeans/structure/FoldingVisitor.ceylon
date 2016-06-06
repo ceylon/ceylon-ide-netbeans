@@ -34,18 +34,18 @@ class FoldingVisitor(Map<JString,List<OffsetRange>> folds) extends VisitorAdapto
                 value range = OffsetRange(path.startIndex.intValue(),
                     importList.endIndex.intValue() + 1);
 
-                folds.put(code(FoldType.\iIMPORT), singletonList(range));
+                folds.put(code(FoldType.\iimport), singletonList(range));
             }
         }
     }
     
     shared actual void visitBlock(Tree.Block block) {
         List<OffsetRange> ranges;
-        if (folds.containsKey(code(FoldType.\iCODE_BLOCK))) {
-            ranges = folds.get(code(FoldType.\iCODE_BLOCK));
+        if (folds.containsKey(code(FoldType.codeBlock))) {
+            ranges = folds.get(code(FoldType.codeBlock));
         } else {
             ranges = ArrayList<OffsetRange>();
-            folds.put(code(FoldType.\iCODE_BLOCK), ranges);
+            folds.put(code(FoldType.codeBlock), ranges);
         }
         
         ranges.add(OffsetRange(block.startIndex.intValue(), block.endIndex.intValue()));
@@ -53,11 +53,11 @@ class FoldingVisitor(Map<JString,List<OffsetRange>> folds) extends VisitorAdapto
     
     shared actual void visitBody(Tree.Body body) {
         List<OffsetRange> ranges;
-        if (folds.containsKey(code(FoldType.\iCODE_BLOCK))) {
-            ranges = folds.get(code(FoldType.\iCODE_BLOCK));
+        if (folds.containsKey(code(FoldType.codeBlock))) {
+            ranges = folds.get(code(FoldType.codeBlock));
         } else {
             ranges = ArrayList<OffsetRange>();
-            folds.put(code(FoldType.\iCODE_BLOCK), ranges);
+            folds.put(code(FoldType.codeBlock), ranges);
         }
         
         ranges.add(OffsetRange(body.startIndex.intValue(), body.endIndex.intValue()));

@@ -1,15 +1,28 @@
-import com.redhat.ceylon.ide.common.refactoring {
-    DefaultRegion
-}
-import java.awt {
-    EventQueue
-}
 import ceylon.interop.java {
     JavaRunnable,
     javaClass
 }
+
+import com.redhat.ceylon.ide.common.refactoring {
+    DefaultRegion
+}
+
+import java.awt {
+    EventQueue
+}
+
+import javax.swing.text {
+    Document
+}
+
+import org.netbeans.api.editor.document {
+    EditorDocumentUtils
+}
 import org.openide.cookies {
     EditorCookie
+}
+import org.openide.filesystems {
+    FileObject
 }
 import org.openide.windows {
     TopComponent
@@ -29,5 +42,20 @@ shared object editorUtil {
                 }
             }));
         }
+    }
+    
+    shared Document? findOpenedDocument(FileObject fo) {
+        for (tc in TopComponent.registry.opened) {
+            for (node in tc.activatedNodes) {
+                if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
+                    exists doc = cookie.document,
+                    EditorDocumentUtils.getFileObject(doc) == fo) {
+                    
+                    return doc;
+                }
+            }
+        }
+
+        return null;
     }
 }

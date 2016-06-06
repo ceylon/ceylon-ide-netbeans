@@ -27,38 +27,38 @@ class CeylonStructureItem(Tree.Declaration decl) satisfies StructureItem {
     
     shared actual ElementHandle? elementHandle => null;
     
-    shared actual Integer endPosition => decl.endIndex.intValue();
+    endPosition => decl.endIndex.intValue();
     
     shared actual String getHtml(HtmlFormatter? htmlFormatter)
             => decl.identifier?.text else "<unnamed>";
     
     shared actual ElementKind kind {
         return switch (decl)
-        case (is Tree.AnyClass) ElementKind.\iCLASS
-        case (is Tree.AnyInterface) ElementKind.\iINTERFACE
-        case (is Tree.AnyMethod) ElementKind.\iMETHOD
-        case (is Tree.ObjectDefinition) ElementKind.\iCLASS
-        else ElementKind.\iOTHER;
+        case (is Tree.AnyClass) ElementKind.\iclass
+        case (is Tree.AnyInterface) ElementKind.\iinterface
+        case (is Tree.AnyMethod) ElementKind.method
+        case (is Tree.ObjectDefinition) ElementKind.\iclass
+        else ElementKind.other;
     }
     
-    shared actual Boolean leaf => false;
+    leaf => false;
     
     shared actual Set<Modifier> modifiers {
         value mods = HashSet<Modifier>();
         
         if (exists m = decl.declarationModel) {
             if (m.shared) {
-                mods.add(Modifier.\iPUBLIC);
+                mods.add(Modifier.public);
             }
             if (m.abstraction) {
-                mods.add(Modifier.\iABSTRACT);
+                mods.add(Modifier.abstract);
             }
         }
         
         return mods;
     }
     
-    shared actual String name => decl.identifier?.text else "<unnamed>";
+    name => decl.identifier?.text else "<unnamed>";
     
     shared actual List<out StructureItem> nestedItems {
         value children = ArrayList<StructureItem>();
@@ -66,11 +66,11 @@ class CeylonStructureItem(Tree.Declaration decl) satisfies StructureItem {
         return children;
     }
     
-    shared actual Integer position => decl.startIndex.intValue();
+    position => decl.startIndex.intValue();
     
-    shared actual String sortText => name;
+    sortText => name;
     
-    shared actual Integer hash => 42;
+    hash => 42;
     
-    shared actual Boolean equals(Object that) => false;
+    equals(Object that) => false;
 }

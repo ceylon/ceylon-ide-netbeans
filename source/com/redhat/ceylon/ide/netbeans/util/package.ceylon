@@ -1,1 +1,1 @@
-shared package com.redhat.ceylon.ide.netbeans.util;
+package com.redhat.ceylon.ide.netbeans.util;

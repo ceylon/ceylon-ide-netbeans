@@ -20,9 +20,6 @@ import org.netbeans.modules.csl.api {
 import org.netbeans.modules.csl.spi {
     ParserResult
 }
-import com.redhat.ceylon.ide.netbeans.model {
-    CeylonParseController
-}
 
 shared object ceylonStructureScanner satisfies StructureScanner {
     

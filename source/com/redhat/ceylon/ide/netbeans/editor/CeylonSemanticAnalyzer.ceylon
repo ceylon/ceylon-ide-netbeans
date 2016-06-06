@@ -11,9 +11,10 @@ import java.lang {
 }
 import java.util {
     Set,
-    Map,
     HashMap,
-    Collections
+    Collections {
+        singleton
+    }
 }
 
 import org.netbeans.modules.csl.api {
@@ -32,9 +33,9 @@ shared class CeylonSemanticAnalyzer()
     
     shared actual void cancel() {}
     
-    shared actual Map<OffsetRange,Set<ColoringAttributes>> highlights = HashMap<OffsetRange, Set<ColoringAttributes>>();
+    highlights = HashMap<OffsetRange, Set<ColoringAttributes>>();
     
-    shared actual Integer priority => 1;
+    priority => 1;
     
     shared actual void run(NBCeylonParser.CeylonParserResult res, SchedulerEvent schedulerEvent) {
         highlights.clear();
@@ -47,7 +48,7 @@ shared class CeylonSemanticAnalyzer()
                     value start = name.startIndex.intValue();
                     value end = name.endIndex.intValue();
                     value range = OffsetRange(start, end);
-                    highlights.put(range, Collections.singleton(ColoringAttributes.\iANNOTATION_TYPE));
+                    highlights.put(range, singleton(ColoringAttributes.annotationType));
                 }
             }
             
@@ -57,17 +58,19 @@ shared class CeylonSemanticAnalyzer()
                 value start = path.startIndex.intValue();
                 value end = path.endIndex.intValue();
                 value range = OffsetRange(start, end);
-                highlights.put(range, Collections.singleton(ColoringAttributes.\iCUSTOM1));
+                highlights.put(range, singleton(ColoringAttributes.custom1));
             }
 
-            shared actual void visitQualifiedMemberExpression(Tree.QualifiedMemberExpression qme) {
+            shared actual void visitQualifiedMemberExpression(
+                Tree.QualifiedMemberExpression qme) {
+                
                 super.visitQualifiedMemberExpression(qme);
                 
                 if (exists p = qme.identifier) {
                     value start = p.startIndex.intValue();
                     value end = p.endIndex.intValue();
                     value range = OffsetRange(start, end);
-                    highlights.put(range, Collections.singleton(ColoringAttributes.\iCUSTOM2));
+                    highlights.put(range, singleton(ColoringAttributes.custom2));
                 }
             }
         }.visitCompilationUnit(res.rootNode);
@@ -75,5 +78,5 @@ shared class CeylonSemanticAnalyzer()
     }
     
     shared actual Class<out Scheduler> schedulerClass
-            => Scheduler.\iEDITOR_SENSITIVE_TASK_SCHEDULER;
+            => Scheduler.editorSensitiveTaskScheduler;
 }
