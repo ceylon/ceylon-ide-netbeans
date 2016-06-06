@@ -7,7 +7,6 @@ import com.redhat.ceylon.model.loader.mirror {
     ClassMirror,
     MTypeParameterMirror=TypeParameterMirror,
     FieldMirror,
-    PackageMirror,
     MTypeMirror=TypeMirror,
     MethodMirror,
     MAnnotationMirror=AnnotationMirror
@@ -26,7 +25,9 @@ import javax.lang.model.element {
     Modifier,
     NestingKind,
     ElementKind,
-    TypeParameterElement
+    TypeParameterElement,
+    PackageElement,
+    Element
 }
 
 
@@ -107,7 +108,20 @@ shared class TypeElementMirror(shared TypeElement te) satisfies ClassMirror {
     
     name => te.simpleName.string;
     
-    shared actual PackageMirror? \ipackage => null;
+    function findPackage() {
+        variable Element el = te.enclosingElement;
+        
+        while (!is PackageElement? candidate = el) {
+            el = el.enclosingElement;
+        }
+        
+        if (is PackageElement pkg = el) {
+            return pkg;
+        }
+        throw Exception("Couldn't find package of type " + qualifiedName);
+    }
+    
+    \ipackage => PackageElementMirror(findPackage());
     
     protected => te.modifiers.contains(Modifier.protected);
     

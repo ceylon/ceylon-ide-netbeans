@@ -8,6 +8,9 @@
     <module module="org.netbeans.modules.editor.lib">
         <add module="org.netbeans.modules.editor.document" version="current"/>
     </module>
+    <module module="org.netbeans.modules.editor.document">
+        <add module="org.openide.filesystems" version="current"/>
+    </module>
     <module module="org.netbeans.modules.editor">
         <add module="org.openide.filesystems" version="current"/>
         <add module="java.desktop" version="7"/>
@@ -28,6 +31,7 @@
     </module>
     <module module="org.openide.nodes">
         <add module="org.openide.awt" version="current"/>
+        <add module="org.openide.util" version="current"/>
     </module>
     <module module="org.netbeans.modules.editor.mimelookup">
         <add module="org.openide.util" version="current"/>
@@ -62,6 +66,7 @@
     <module module="org.netbeans.modules.java.source">
         <add module="org.openide.filesystems" version="current"/>
         <add module="org.netbeans.api.java.classpath" version="current"/>
+        <add module="org.netbeans.libs.javacapi" version="current"/>
     </module>
     
     <module module="org.netbeans.modules.java.project">
@@ -69,5 +74,9 @@
     </module>
     <module module="org.openide.windows">
         <add module="org.openide.util" version="current"/>
+        <add module="org.openide.nodes" version="current"/>
+    </module>
+    <module module="org.netbeans.spi.editor.hints">
+        <add module="org.openide.filesystems" version="current"/>
     </module>
 </overrides>

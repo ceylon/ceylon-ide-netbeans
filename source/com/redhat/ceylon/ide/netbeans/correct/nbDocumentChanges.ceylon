@@ -1,15 +1,20 @@
 import ceylon.collection {
     ArrayList
 }
+import ceylon.interop.java {
+    JavaRunnable
+}
 
 import com.redhat.ceylon.ide.common.platform {
     CommonDocument,
     TextChange,
-    TextEdit
+    TextEdit,
+    DefaultDocument,
+    DefaultCompositeChange
 }
 
-import java.lang {
-    Runnable
+import java.io {
+    OutputStreamWriter
 }
 
 import javax.swing.text {
@@ -18,14 +23,17 @@ import javax.swing.text {
     StyledDocument
 }
 
-import org.openide.util {
-    Exceptions
+import org.netbeans.modules.editor {
+    NbEditorUtilities
+}
+import org.openide.filesystems {
+    FileObject
 }
 import org.openide.text {
     DocumentUtil=NbDocument
 }
-import org.netbeans.modules.editor {
-    NbEditorUtilities
+import org.openide.util {
+    Exceptions
 }
 
 shared class NbDocument(nativeDocument) satisfies CommonDocument {
@@ -55,8 +63,15 @@ shared class NbDocument(nativeDocument) satisfies CommonDocument {
     
 }
 
+shared class NbFileObjectDocument(shared FileObject fo)
+        extends DefaultDocument(fo.asText()) {
+    
+}
 
-shared class NbTextChange(shared actual NbDocument document) satisfies TextChange {
+
+shared class NbTextChange(document) satisfies TextChange {
+    
+    shared actual NbDocument|NbFileObjectDocument document;
     
     value edits = ArrayList<TextEdit>();
     
@@ -66,21 +81,32 @@ shared class NbTextChange(shared actual NbDocument document) satisfies TextChang
     
     shared actual void apply() {
         try {
-            Integer len = document.size;
-            String text = document.getText(0, len);
-            value newText = mergeToCharArray(text, len, edits);
-
-            if (is StyledDocument document) {
-                // TODO the editor scrolls down when we do this, and the cursor is at the end of the doc
-                DocumentUtil.runAtomic(document, object satisfies Runnable {
-                    shared actual void run() {
-                        document.remove(0, len);
-                        document.insertString(0, newText, null);
+            if (is NbDocument document) {
+                value doc = document.nativeDocument;
+                
+                value markers = edits.collect(
+                    (e) => doc.createPosition(e.start)
+                );
+                
+                value run = () {
+                    for (change -> marker in zipEntries(edits, markers)) {
+                        doc.remove(marker.offset, change.length);
+                        doc.insertString(marker.offset, change.text, null);
                     }
-                });
-            } else { 
-                document.nativeDocument.remove(0, len);
-                document.nativeDocument.insertString(0, newText, null);
+                };
+                
+                if (is StyledDocument doc) {
+                    DocumentUtil.runAtomic(doc, JavaRunnable(run));
+                } else {
+                    run();
+                }
+            } else {
+                Integer len = document.size;
+                String text = document.getText(0, len);
+                value newText = mergeToCharArray(text, len, edits);
+                value os = OutputStreamWriter(document.fo.outputStream);
+                os.write(newText);
+                os.close();
             }
         } catch (BadLocationException ex) {
             Exceptions.printStackTrace(ex);
@@ -122,4 +148,10 @@ shared class NbTextChange(shared actual NbDocument document) satisfies TextChang
     
     offset => if (exists e = edits.first) then e.start else 0;
     
+}
+
+shared class NbCompositeChange(String desc) extends DefaultCompositeChange(desc) {
+    shared void apply() {
+        changes.narrow<NbTextChange>().each((chg) => chg.apply());
+    }
 }

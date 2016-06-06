@@ -112,9 +112,9 @@ shared class NbCrossProjectJavaCompilationUnit(
         (ceylonProject, cls, filename, relativePath, fullPath, pkg)
         satisfies NbJavaModelAware {
     
-    shared actual FileObject javaClassRootToNativeFile(TypeElement cls)
-            => nothing; // TODO cls.containingFile.virtualFile;
+    shared actual FileObject? javaClassRootToNativeFile(TypeElement cls)
+            => null; // TODO
     
-    shared actual FileObject javaClassRootToNativeRootFolder(TypeElement cls)
-            => nothing; // TODO cls.containingFile.virtualFile.parent;
+    shared actual FileObject? javaClassRootToNativeRootFolder(TypeElement cls)
+            => null; // TODO
 }

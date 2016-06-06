@@ -1,9 +1,6 @@
 import ceylon.collection {
     ArrayList
 }
-import ceylon.interop.java {
-    JavaList
-}
 
 import com.redhat.ceylon.compiler.typechecker.analyzer {
     AnalysisError,
@@ -13,24 +10,47 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     RecognitionError
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
-    Message
+    Message,
+    Node
+}
+import com.redhat.ceylon.ide.common.correct {
+    ideQuickFixManager
+}
+import com.redhat.ceylon.ide.common.refactoring {
+    DefaultRegion
+}
+import com.redhat.ceylon.ide.common.typechecker {
+    LocalAnalysisResult
 }
 import com.redhat.ceylon.ide.common.util {
     ErrorVisitor,
-    nodes
+    nodes,
+    toJavaList
+}
+import com.redhat.ceylon.ide.netbeans.correct {
+    NbQuickFixData
 }
 import com.redhat.ceylon.ide.netbeans.lang {
     NBCeylonParser
 }
 import com.redhat.ceylon.ide.netbeans.model {
-    findParseController
+    findParseController,
+    CeylonParseController
 }
 
+import java.beans {
+    PropertyChangeListener
+}
 import java.lang {
     Class
 }
 import java.util {
-    JArrayList=ArrayList
+    JArrayList=ArrayList,
+    JList=List
+}
+
+import javax.swing.text {
+    Document
 }
 
 import org.netbeans.modules.parsing.spi {
@@ -46,7 +66,8 @@ import org.netbeans.spi.editor.hints {
     },
     Fix,
     HintsController,
-    Severity
+    Severity,
+    LazyFixList
 }
 
 
@@ -63,10 +84,10 @@ shared class CeylonSyntaxErrorHighlightingTask() extends ParserResultTask<Parser
             value errors = JArrayList<ErrorDescription>();
     
             object extends ErrorVisitor() {
-                shared actual void handleMessage(Integer startOffset, 
+                shared actual void handleMessage(Integer startOffset,
                     Integer endOffset, Integer startCol, Integer startLine,
                     Message message) {
-
+                    
                     value node = nodes.findNode {
                         node = pu.compilationUnit;
                         tokens = null;
@@ -78,41 +99,74 @@ shared class CeylonSyntaxErrorHighlightingTask() extends ParserResultTask<Parser
                         return;
                     }
                     
-                    value severity = switch(message)
-                    case (is RecognitionError|AnalysisError) Severity.error
-                    case (is UsageWarning) Severity.warning
-                    else Severity.hint;
-                            
-                     value fixes = ArrayList<Fix>();
-                     //value data = NbQuickFixData {
-                     //    rootNode = lastAnalysis.lastCompilationUnit;
-                     //    project = controller.project;
-                     //    node = node;
-                     //    message = message;
-                     //    ceylonProject = controller.ceylonProject;
-                     //    editorSelection = DefaultRegion(0); // not used for quick fixes
-                     //    phasedUnit = lastAnalysis.lastPhasedUnit;
-                     //    problemLength = endOffset - startOffset;
-                     //    nativeDocument = document;
-                     //    fixes = fixes;
-                     //};
-                     //
-                     //ideQuickFixManager.addQuickFixes(data, lastAnalysis.typeChecker);
-                     
-                     value errorDescription = createErrorDescription(
-                         severity,
-                         message.message,
-                         JavaList(fixes),
-                         document,
-                         document.createPosition(startOffset),
-                         document.createPosition(endOffset)
-                     );
-                     errors.add(errorDescription);
+                    value severity = switch (message)
+                        case (is RecognitionError|AnalysisError) Severity.error
+                        case (is UsageWarning) Severity.warning
+                        else Severity.hint;
+                    
+                    value errorDescription = createErrorDescription(
+                        severity,
+                        message.message,
+                        NbLazyFixList(controller, lastAnalysis, document, node, message, startOffset, endOffset),
+                        document,
+                        document.createPosition(startOffset),
+                        document.createPosition(endOffset)
+                    );
+                    errors.add(errorDescription);
                 }
             }.visit(pu.compilationUnit);
             
             HintsController.setErrors(document, "ceylon-errors", errors);
         }
+    }
+    
+    class NbLazyFixList(controller, lastAnalysis, document, node, message,
+        startOffset, endOffset) satisfies LazyFixList {
+        
+        variable JList<Fix>? lazyFixes = null;
+        
+        CeylonParseController controller;
+        LocalAnalysisResult lastAnalysis;
+        Document document;
+        Node node;
+        Message message;
+        Integer startOffset;
+        Integer endOffset;
+ 
+        // TODO check if we should fire PROP_COMPUTED
+        addPropertyChangeListener(PropertyChangeListener listener)
+                => noop();
+        
+        computed => lazyFixes exists;
+        
+        shared actual JList<Fix> fixes {
+            if (!exists _ = lazyFixes) {
+                value fixes = ArrayList<Fix>();
+                value data = NbQuickFixData {
+                    rootNode = lastAnalysis.lastCompilationUnit;
+                    project = controller.project;
+                    node = node;
+                    message = message;
+                    ceylonProject = controller.ceylonProject;
+                    editorSelection = DefaultRegion(0); // not used for quick fixes
+                    phasedUnit = lastAnalysis.lastPhasedUnit;
+                    problemLength = endOffset - startOffset;
+                    nativeDocument = document;
+                    fixes = fixes;
+                };
+                
+                ideQuickFixManager.addQuickFixes(data, lastAnalysis.typeChecker);
+                
+                lazyFixes = toJavaList(fixes);
+            }
+            
+            assert(exists fixes = lazyFixes);
+            return fixes;
+        }
+        
+        probablyContainsFixes() => true;
+        
+        shared actual void removePropertyChangeListener(PropertyChangeListener? propertyChangeListener) {}
     }
     
     shared actual Integer priority {

@@ -21,10 +21,15 @@ import com.redhat.ceylon.ide.common.model {
     BaseCeylonProject
 }
 import com.redhat.ceylon.ide.common.platform {
-    TextChange
+    TextChange,
+    platformUtils,
+    Status
 }
 import com.redhat.ceylon.ide.common.refactoring {
     DefaultRegion
+}
+import com.redhat.ceylon.ide.netbeans.util {
+    editorUtil
 }
 
 import javax.swing.text {
@@ -35,9 +40,9 @@ import org.netbeans.api.project {
     Project
 }
 import org.netbeans.spi.editor.hints {
-    Fix
+    Fix,
+    ChangeInfo
 }
-
 
 shared class NbQuickFixData(
     shared actual Tree.CompilationUnit rootNode, 
@@ -53,13 +58,41 @@ shared class NbQuickFixData(
 
     shared actual NbDocument document = NbDocument(nativeDocument);
     
-    shared actual Integer errorCode => message.code;
+    errorCode => message.code;
     
-    shared actual Integer problemOffset => node.startIndex.intValue();
+    problemOffset => node.startIndex.intValue();
     
-    shared actual void addAssignToLocalProposal(String description) {}
+    shared actual void addAssignToLocalProposal(String description) {
+        // TODO
+    }
     
-    shared actual void addConvertToClassProposal(String description, Tree.ObjectDefinition declaration) {}
+    shared actual void addConvertToClassProposal(String description,
+        Tree.ObjectDefinition declaration) {
+        // TODO
+    }
     
-    shared actual void addQuickFix(String description, TextChange|Anything() change, DefaultRegion? selection, Boolean qualifiedNameIsPath, Icons? image, QuickFixKind kind) {}
+    shared actual void addQuickFix(String description, 
+        TextChange|Anything() change, DefaultRegion? selection, 
+        Boolean qualifiedNameIsPath, Icons? image, QuickFixKind kind) {
+        
+        fixes.add(object satisfies Fix {
+            shared actual ChangeInfo implement() {
+                if (is NbTextChange change) {
+                    change.apply();
+                }
+                else if (is Anything() change) {
+                    change();
+                }
+                else {
+                    platformUtils.log(Status._WARNING, 
+                        "Unsupported change of type " + className(change));
+                }
+
+                editorUtil.updateSelection(selection);
+                return ChangeInfo();
+            }
+            
+            text => description; // TODO add colors
+        });
+    }
 }

@@ -2,11 +2,13 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer,
     CeylonParser
 }
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree
+}
 
 import java.util {
     Collections,
-    List,
-    ArrayList
+    List
 }
 
 import javax.swing.event {
@@ -37,11 +39,8 @@ import org.netbeans.modules.parsing.spi {
 import org.openide.util {
     Exceptions
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
-    Tree
-}
-import ceylon.interop.java {
-    CeylonIterable
+import com.redhat.ceylon.ide.common.util {
+    unsafeCast
 }
 
 shared class NBCeylonParser() extends Parser() {
@@ -56,17 +55,14 @@ shared class NBCeylonParser() extends Parser() {
         try {
             value parser = CeylonParser(cts);
             
-            value tokens = ArrayList<CommonToken>();
-            for (tok in CeylonIterable(cts.tokens)) {
-                assert(is CommonToken tok);
-                tokens.add(tok);
-            }
-
-            // TODO fix com.redhat.ceylon.model.loader.ModelResolutionException: Failed to resolve org.antlr.runtime.CommonToken
-            //assert(is List<CommonToken> tokens = cts.tokens);
+            value tokens = unsafeCast<List<CommonToken>>(cts.tokens);
             
-            result = CeylonParserResult(snapshot, parser,
-                parser.compilationUnit(), tokens);
+            result = CeylonParserResult {
+                snapshot = snapshot;
+                parser = parser;
+                rootNode = parser.compilationUnit();
+                tokens = tokens;
+            };
         } catch (RecognitionException ex) {
             result = null;
             Exceptions.printStackTrace(ex);

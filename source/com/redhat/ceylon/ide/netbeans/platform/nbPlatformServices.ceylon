@@ -2,13 +2,14 @@ import com.redhat.ceylon.ide.common.platform {
     PlatformServices,
     VfsServices,
     ModelServices,
-    LinkedMode,
-    CompletionServices,
     CommonDocument,
     JavaModelServices
 }
 import com.redhat.ceylon.ide.common.util {
     unsafeCast
+}
+import com.redhat.ceylon.ide.netbeans.correct {
+    NbDocument
 }
 import com.redhat.ceylon.model.typechecker.model {
     Unit
@@ -16,13 +17,16 @@ import com.redhat.ceylon.model.typechecker.model {
 
 shared object nbPlatformServices satisfies PlatformServices {
     
-    shared actual CompletionServices completion => nothing;
+    completion => nbCompletionServices;
     
-    shared actual LinkedMode createLinkedMode(CommonDocument document) => nothing;
+    shared actual NbLinkedMode createLinkedMode(CommonDocument document) {
+        assert(is NbDocument document);
+        return NbLinkedMode(document);
+    }
     
     document => nbDocumentServices;
     
-    shared actual CommonDocument? gotoLocation(Unit unit, Integer offset, Integer length) => null;
+    gotoLocation(Unit unit, Integer offset, Integer length) => null;
     
     shared actual ModelServices<NativeProject,NativeResource,NativeFolder,NativeFile>
     model<NativeProject, NativeResource, NativeFolder, NativeFile>()
