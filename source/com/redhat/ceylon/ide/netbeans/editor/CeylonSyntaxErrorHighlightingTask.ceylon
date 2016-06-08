@@ -46,7 +46,9 @@ import java.lang {
 }
 import java.util {
     JArrayList=ArrayList,
-    JList=List
+    JList=List,
+    Collections,
+    Set
 }
 
 import javax.swing.text {
@@ -57,7 +59,8 @@ import org.netbeans.modules.parsing.spi {
     ParserResultTask,
     Scheduler,
     SchedulerEvent,
-    Parser
+    Parser,
+    TaskFactory
 }
 import org.netbeans.spi.editor.hints {
     ErrorDescription,
@@ -69,7 +72,14 @@ import org.netbeans.spi.editor.hints {
     Severity,
     LazyFixList
 }
+import org.netbeans.modules.parsing.api {
+    Snapshot
+}
 
+shared class CeylonSyntaxErrorHighlightingTaskFactory() extends TaskFactory() {
+    shared actual Set<CeylonSyntaxErrorHighlightingTask> create(Snapshot snapshot)
+        => Collections.singleton(CeylonSyntaxErrorHighlightingTask());
+}
 
 shared class CeylonSyntaxErrorHighlightingTask() extends ParserResultTask<Parser.Result>() {
     
