@@ -16,6 +16,7 @@ import java.util {
 import com.redhat.ceylon.ide.netbeans.util {
     highlight
 }
+
 class CeylonBlockEmitter() satisfies BlockEmitter {
     
     shared actual void emitBlock(StringBuilder builder, List<JString> lines, String? meta) {
@@ -25,7 +26,7 @@ class CeylonBlockEmitter() satisfies BlockEmitter {
             value code = "\n".join(CeylonIterable(lines)) + "\n";
             
             if (exists meta, (meta.empty || "ceylon".equals(meta))) {
-                builder.append("<code>``highlight(code.string)``</code>"); // TODO
+                builder.append("<code>``highlight(code.string)``</code>");
             } else {
                 builder.append(code.string);
             }
