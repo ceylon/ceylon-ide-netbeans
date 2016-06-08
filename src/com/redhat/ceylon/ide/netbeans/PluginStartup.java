@@ -157,6 +157,11 @@ public class PluginStartup implements Runnable {
             public Repository repository() {
                 return null;
             }
+
+            @Override
+            public String namespace() {
+                return null;
+            }
         };
         
         registerModule(artifactResult, getClass().getClassLoader());
@@ -182,6 +187,7 @@ public class PluginStartup implements Runnable {
             
             if (matcher.matches()) {
                 ArtifactContext ctx = new ArtifactContext(
+                        null,
                         matcher.group(1),
                         matcher.group(2),
                         matcher.group(3).equalsIgnoreCase("C") ?

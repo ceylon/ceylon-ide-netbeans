@@ -88,7 +88,7 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
             String moduleVersion = TypeChecker.languageModuleVersion;
             
             return repositoryManager.getArtifact(
-                ArtifactContext(moduleName, moduleVersion, ArtifactContext.car)
+                ArtifactContext(null, moduleName, moduleVersion, ArtifactContext.car)
             );
         }
         
