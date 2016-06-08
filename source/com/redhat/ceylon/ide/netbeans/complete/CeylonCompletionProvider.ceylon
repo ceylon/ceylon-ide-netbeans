@@ -1,6 +1,5 @@
-import com.redhat.ceylon.ide.common.util {
-    ProgressMonitorImpl,
-    ProgressMonitorChild
+import com.redhat.ceylon.ide.common.completion {
+    completionManager
 }
 import com.redhat.ceylon.ide.netbeans.doc {
     NbDocGenerator
@@ -8,12 +7,21 @@ import com.redhat.ceylon.ide.netbeans.doc {
 import com.redhat.ceylon.ide.netbeans.model {
     findParseController
 }
+import com.redhat.ceylon.ide.netbeans.platform {
+    NbCompletionContext
+}
+import com.redhat.ceylon.ide.netbeans.util {
+    ProgressHandleMonitor
+}
 
 import javax.swing.text {
     Document,
     JTextComponent
 }
 
+import org.netbeans.api.progress {
+    ProgressHandle
+}
 import org.netbeans.spi.editor.completion {
     CompletionProvider,
     CompletionResultSet,
@@ -27,22 +35,10 @@ import org.netbeans.spi.editor.completion.support {
 shared class CeylonCompletionProvider() satisfies CompletionProvider {
     
     shared actual CompletionTask? createTask(Integer queryType, JTextComponent jtc) {
-        if (queryType == CompletionProvider.\iCOMPLETION_QUERY_TYPE) {
+        if (queryType == CompletionProvider.completionQueryType) {
             return createCompletionTask(jtc);
-        } else if (queryType == CompletionProvider.\iDOCUMENTATION_QUERY_TYPE) {
-            return AsyncCompletionTask(object extends AsyncCompletionQuery() {
-                shared actual void query(CompletionResultSet completionResultSet, Document document, Integer caretOffset) {
-                    value cpc = findParseController(jtc.document);
-                    value offset = jtc.caret.dot;
-                    
-                    if (exists cpc,
-                        exists lastAnalysis = cpc.lastAnalysis,
-                        exists doc = NbDocGenerator(cpc).getDocumentation(lastAnalysis.lastCompilationUnit, offset, lastAnalysis)) {
-                        completionResultSet.setDocumentation(CeylonCompletionDocumentation(doc, cpc));
-                    }
-                    completionResultSet.finish();
-                }
-            });
+        } else if (queryType == CompletionProvider.documentationQueryType) {
+            return createDocumentationTask(jtc);
         }
         
         return null;
@@ -52,37 +48,62 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
         return 0;
     }
 
+    AsyncCompletionTask createDocumentationTask(JTextComponent jtc) {
+        return AsyncCompletionTask(object extends AsyncCompletionQuery() {
+            shared actual void query(CompletionResultSet result,
+                Document document, Integer caretOffset) {
+                
+                value cpc = findParseController(jtc.document);
+                value offset = jtc.caret.dot;
+                
+                if (exists cpc,
+                    exists lastAnalysis = cpc.lastAnalysis,
+                    exists doc = NbDocGenerator(cpc).getDocumentation {
+                        rootNode = lastAnalysis.lastCompilationUnit;
+                        offset = offset;
+                        cmp = lastAnalysis;
+                    }) {
+
+                    result.setDocumentation(CeylonCompletionDocumentation(doc, cpc));
+                }
+                result.finish();
+            }
+        });
+    }
+
     AsyncCompletionTask createCompletionTask(JTextComponent jtc) {
         return AsyncCompletionTask(object extends AsyncCompletionQuery() {
-            shared actual void query(CompletionResultSet completionResultSet, Document document, Integer caretOffset) {
-                if (exists controller = findParseController(document)) {
-                    //controller.typeCheck(null);
+            shared actual void query(CompletionResultSet completionResultSet,
+                Document document, Integer caretOffset) {
+                
+                if (exists controller = findParseController(document),
+                    exists result = controller.lastAnalysis) {
+                    // TODO typecheck?
                     nbCompletionItemPosition.reset();
+                    
+                    value ctx = NbCompletionContext(result);
+                    value handle = ProgressHandle.createHandle("Computing proposals...");
+                    value monitor = ProgressHandleMonitor.wrap(handle);
+                    handle.start();
+                    
+                    completionManager.getContentProposals {
+                        typecheckedRootNode = result.lastCompilationUnit;
+                        ctx = ctx;
+                        offset = caretOffset;
+                        line = 1;
+                        secondLevel = false;
+                        monitor = monitor;
+                    };
+                    
+                    handle.finish();
+                    
+                    for (proposal in ctx.proposals.proposals) {
+                        completionResultSet.addItem(proposal);
+                    }                    
                 }
-                //value proposals = completionManager.getContentProposals(controller.lastCompilationUnit,
-                //    controller, caretOffset, 1, false, DummyProgress());
-                //
-                //for (proposal in proposals) {
-                //    completionResultSet.addItem(proposal);
-                //}
                 
                 completionResultSet.finish();
             }
         }, jtc);
     }
-}
-
-class DummyProgress() extends ProgressMonitorImpl<String>.wrap("") {
-    shared actual Boolean cancelled => false;
-    
-    shared actual ProgressMonitorChild<String> newChild(Integer allocatedWork)
-            => this;
-    
-    shared actual void subTask(String subTaskDescription) {}
-    
-    shared actual void updateRemainingWork(Integer remainingWork) {}
-    
-    shared actual void worked(Integer amount) {}
-    
-    shared actual String wrapped => "";
 }

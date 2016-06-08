@@ -1,11 +1,38 @@
-import com.redhat.ceylon.ide.common.platform {
-    CompletionServices,
-    TextChange
+import ceylon.collection {
+    ArrayList
+}
+
+import com.redhat.ceylon.cmr.api {
+    ModuleVersionDetails,
+    ModuleSearchResult
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree,
+    Node
 }
 import com.redhat.ceylon.ide.common.completion {
     ProposalsHolder,
     CompletionContext,
     ProposalKind
+}
+import com.redhat.ceylon.ide.common.doc {
+    Icons
+}
+import com.redhat.ceylon.ide.common.platform {
+    CompletionServices,
+    TextChange
+}
+import com.redhat.ceylon.ide.common.refactoring {
+    DefaultRegion
+}
+import com.redhat.ceylon.ide.common.settings {
+    CompletionOptions
+}
+import com.redhat.ceylon.ide.common.typechecker {
+    LocalAnalysisResult
+}
+import com.redhat.ceylon.ide.netbeans.complete {
+    CeylonCompletionItem
 }
 import com.redhat.ceylon.model.typechecker.model {
     Declaration,
@@ -15,35 +42,36 @@ import com.redhat.ceylon.model.typechecker.model {
     Scope,
     Reference
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
-    Tree,
-    Node
-}
-import com.redhat.ceylon.ide.common.refactoring {
-    DefaultRegion
-}
+
 import java.util {
     JList=List
 }
-import com.redhat.ceylon.ide.common.doc {
-    Icons
+
+import org.antlr.runtime {
+    CommonToken
 }
-import com.redhat.ceylon.cmr.api {
-    ModuleVersionDetails,
-    ModuleSearchResult
-}
-import ceylon.collection {
-    ArrayList
-}
-import com.redhat.ceylon.ide.netbeans.complete {
-    CeylonCompletionItem
+import com.redhat.ceylon.ide.netbeans {
+    nbIcons
 }
 
 // TODO
 object nbCompletionServices satisfies CompletionServices {
     shared actual void addNestedProposal(ProposalsHolder proposals, Icons|Declaration icon, String description, DefaultRegion region, String text) {}
     
-    shared actual void addProposal(CompletionContext ctx, Integer offset, String prefix, Icons|Declaration icon, String description, String text, ProposalKind kind, TextChange? additionalChange, DefaultRegion? selection) {}
+    shared actual void addProposal(CompletionContext ctx, Integer offset, 
+        String prefix, Icons|Declaration icon, String description, String text,
+        ProposalKind kind, TextChange? additionalChange, DefaultRegion? selection) {
+        
+        if (is NbCompletionContext ctx) {
+            value image = switch(icon)
+            case(is Icons) nbIcons.forCommonIcon(icon)
+            else nbIcons.forDeclaration(icon);
+            
+            ctx.proposals.addItem(CeylonCompletionItem(
+                text, description, offset, prefix, image
+            ));
+        }
+    }
     
     createProposalsHolder() => NbProposalsHolder();
     
@@ -81,4 +109,38 @@ shared class NbProposalsHolder() satisfies ProposalsHolder {
             => props.add(item);
     
     shared List<CeylonCompletionItem> proposals => props;
+}
+
+shared class NbCompletionContext(LocalAnalysisResult lar)
+        satisfies CompletionContext {
+    
+    
+    ceylonProject => lar.ceylonProject;
+    
+    commonDocument => lar.commonDocument;
+    
+    lastCompilationUnit => lar.lastCompilationUnit;
+    
+    lastPhasedUnit => lar.lastPhasedUnit;
+    
+    options = object extends CompletionOptions() {
+        // TODO
+    };
+    
+    parsedRootNode => lar.parsedRootNode;
+    
+    proposalFilters => empty;
+    
+    shared actual NbProposalsHolder proposals = NbProposalsHolder();
+    
+    shared actual JList<CommonToken> tokens {
+        assert(exists toks = lar.tokens);
+        return toks;
+    }
+    
+    typeChecker => lar.typeChecker;
+    
+    typecheckedRootNode => lar.typecheckedRootNode;
+    
+     
 }

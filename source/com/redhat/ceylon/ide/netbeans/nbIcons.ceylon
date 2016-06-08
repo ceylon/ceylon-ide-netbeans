@@ -27,6 +27,9 @@ import java.awt {
     Toolkit,
     Image
 }
+import com.redhat.ceylon.ide.common.doc {
+    Icons
+}
 
 shared object nbIcons {
     
@@ -89,6 +92,23 @@ shared object nbIcons {
             else
                 null;
     }
+    
+    shared Image? forCommonIcon(Icons icon) {
+        return switch(icon)
+        case (Icons.annotations) annotations
+        case (Icons.modules) modules
+        case (Icons.packages) packages
+        case (Icons.objects) objects
+        case (Icons.classes) classes
+        case (Icons.enumeration) enumerations
+        case (Icons.exceptions) exceptions
+        case (Icons.parameters) param
+        case (Icons.types) null
+        case (Icons.attributes) attributes
+        case (Icons.interfaces) interfaces
+        else null;
+    }
+
     
     shared String getPath(Image img) {
         return paths.get(img) else "<err>";

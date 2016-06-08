@@ -17,6 +17,9 @@ import com.redhat.ceylon.ide.common.typechecker {
 import com.redhat.ceylon.ide.netbeans {
     nbIcons
 }
+import com.redhat.ceylon.ide.netbeans.util {
+    utilHighlight=highlight
+}
 import com.redhat.ceylon.ide.netbeans.model {
     CeylonParseController
 }
@@ -44,6 +47,7 @@ import java.io {
 shared class NbDocGenerator(CeylonParseController cpc)
         satisfies DocGenerator {
     
+    // TODO use nbIcons instead
     Image? getUrl(Icons thing) {
         return switch (thing)
             case (Icons.annotations) nbIcons.annotations
@@ -66,6 +70,7 @@ shared class NbDocGenerator(CeylonParseController cpc)
             else null;
     }
     
+    // TODO use nbIcons instead
     Image? getIconUrl(Icons|Referenceable thing) {
         return switch (thing)
             case (is Declaration) nbIcons.forDeclaration(thing)
@@ -152,7 +157,7 @@ shared class NbDocGenerator(CeylonParseController cpc)
             => null;
     
     shared actual String highlight(String text, LocalAnalysisResult cmp)
-            => "<code>``text``</code>"; // TODO
+            => "<code>``utilHighlight(text)``</code>";
     
     shared actual String markdown(String text, LocalAnalysisResult cmp, Scope? linkScope, Unit? unit) {
         value builder = Configuration.builder().forceExtentedProfile();

@@ -17,7 +17,7 @@ import ceylon.collection {
     HashMap
 }
 
-object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>() {
+shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>() {
     
     shared Integer badToken = 1337;
     

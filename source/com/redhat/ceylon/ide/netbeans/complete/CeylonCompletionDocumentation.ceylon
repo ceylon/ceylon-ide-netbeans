@@ -41,16 +41,18 @@ import org.openide.loaders {
     DataObject
 }
 
-class CeylonCompletionDocumentation(shared actual String text, CeylonParseController cpc)
+class CeylonCompletionDocumentation(text, cpc)
         satisfies CompletionDocumentation {
     
-    //print(text);
+    CeylonParseController cpc;
+    shared actual String text;
     
     shared actual Action? gotoSourceAction => null;
     
     shared actual CompletionDocumentation? resolveLink(String link) {
         value bits = link.split(':'.equals).sequence();
 
+        // TODO this was copied from Eclipse and IntelliJ
         if (exists moduleNameAndVersion = bits[1],
             exists loc = moduleNameAndVersion.firstOccurrence('/')) {
             
@@ -114,5 +116,6 @@ class CeylonCompletionDocumentation(shared actual String text, CeylonParseContro
         }
         return "";
     }
+    
     shared actual URL? url => null;
 }
