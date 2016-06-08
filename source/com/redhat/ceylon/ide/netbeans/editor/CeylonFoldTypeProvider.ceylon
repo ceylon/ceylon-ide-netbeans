@@ -16,7 +16,10 @@ import org.netbeans.spi.editor.fold {
 shared class CeylonFoldTypeProvider() satisfies FoldTypeProvider {
     
     shared actual Collection<FoldType> getValues(Class<out Object> type)
-        => Arrays.asList(FoldType.\iIMPORT, FoldType.\iCODE_BLOCK);
+        => Arrays.asList(
+            FoldType.\iimport, FoldType.codeBlock, FoldType.comment,
+            FoldType.documentation, FoldType.nested
+        );
     
     inheritable() => false;
 }

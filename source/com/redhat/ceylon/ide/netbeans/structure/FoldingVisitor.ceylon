@@ -37,33 +37,61 @@ class FoldingVisitor(Map<JString,List<OffsetRange>> folds) extends VisitorAdapto
                 folds.put(code(FoldType.\iimport), singletonList(range));
             }
         }
+        super.visitImportList(importList);
     }
     
     shared actual void visitBlock(Tree.Block block) {
-        List<OffsetRange> ranges;
-        if (folds.containsKey(code(FoldType.codeBlock))) {
-            ranges = folds.get(code(FoldType.codeBlock));
-        } else {
-            ranges = ArrayList<OffsetRange>();
-            folds.put(code(FoldType.codeBlock), ranges);
-        }
+        value type = block.scope.toplevel
+        then FoldType.codeBlock
+        else FoldType.nested;
         
-        ranges.add(OffsetRange(block.startIndex.intValue(), block.endIndex.intValue()));
+        value range = OffsetRange(block.startIndex.intValue(), block.endIndex.intValue());
+        findOrCreateKey(type).add(range);
+
+        super.visitBlock(block);
     }
     
     shared actual void visitBody(Tree.Body body) {
-        List<OffsetRange> ranges;
-        if (folds.containsKey(code(FoldType.codeBlock))) {
-            ranges = folds.get(code(FoldType.codeBlock));
-        } else {
-            ranges = ArrayList<OffsetRange>();
-            folds.put(code(FoldType.codeBlock), ranges);
-        }
+        value type = body.scope.toplevel
+        then FoldType.codeBlock
+        else FoldType.nested;
+
+        value range = OffsetRange(body.startIndex.intValue(), body.endIndex.intValue());
+        findOrCreateKey(type).add(range);
         
-        ranges.add(OffsetRange(body.startIndex.intValue(), body.endIndex.intValue()));
+        super.visitBody(body);
     }
     
-    shared actual void visitAnyClass(Tree.AnyClass? anyClass) => super.visitAnyClass(anyClass);
+    shared actual void visitAnonymousAnnotation(Tree.AnonymousAnnotation ann) {
+        value newLine = ann.token.text.firstInclusion("\n");
+        if (exists newLine) {
+            value range = OffsetRange(ann.startIndex.intValue() + newLine,
+                ann.endIndex.intValue());
+            findOrCreateKey(FoldType.documentation).add(range);
+        }
+
+        super.visitAnonymousAnnotation(ann);
+    }
     
+    shared actual void visitImportModuleList(Tree.ImportModuleList list) {
+        value range = OffsetRange(list.startIndex.intValue(), list.endIndex.intValue());
+        findOrCreateKey(FoldType.codeBlock).add(range);
+
+        super.visitImportModuleList(list);
+    }
+    
+    List<OffsetRange> findOrCreateKey(FoldType type) {
+        List<OffsetRange> ranges;
+
+        if (folds.containsKey(code(type))) {
+            ranges = folds.get(code(type));
+        } else {
+            ranges = ArrayList<OffsetRange>();
+            folds.put(code(type), ranges);
+        }
+
+        return ranges;
+    }
+
     JString code(FoldType type) => javaString(type.code());
 }
