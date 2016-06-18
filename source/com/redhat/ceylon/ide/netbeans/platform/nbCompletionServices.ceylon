@@ -31,6 +31,9 @@ import com.redhat.ceylon.ide.common.settings {
 import com.redhat.ceylon.ide.common.typechecker {
     LocalAnalysisResult
 }
+import com.redhat.ceylon.ide.netbeans {
+    nbIcons
+}
 import com.redhat.ceylon.ide.netbeans.complete {
     CeylonCompletionItem
 }
@@ -41,17 +44,6 @@ import com.redhat.ceylon.model.typechecker.model {
     Type,
     Scope,
     Reference
-}
-
-import java.util {
-    JList=List
-}
-
-import org.antlr.runtime {
-    CommonToken
-}
-import com.redhat.ceylon.ide.netbeans {
-    nbIcons
 }
 
 // TODO
@@ -91,7 +83,7 @@ object nbCompletionServices satisfies CompletionServices {
     
     shared actual void newParameterInfo(CompletionContext ctx, Integer offset, Declaration dec, Reference producedReference, Scope scope, Boolean namedInvocation) {}
     
-    shared actual void newParametersCompletionProposal(CompletionContext ctx, Integer offset, String prefix, String desc, String text, JList<Type> argTypes, Node node, Unit unit) {}
+    shared actual void newParametersCompletionProposal(CompletionContext ctx, Integer offset, String prefix, String desc, String text, List<Type> argTypes, Node node, Unit unit) {}
     
     shared actual void newQueriedModulePackageProposal(Integer offset, String prefix, String memberPackageSubname, Boolean withBody, String fullPackageName, CompletionContext controller, ModuleVersionDetails version, Unit unit, ModuleSearchResult.ModuleDetails md) {}
     
@@ -114,14 +106,17 @@ shared class NbProposalsHolder() satisfies ProposalsHolder {
 shared class NbCompletionContext(LocalAnalysisResult lar)
         satisfies CompletionContext {
     
+    assert(exists cu = lar.lastCompilationUnit);
+    assert(exists pu = lar.lastPhasedUnit);
+    assert(exists tc = lar.typeChecker);
     
     ceylonProject => lar.ceylonProject;
     
     commonDocument => lar.commonDocument;
     
-    lastCompilationUnit => lar.lastCompilationUnit;
+    lastCompilationUnit => cu;
     
-    lastPhasedUnit => lar.lastPhasedUnit;
+    lastPhasedUnit => pu;
     
     options = object extends CompletionOptions() {
         // TODO
@@ -133,12 +128,9 @@ shared class NbCompletionContext(LocalAnalysisResult lar)
     
     shared actual NbProposalsHolder proposals = NbProposalsHolder();
     
-    shared actual JList<CommonToken> tokens {
-        assert(exists toks = lar.tokens);
-        return toks;
-    }
+    tokens => lar.tokens;
     
-    typeChecker => lar.typeChecker;
+    typeChecker => tc;
     
     typecheckedRootNode => lar.typecheckedRootNode;
     

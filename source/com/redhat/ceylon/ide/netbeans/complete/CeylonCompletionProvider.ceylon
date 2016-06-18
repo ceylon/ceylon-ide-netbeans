@@ -58,8 +58,9 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
                 
                 if (exists cpc,
                     exists lastAnalysis = cpc.lastAnalysis,
+                    exists cu = lastAnalysis.lastCompilationUnit,
                     exists doc = NbDocGenerator(cpc).getDocumentation {
-                        rootNode = lastAnalysis.lastCompilationUnit;
+                        rootNode = cu;
                         offset = offset;
                         cmp = lastAnalysis;
                     }) {
@@ -77,7 +78,8 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
                 Document document, Integer caretOffset) {
                 
                 if (exists controller = findParseController(document),
-                    exists result = controller.lastAnalysis) {
+                    exists result = controller.lastAnalysis,
+                    exists cu = result.lastCompilationUnit) {
                     // TODO typecheck?
                     nbCompletionItemPosition.reset();
                     
@@ -87,7 +89,7 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
                     handle.start();
                     
                     completionManager.getContentProposals {
-                        typecheckedRootNode = result.lastCompilationUnit;
+                        typecheckedRootNode = cu;
                         ctx = ctx;
                         offset = caretOffset;
                         line = 1;

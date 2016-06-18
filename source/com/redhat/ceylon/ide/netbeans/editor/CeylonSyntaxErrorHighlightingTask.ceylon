@@ -150,16 +150,19 @@ shared class CeylonSyntaxErrorHighlightingTask() extends ParserResultTask<Parser
         computed => lazyFixes exists;
         
         shared actual JList<Fix> fixes {
-            if (!exists _ = lazyFixes) {
+            if (!exists _ = lazyFixes,
+                exists cu = lastAnalysis.lastCompilationUnit,
+                exists pu = lastAnalysis.lastPhasedUnit) {
+                
                 value fixes = ArrayList<Fix>();
                 value data = NbQuickFixData {
-                    rootNode = lastAnalysis.lastCompilationUnit;
+                    rootNode = cu;
                     project = controller.project;
                     node = node;
                     message = message;
                     ceylonProject = controller.ceylonProject;
                     editorSelection = DefaultRegion(0); // not used for quick fixes
-                    phasedUnit = lastAnalysis.lastPhasedUnit;
+                    phasedUnit = pu;
                     problemLength = endOffset - startOffset;
                     nativeDocument = document;
                     fixes = fixes;

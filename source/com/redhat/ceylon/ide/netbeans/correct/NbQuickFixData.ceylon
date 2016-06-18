@@ -43,6 +43,12 @@ import org.netbeans.spi.editor.hints {
     Fix,
     ChangeInfo
 }
+import com.redhat.ceylon.cmr.api {
+    ModuleVersionDetails
+}
+import com.redhat.ceylon.model.typechecker.model {
+    Referenceable
+}
 
 shared class NbQuickFixData(
     shared actual Tree.CompilationUnit rootNode, 
@@ -73,7 +79,9 @@ shared class NbQuickFixData(
     
     shared actual void addQuickFix(String description, 
         TextChange|Anything() change, DefaultRegion? selection, 
-        Boolean qualifiedNameIsPath, Icons? image, QuickFixKind kind) {
+        Boolean qualifiedNameIsPath, Icons? image, QuickFixKind kind, 
+        String? hint, Boolean asynchronous,
+        Referenceable|Null|ModuleVersionDetails declaration) {
         
         fixes.add(object satisfies Fix {
             shared actual ChangeInfo implement() {

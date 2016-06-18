@@ -107,8 +107,9 @@ class CeylonCompletionDocumentation(text, cpc)
     }
     
     String getDoc(Referenceable ref) {
-        if (exists lastAnalysis = cpc.lastAnalysis) {
-            value pu = lastAnalysis.typeChecker.getPhasedUnitFromRelativePath(ref.unit.relativePath);
+        if (exists lastAnalysis = cpc.lastAnalysis,
+            exists tc = lastAnalysis.typeChecker) {
+            value pu = tc.getPhasedUnitFromRelativePath(ref.unit.relativePath);
             value cu = pu.compilationUnit;
             
             return NbDocGenerator(cpc).getDocumentationText(ref, null, cu, lastAnalysis)
