@@ -41,7 +41,7 @@ class FoldingVisitor(Map<JString,List<OffsetRange>> folds) extends VisitorAdapto
     }
     
     shared actual void visitBlock(Tree.Block block) {
-        value type = block.scope.toplevel
+        value type = (block.scope?.toplevel else true)
         then FoldType.codeBlock
         else FoldType.nested;
         
@@ -52,7 +52,7 @@ class FoldingVisitor(Map<JString,List<OffsetRange>> folds) extends VisitorAdapto
     }
     
     shared actual void visitBody(Tree.Body body) {
-        value type = body.scope.toplevel
+        value type =(body.scope?.toplevel else true)
         then FoldType.codeBlock
         else FoldType.nested;
 
