@@ -67,6 +67,8 @@ import org.openide.filesystems {
 shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
         extends CeylonProject<Project,FileObject,FileObject,FileObject>() {
 
+    shared actual Boolean loadBinariesFirst => true;
+
     variable Boolean languageModuleAdded = false;
 
     shared object filePropertyHolder {

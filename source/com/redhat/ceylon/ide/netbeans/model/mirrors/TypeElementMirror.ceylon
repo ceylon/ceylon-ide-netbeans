@@ -17,7 +17,7 @@ import com.redhat.ceylon.model.typechecker.model {
 
 import java.util {
     List,
-    Collections
+    ArrayList
 }
 
 import javax.lang.model.element {
@@ -27,11 +27,18 @@ import javax.lang.model.element {
     ElementKind,
     TypeParameterElement,
     PackageElement,
-    Element
+    Element,
+    ExecutableElement,
+    VariableElement
+}
+import javax.lang.model.type {
+    JTypeMirror=TypeMirror
 }
 
-
-shared class TypeElementMirror(shared TypeElement te) satisfies ClassMirror {
+shared class TypeElementMirror(shared TypeElement te,
+                               enclosingClass = null,
+                               enclosingMethod = null)
+        satisfies ClassMirror {
     
     variable String? cacheKey = null;
 
@@ -41,43 +48,60 @@ shared class TypeElementMirror(shared TypeElement te) satisfies ClassMirror {
     
     anonymous => te.nestingKind == NestingKind.anonymous;
     
-    function findAnnotation(Annotations|String annotation) {
-        value name = switch(annotation)
-        case(is String) annotation
-        else annotation.klazz.canonicalName;
-        
-        for (mirr in te.annotationMirrors) {
-            if (mirr.annotationType.string == name) {
-                return mirr;
-            }
-        }
-        
-        return null;
-    }
-
     ceylonToplevelAttribute
-            => findAnnotation(Annotations.attribute) exists;
+            => findAnnotation(te, Annotations.attribute) exists;
     
     ceylonToplevelMethod
-            => findAnnotation(Annotations.method) exists;
+            => findAnnotation(te, Annotations.method) exists;
     
     ceylonToplevelObject
-            => findAnnotation(Annotations.\iobject) exists;
+            => findAnnotation(te, Annotations.\iobject) exists;
     
     defaultAccess => !(public || protected || te.modifiers.contains(Modifier.private));
     
-    shared actual List<FieldMirror> directFields
-            => Collections.emptyList<FieldMirror>();
+    shared actual List<FieldMirror> directFields {
+        value mirrors = ArrayList<FieldMirror>();
+        
+        for (el in te.enclosedElements) {
+            if (el.kind.field, is VariableElement el) {
+                mirrors.add(FieldElementMirror(el));
+            }
+        }
+        
+        return mirrors;
+    }
     
-    shared actual List<ClassMirror> directInnerClasses
-            => Collections.emptyList<ClassMirror>();
+    shared actual List<ClassMirror> directInnerClasses {
+        value mirrors = ArrayList<ClassMirror>();
+        
+        for (el in te.enclosedElements) {
+            if (el.kind in [ElementKind.\iCLASS, ElementKind.\iINTERFACE],
+                is TypeElement el) {
+                
+                mirrors.add(TypeElementMirror(el, this));
+            }
+        }
+        
+        return mirrors;
+    }
     
-    shared actual List<MethodMirror> directMethods
-            => Collections.emptyList<MethodMirror>();
+    shared actual List<MethodMirror> directMethods {
+        value mirrors = ArrayList<MethodMirror>();
+        
+        for (el in te.enclosedElements) {
+            if (el.kind in [ElementKind.method, ElementKind.constructor, ElementKind.staticInit],
+                is ExecutableElement el) {
+                
+                mirrors.add(ExecutableElementMirror(el, this));
+            }
+        }
+        
+        return mirrors;
+    }
     
-    shared actual ClassMirror? enclosingClass => null;
+    shared actual ClassMirror? enclosingClass;
     
-    shared actual MethodMirror? enclosingMethod => null;
+    shared actual MethodMirror? enclosingMethod;
     
     enum => te.kind == ElementKind.enum;
     
@@ -86,7 +110,7 @@ shared class TypeElementMirror(shared TypeElement te) satisfies ClassMirror {
     flatName => te.qualifiedName.string; // TODO not sure about this one
     
     shared actual MAnnotationMirror? getAnnotation(String string)
-            => if (exists ann = findAnnotation(string))
+            => if (exists ann = findAnnotation(te, string))
                 then AnnotationMirror(ann)
                 else null;
     
@@ -97,8 +121,8 @@ shared class TypeElementMirror(shared TypeElement te) satisfies ClassMirror {
     
     \iinterface => te.kind.\iinterface;
     
-    shared actual List<MTypeMirror> interfaces
-            => Collections.emptyList<MTypeMirror>();
+    interfaces
+            => transform<JTypeMirror, MTypeMirror>(te.interfaces, TypeMirror);
     
     shared actual Boolean javaSource => false; // TODO
     

@@ -1,6 +1,7 @@
 import ceylon.interop.java {
     javaClass,
-    createJavaObjectArray
+    createJavaObjectArray,
+    javaString
 }
 
 import com.redhat.ceylon.ide.common.model {
@@ -21,10 +22,6 @@ import com.redhat.ceylon.model.typechecker.model {
     Modules
 }
 
-import java.util {
-    EnumSet
-}
-
 import javax.lang.model.element {
     TypeElement
 }
@@ -37,7 +34,6 @@ import org.netbeans.api.java.project.classpath {
 }
 import org.netbeans.api.java.source {
     ClasspathInfo,
-    ClassIndex,
     JavaSource,
     Task,
     CompilationController
@@ -80,7 +76,6 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
     }
     
     shared actual void addModuleToClasspathInternal(ArtifactResult? artifact) {
-        print("addModuleToClasspathInternal");
         if (exists file = artifact?.artifact()) {         
             value fo = FileUtil.toFileObject(file);
             ProjectClassPathModifier.addRoots(
@@ -93,37 +88,28 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
     
     shared actual ClassMirror? buildClassMirrorInternal(String name) {
         value cpInfo = ClasspathInfo.create(bootCp, compilerCp, null);
-        value scope = EnumSet.\iof(
-            ClassIndex.SearchScope.dependencies,
-            ClassIndex.SearchScope.source
-        );
         
-        value simpleName = if (exists dot = name.lastOccurrence('.'))
-        then name.spanFrom(dot + 1)
-        else name;
+        value unparameterized = 
+                if (exists lt = name.firstOccurrence('<'), lt > 0)
+                then name.spanTo(lt - 1)
+                else name;
+
+        value js = JavaSource.create(cpInfo);
         
-        value candidates = cpInfo.classIndex
-                .getDeclaredTypes(simpleName, ClassIndex.NameKind.simpleName, scope);
+        variable TypeElement? te = null;
         
-        for (candidate in candidates) {
-            if (candidate.qualifiedName == name) {
-                value js = JavaSource.create(cpInfo);
-                
-                variable TypeElement? te = null;
-                
-                // TODO is this expensive?
-                js.runUserActionTask(object satisfies Task<CompilationController> {
-                    shared actual void run(CompilationController ctrl) {
-                        te = candidate.resolve(ctrl);
-                    }
-                }, true);
-                
-                if (exists _te = te) {
-                    return TypeElementMirror(_te);
-                }
+        // TODO is this expensive?
+        js.runUserActionTask(object satisfies Task<CompilationController> {
+            shared actual void run(CompilationController ctrl) {
+                te = ctrl.elements.getTypeElement(javaString(unparameterized));
             }
+        }, true);
+        
+        if (exists _te = te) {
+            return TypeElementMirror(_te);
         }
         
+        //print("not found ``simpleName`` => ``name``");
         return null;
     }
     
