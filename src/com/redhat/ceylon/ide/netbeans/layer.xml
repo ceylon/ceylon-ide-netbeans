@@ -35,6 +35,20 @@
     <folder name="Editors">
         <folder name="text">
             <folder name="x-ceylon">
+                <folder name="MultiView">
+                    <file name="com-redhat-ceylon-ide-netbeans-editor-ModulesDependenciesViewer.instance">
+                        <!--com.redhat.ceylon.ide.netbeans.editor.ModulesDependenciesViewer-->
+                        <attr
+                            methodvalue="org.netbeans.core.spi.multiview.MultiViewFactory.createMultiViewDescription" name="instanceCreate"/>
+                        <attr name="instanceClass" stringvalue="org.netbeans.core.multiview.ContextAwareDescription"/>
+                        <attr name="class" stringvalue="com.redhat.ceylon.ide.netbeans.editor.ModulesDependenciesViewer"/>
+                        <attr name="displayName" stringvalue="Dependencies" />
+                        <attr name="iconBase" stringvalue="icons/ceylonModule.png"/>
+                        <attr name="preferredID" stringvalue="CeylonVisual"/>
+                        <attr intvalue="2" name="persistenceType"/>
+                        <attr intvalue="2000" name="position"/>
+                    </file>
+                </folder>
                 <attr name="SystemFileSystem.localizingBundle" stringvalue="com.redhat.ceylon.ide.netbeans.Bundle"/>
                 <folder name="FontsColors">
                     <folder name="NetBeans">

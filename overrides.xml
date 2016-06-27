@@ -79,4 +79,11 @@
     <module module="org.netbeans.spi.editor.hints">
         <add module="org.openide.filesystems" version="current"/>
     </module>
+    <module module="org.netbeans.core.multiview">
+        <add module="org.openide.util" version="current"/>
+        <add module="org.openide.awt" version="current"/>
+    </module>
+    <module module="org.netbeans.api.visual">
+        <add module="org.openide.util" version="current"/>
+    </module>
 </overrides>

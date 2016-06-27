@@ -3,6 +3,7 @@ module com.redhat.ceylon.ide.netbeansDependencies "current" {
     shared import org.netbeans.api.templates "current";
     shared import org.netbeans.api.progress "current";
     shared import org.netbeans.api.progress.nb "current";
+    shared import org.netbeans.api.visual "current";
     shared import org.netbeans.core.multiview "current";
     shared import org.netbeans.libs.javacapi "current";
     shared import org.netbeans.modules.csl.api "current";
