@@ -7,6 +7,7 @@ module com.redhat.ceylon.ide.netbeansDependencies "current" {
     shared import org.netbeans.core.multiview "current";
     shared import org.netbeans.libs.javacapi "current";
     shared import org.netbeans.modules.csl.api "current";
+    shared import org.netbeans.modules.csl.types "current";
     shared import org.netbeans.modules.editor "current";
     shared import org.netbeans.modules.editor.bracesmatching "current";
     shared import org.netbeans.modules.editor.completion "current";
