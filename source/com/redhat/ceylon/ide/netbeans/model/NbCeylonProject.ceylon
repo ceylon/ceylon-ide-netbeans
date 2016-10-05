@@ -147,7 +147,7 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
     
     name => nativeProject.lookup.lookup(javaClass<ProjectInformation>()).name;
     
-    shared actual void refreshConfigFile() {}
+    shared actual void refreshConfigFile(String projectRelativePath) {}
     
     shared actual void removeOverridesProblemMarker() {}
     

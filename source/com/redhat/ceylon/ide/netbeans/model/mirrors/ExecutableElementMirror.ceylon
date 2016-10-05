@@ -1,24 +1,25 @@
 import com.redhat.ceylon.model.loader.mirror {
-    MethodMirror,
-    MTypeParameterMirror=TypeParameterMirror,
-    ClassMirror,
-    VariableMirror,
-    MAnnotationMirror=AnnotationMirror
+	MethodMirror,
+	MTypeParameterMirror=TypeParameterMirror,
+	ClassMirror,
+	VariableMirror
 }
 
 import javax.lang.model.element {
-    ExecutableElement,
-    Modifier,
-    ElementKind,
-    TypeParameterElement,
-    VariableElement
+	ExecutableElement,
+	Modifier,
+	ElementKind,
+	TypeParameterElement,
+	VariableElement
 }
 import javax.lang.model.type {
-    NoType,
-    TypeKind
+	NoType,
+	TypeKind
 }
 
-class ExecutableElementMirror(ExecutableElement el, enclosingClass) satisfies MethodMirror {
+class ExecutableElementMirror(ExecutableElement el, enclosingClass)
+		extends AnnotatedMirror(el)
+		satisfies MethodMirror {
 
     shared actual ClassMirror enclosingClass;
     
@@ -37,11 +38,6 @@ class ExecutableElementMirror(ExecutableElement el, enclosingClass) satisfies Me
     defaultMethod => el.default;
     
     final => el.modifiers.contains(Modifier.final);
-    
-    shared actual MAnnotationMirror? getAnnotation(String string)
-            => if (exists ann = findAnnotation(el, string))
-               then AnnotationMirror(ann)
-               else null;
     
     name => el.simpleName.string;
     

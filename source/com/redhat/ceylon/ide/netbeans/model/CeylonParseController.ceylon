@@ -58,6 +58,9 @@ import org.openide.util {
 import org.openide.windows {
     TopComponent
 }
+import java.util.concurrent {
+	Future
+}
 
 
 shared CeylonParseController? findParseController(Document doc) {
@@ -183,9 +186,9 @@ shared class CeylonParseController(NbEditorDocument doc) {
                     
                     typeChecker => tc;
                     
-                    typecheckedRootNode => cu;
+                    shared actual Future<out PhasedUnit> phasedUnitWhenTypechecked => nothing;
                     
-                    
+                    typecheckedPhasedUnit => editedPhasedUnit;
                 };
                 
                 return editedPhasedUnit;

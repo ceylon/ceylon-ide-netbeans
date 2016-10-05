@@ -26,7 +26,7 @@ import org.openide.filesystems {
 }
 
 class NbModuleManager(shared RepositoryManager repositoryManager, NbCeylonProject project)
-        extends IdeModuleManager<Project,FileObject,FileObject,FileObject>(project) {
+        extends IdeModuleManager<Project,FileObject,FileObject,FileObject>(project.model, project) {
     
     shared actual Boolean moduleFileInProject(String moduleName, 
         BaseCeylonProject? ceylonProject) {

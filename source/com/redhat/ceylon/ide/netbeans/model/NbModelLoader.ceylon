@@ -87,7 +87,9 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
     }
     
     shared actual ClassMirror? buildClassMirrorInternal(String name) {
-        value cpInfo = ClasspathInfo.create(bootCp, compilerCp, null);
+        assert(exists _bootCp = bootCp);
+        assert(exists _compilerCp = compilerCp);
+        value cpInfo = ClasspathInfo.create(_bootCp, _compilerCp, null);
         
         value unparameterized = 
                 if (exists lt = name.firstOccurrence('<'), lt > 0)

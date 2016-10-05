@@ -1,43 +1,43 @@
 import com.redhat.ceylon.model.loader {
-    AbstractModelLoader {
-        getCacheKeyByModule
-    }
+	AbstractModelLoader {
+		getCacheKeyByModule
+	}
 }
 import com.redhat.ceylon.model.loader.mirror {
-    ClassMirror,
-    MTypeParameterMirror=TypeParameterMirror,
-    FieldMirror,
-    MTypeMirror=TypeMirror,
-    MethodMirror,
-    MAnnotationMirror=AnnotationMirror
+	ClassMirror,
+	MTypeParameterMirror=TypeParameterMirror,
+	FieldMirror,
+	MTypeMirror=TypeMirror,
+	MethodMirror
 }
 import com.redhat.ceylon.model.typechecker.model {
-    Module
+	Module
 }
 
 import java.util {
-    List,
-    ArrayList
+	List,
+	ArrayList
 }
 
 import javax.lang.model.element {
-    TypeElement,
-    Modifier,
-    NestingKind,
-    ElementKind,
-    TypeParameterElement,
-    PackageElement,
-    Element,
-    ExecutableElement,
-    VariableElement
+	TypeElement,
+	Modifier,
+	NestingKind,
+	ElementKind,
+	TypeParameterElement,
+	PackageElement,
+	Element,
+	ExecutableElement,
+	VariableElement
 }
 import javax.lang.model.type {
-    JTypeMirror=TypeMirror
+	JTypeMirror=TypeMirror
 }
 
 shared class TypeElementMirror(shared TypeElement te,
                                enclosingClass = null,
                                enclosingMethod = null)
+		extends AnnotatedMirror(te)
         satisfies ClassMirror {
     
     variable String? cacheKey = null;
@@ -108,11 +108,6 @@ shared class TypeElementMirror(shared TypeElement te,
     final => te.modifiers.contains(Modifier.final);
     
     flatName => te.qualifiedName.string; // TODO not sure about this one
-    
-    shared actual MAnnotationMirror? getAnnotation(String string)
-            => if (exists ann = findAnnotation(te, string))
-                then AnnotationMirror(ann)
-                else null;
     
     getCacheKey(Module mod)
             => cacheKey else (cacheKey = getCacheKeyByModule(mod, qualifiedName));

@@ -24,8 +24,7 @@ import com.redhat.ceylon.ide.common.typechecker {
 }
 import com.redhat.ceylon.ide.common.util {
     ErrorVisitor,
-    nodes,
-    toJavaList
+    nodes
 }
 import com.redhat.ceylon.ide.netbeans.correct {
     NbQuickFixData
@@ -74,6 +73,9 @@ import org.netbeans.spi.editor.hints {
 }
 import org.netbeans.modules.parsing.api {
     Snapshot
+}
+import ceylon.interop.java {
+	JavaList
 }
 
 shared class CeylonSyntaxErrorHighlightingTaskFactory() extends TaskFactory() {
@@ -170,7 +172,7 @@ shared class CeylonSyntaxErrorHighlightingTask() extends ParserResultTask<Parser
                 
                 ideQuickFixManager.addQuickFixes(data, lastAnalysis.typeChecker);
                 
-                lazyFixes = toJavaList(fixes);
+                lazyFixes = JavaList(fixes);
             }
             
             assert(exists fixes = lazyFixes);

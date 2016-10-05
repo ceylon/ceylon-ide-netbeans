@@ -25,11 +25,11 @@ class CeylonStructureItem(Tree.Declaration decl) satisfies StructureItem {
     
     shared actual ImageIcon? customIcon => null;
     
-    shared actual ElementHandle? elementHandle => null;
+    shared actual ElementHandle elementHandle => nothing;
     
     endPosition => decl.endIndex.intValue();
     
-    shared actual String getHtml(HtmlFormatter? htmlFormatter)
+    shared actual String getHtml(HtmlFormatter htmlFormatter)
             => decl.identifier?.text else "<unnamed>";
     
     shared actual ElementKind kind {

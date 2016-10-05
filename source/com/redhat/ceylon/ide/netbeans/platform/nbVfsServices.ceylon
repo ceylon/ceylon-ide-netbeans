@@ -155,6 +155,9 @@ object nbVfsServices
     toPackageName(FileObject resource, FileObject sourceDir)
             => FileUtil.getRelativePath(sourceDir, resource)
                 .split('/'.equals).sequence();
+    
+    flushIfNecessary(FileObject resource) => false;
+    
 }
 
 shared class NbFileVirtualFile(Project project, FileObject fo)

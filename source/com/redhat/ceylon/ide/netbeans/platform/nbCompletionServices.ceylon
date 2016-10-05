@@ -45,6 +45,12 @@ import com.redhat.ceylon.model.typechecker.model {
     Scope,
     Reference
 }
+import java.util.concurrent {
+	Future
+}
+import com.redhat.ceylon.compiler.typechecker.context {
+	PhasedUnit
+}
 
 // TODO
 object nbCompletionServices satisfies CompletionServices {
@@ -131,8 +137,8 @@ shared class NbCompletionContext(LocalAnalysisResult lar)
     tokens => lar.tokens;
     
     typeChecker => tc;
+
+    shared actual Future<out PhasedUnit> phasedUnitWhenTypechecked => nothing;
     
-    typecheckedRootNode => lar.typecheckedRootNode;
-    
-     
+    typecheckedPhasedUnit => lar.typecheckedPhasedUnit;
 }

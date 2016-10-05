@@ -16,15 +16,15 @@ import ceylon.collection {
 import com.redhat.ceylon.model.cmr {
     JDKUtils
 }
-import com.redhat.ceylon.ide.common.util {
-    toCeylonStringIterable
-}
 import com.redhat.ceylon.cmr.api {
     RepositoryManager,
     ArtifactContext
 }
 import java.io {
     File
+}
+import ceylon.interop.java {
+	CeylonStringIterable
 }
 
 class NbModule(NbModuleManager mm, NbModuleSourceMapper msm)
@@ -35,10 +35,10 @@ class NbModule(NbModuleManager mm, NbModuleSourceMapper msm)
     shared actual Set<String> listPackages() {
         value name = nameAsString;
         if (JDKUtils.isJDKModule(name)) {
-            packageList.addAll(toCeylonStringIterable(
+            packageList.addAll(CeylonStringIterable(
                 JDKUtils.getJDKPackagesByModule(name)));
         } else if (JDKUtils.isOracleJDKModule(name)) {
-            packageList.addAll(toCeylonStringIterable(
+            packageList.addAll(CeylonStringIterable(
                 JDKUtils.getOracleJDKPackagesByModule(name)));
         } else if (java) {
             if (!moduleManager.isExternalModuleLoadedFromSource(nameAsString),

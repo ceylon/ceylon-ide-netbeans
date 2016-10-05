@@ -81,7 +81,8 @@ shared class NbQuickFixData(
         TextChange|Anything() change, DefaultRegion? selection, 
         Boolean qualifiedNameIsPath, Icons? image, QuickFixKind kind, 
         String? hint, Boolean asynchronous,
-        Referenceable|Null|ModuleVersionDetails declaration) {
+        Referenceable|Null|ModuleVersionDetails declaration,
+        Boolean affectsOtherUnits) {
         
         fixes.add(object satisfies Fix {
             shared actual ChangeInfo implement() {

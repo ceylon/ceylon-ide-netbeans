@@ -3,7 +3,8 @@ import com.redhat.ceylon.ide.common.platform {
     Status
 }
 import java.lang {
-    RuntimeException
+    RuntimeException,
+	ClassLoader
 }
 import java.util.logging {
     Logger,
@@ -32,6 +33,13 @@ object nbIdeUtils satisfies IdeUtils {
     
     newOperationCanceledException(String message)
             => NbOperationCancelledException(message);
+    
+    // TODO
+    isExceptionToPropagateInVisitors(Exception exception) => false;
+    
+    // TODO
+    shared actual ClassLoader pluginClassLoader => nothing;
+    
     
 }
 

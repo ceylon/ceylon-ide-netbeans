@@ -4,6 +4,6 @@ module com.redhat.ceylon.ide.netbeans "current" {
     shared import java.desktop "7";
     
     shared import com.redhat.ceylon.ide.netbeansDependencies "current";
-    shared import com.redhat.ceylon.ide.common "1.2.3";
+    shared import com.redhat.ceylon.ide.common "1.3.0";
     shared import com.github.rjeschke.txtmark "0.13";
 }
