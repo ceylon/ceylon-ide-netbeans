@@ -66,6 +66,8 @@
                 <include name="*.jar"/>
             </fileset>
         </foreach>
+        <copy file="${netbeans.home}/../ide/modules/org-netbeans-modules-parsing-api.jar"
+                tofile="${basedir}/flat-repo/org.netbeans.modules.parsing.api-current.jar"/>
     </target>
     <target name="ceylon-init-cluster">
         <echo message="Gathering Ceylon dependencies"/>
