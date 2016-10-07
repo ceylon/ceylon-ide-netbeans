@@ -12,7 +12,8 @@ import com.redhat.ceylon.ide.netbeans.platform {
     nbPlatformServices
 }
 import com.redhat.ceylon.ide.netbeans.util {
-    ProgressHandleMonitor
+    ProgressHandleMonitor,
+    editorUtil
 }
 
 import java.util {
@@ -64,14 +65,13 @@ shared class CeylonModelManager()
     ceylonProjectAdded(CeylonProjectAlias ceylonProject) =>
             startBuild();
     
-    shared void startBuild() {
-        print("starting build");
+    shared void startBuild(Boolean refreshEditors = true) {
         if (model.ceylonProjects.any((prj) => prj.build.somethingToDo)) {
-            requestProcessor.post(JavaRunnable(startBuildInternal));
+            requestProcessor.post(JavaRunnable(startBuildInternal(refreshEditors)));
         }
     }
 
-    void startBuildInternal() {
+    void startBuildInternal(Boolean refreshEditors)() {
         value handle = ProgressHandle.createHandle("Updating Ceylon model");
         value monitor = ProgressHandleMonitor.wrap(handle);
         value ticks = model.ceylonProjectNumber * 1000;
@@ -82,6 +82,9 @@ shared class CeylonModelManager()
             
             for (ceylonProject in projects) {
                 ceylonProject.build.performBuild(progress.newChild(1000));
+            }
+            if (refreshEditors) {
+                editorUtil.updateAnnotations();
             }
         } finally {
             handle.finish();
@@ -98,7 +101,7 @@ shared class CeylonModelManager()
         }
         value newTimer = Timer();
         newTimer.schedule(object extends TimerTask() {
-            run() => startBuild();
+            run() => startBuild(false);
         }, 1000);
         timer = newTimer;
     }

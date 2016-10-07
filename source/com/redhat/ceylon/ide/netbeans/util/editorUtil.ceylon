@@ -1,31 +1,36 @@
+
 import ceylon.interop.java {
-    JavaRunnable,
-    javaClass
+	JavaRunnable,
+	javaClass
 }
 
 import com.redhat.ceylon.ide.common.refactoring {
-    DefaultRegion
+	DefaultRegion
 }
 
 import java.awt {
-    EventQueue
+	EventQueue
 }
 
 import javax.swing.text {
-    Document
+	Document,
+	AbstractDocument
 }
 
 import org.netbeans.api.editor.document {
-    EditorDocumentUtils
+	EditorDocumentUtils
+}
+import org.netbeans.modules.parsing.impl {
+	Utilities
 }
 import org.openide.cookies {
-    EditorCookie
+	EditorCookie
 }
 import org.openide.filesystems {
-    FileObject
+	FileObject
 }
 import org.openide.windows {
-    TopComponent
+	TopComponent
 }
 
 shared object editorUtil {
@@ -57,5 +62,16 @@ shared object editorUtil {
         }
 
         return null;
+    }
+    
+    shared void updateAnnotations() {
+        for (node in TopComponent.registry.currentNodes) {
+            if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
+                is AbstractDocument doc = cookie.document,
+            	exists fo = EditorDocumentUtils.getFileObject(doc)) {
+
+				Utilities.revalidate(fo);
+            }            
+        }
     }
 }
