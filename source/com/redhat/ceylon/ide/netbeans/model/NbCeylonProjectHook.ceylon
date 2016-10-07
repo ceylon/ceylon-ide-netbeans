@@ -13,10 +13,7 @@ import ceylon.interop.java {
 
 shared class NbCeylonProjectHook(Project project) extends ProjectOpenedHook() {
 
-    print("NbCeylonProjectHook exists!");
-    
     shared actual void projectClosed() {
-        print("NbCeylonProjectHook closed!");
         value projects = Lookup.default.lookup(cls<NbCeylonProjects>());
         projects.removeProject(project);
     }
@@ -31,7 +28,6 @@ shared class NbCeylonProjectHook(Project project) extends ProjectOpenedHook() {
         if (exists ceylonDir = project.projectDirectory.getFileObject(".ceylon"),
             ceylonDir.folder) {
         
-            print("NbCeylonProjectHook opened!");
             projects.addProject(project);
         }
     }
