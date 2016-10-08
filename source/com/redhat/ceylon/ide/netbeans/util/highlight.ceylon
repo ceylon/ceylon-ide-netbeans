@@ -15,7 +15,8 @@ import java.awt {
     Color
 }
 import java.lang {
-    JInteger=Integer
+    JInteger=Integer,
+	StringBuffer
 }
 
 import javax.swing.text {
@@ -33,6 +34,73 @@ import org.netbeans.api.lexer {
     TokenHierarchy,
     Token
 }
+import java.util {
+	StringTokenizer
+}
+
+// TODO extract this and iterateTokens in ide-common
+"Highlights a message that contains code snippets in single quotes, and returns
+ an HTML representation of that message surrounded by `<html>` tags."
+shared String highlightQuotedMessage(String description, Boolean eliminateQuotes = true) {
+	
+	value result = StringBuffer();
+	result.append("<html>");
+	
+	iterateTokens(description, eliminateQuotes, (token, highlightMode) {
+		switch(highlightMode)
+		case (is Boolean) {
+			result.append(highlight(token));
+		}
+		case (is String) {
+			result.append(highlight(token));
+		}
+		else {
+			result.append(token);
+		}
+	});
+	
+	result.append("</html>");
+	
+	return result.string;
+}
+
+void iterateTokens(String description, Boolean eliminateQuotes,
+	Anything(String, <String|Boolean>?) consume) {
+	
+	value tokens = StringTokenizer(description, "'\"", true);
+	
+	while (tokens.hasMoreTokens()) {
+		String tok = tokens.nextToken();
+		if (tok=="'") {
+			if (!eliminateQuotes) {
+				consume(tok, null);
+			}
+			while (tokens.hasMoreTokens()) {
+				String token = tokens.nextToken();
+				if (token=="'") {
+					if (!eliminateQuotes) {
+						consume(token, null);
+					}
+					break;
+				} else if (token=="\"") {
+					consume(token, "stringAttrs");
+					while (tokens.hasMoreTokens()) {
+						value quoted = tokens.nextToken();
+						consume(quoted, "stringAttrs");
+						if (quoted=="\"") {
+							break;
+						}
+					}
+				} else {
+					consume(token, true);
+				}
+			}
+		} else {
+			consume(tok, null);
+		}
+	}
+}
+
 
 shared String highlight(String rawText) {
     value lang = ceylonLanguageHierarchy.language();

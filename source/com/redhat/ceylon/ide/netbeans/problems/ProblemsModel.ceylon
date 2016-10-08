@@ -29,6 +29,9 @@ import javax.swing.tree {
 import org.openide.filesystems {
 	FileObject
 }
+import com.redhat.ceylon.ide.netbeans.util {
+	highlightQuotedMessage
+}
 
 class ProblemsModel() {
 	value problemsByProject = HashMap<NbCeylonProject, Problems>();
@@ -116,7 +119,8 @@ class ProblemsTree() {
 				text = "``messagesNode.childCount`` messages in project";
 			} else if (is DefaultMutableTreeNode obj) {
 				if (is SourceMsg val = obj.userObject) {
-					text = val.startLine.string + ": " + val.message;
+					value html = highlightQuotedMessage("'//grey' " + val.message);
+					text = html.replaceFirst("//grey", val.startLine.string);
 					icon = switch(val.severity)
 					case (Severity.error) ImageIcon(nbIcons.error)
 					case (Severity.warning) ImageIcon(nbIcons.warning)
