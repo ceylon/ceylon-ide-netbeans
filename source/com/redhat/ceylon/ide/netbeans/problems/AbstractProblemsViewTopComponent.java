@@ -39,9 +39,12 @@ import org.openide.util.NbBundle.Messages;
 public abstract class AbstractProblemsViewTopComponent extends TopComponent {
 
     public AbstractProblemsViewTopComponent() {
-        initComponents();
+        preInitComponents();
+    	initComponents();
     }
 
+    abstract void preInitComponents();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

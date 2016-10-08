@@ -35,6 +35,7 @@
     </module>
     <module module="org.openide.nodes">
         <add module="org.openide.awt" version="current"/>
+        <add module="org.openide.text" version="current"/>
         <add module="org.openide.util" version="current"/>
     </module>
     <module module="org.netbeans.modules.editor.mimelookup">
