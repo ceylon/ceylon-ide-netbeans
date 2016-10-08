@@ -67,13 +67,15 @@ shared object editorUtil {
     }
     
     shared void updateAnnotations() {
-        for (node in TopComponent.registry.currentNodes) {
-            if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
-                is AbstractDocument doc = cookie.document,
-            	exists fo = EditorDocumentUtils.getFileObject(doc)) {
-
-				Utilities.revalidate(fo);
-            }            
-        }
+        if (exists nodes = TopComponent.registry.currentNodes) {
+	        for (node in nodes) {
+	            if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
+	                is AbstractDocument doc = cookie.document,
+	            	exists fo = EditorDocumentUtils.getFileObject(doc)) {
+	
+					Utilities.revalidate(fo);
+	            }            
+	        }
+	    }
     }
 }
