@@ -95,7 +95,7 @@ shared class CeylonParseController(NbEditorDocument doc) {
             return FileOwnerQuery.getOwner(dob.primaryFile);
         }
         
-        // We should have found something
+        "The current project should have been found"
         assert(false);
     }
 
