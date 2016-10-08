@@ -3,7 +3,8 @@ import ceylon.collection {
 }
 
 import com.redhat.ceylon.ide.common.model {
-	Severity
+	Severity,
+	CeylonProjectBuild
 }
 import com.redhat.ceylon.ide.netbeans {
 	nbIcons
@@ -32,6 +33,13 @@ import org.openide.filesystems {
 import com.redhat.ceylon.ide.netbeans.util {
 	highlightQuotedMessage
 }
+import org.netbeans.api.project {
+	Project
+}
+
+shared alias BuildMsg => CeylonProjectBuild<Project,FileObject,FileObject,FileObject>.BuildMessage;
+shared alias SourceMsg => CeylonProjectBuild<Project,FileObject,FileObject,FileObject>.SourceFileMessage;
+shared alias ProjectMsg => CeylonProjectBuild<Project,FileObject,FileObject,FileObject>.ProjectMessage;
 
 class ProblemsModel() {
 	value problemsByProject = HashMap<NbCeylonProject, Problems>();
