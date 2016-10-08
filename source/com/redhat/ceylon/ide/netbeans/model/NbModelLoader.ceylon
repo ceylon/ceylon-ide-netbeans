@@ -86,6 +86,7 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         }
     }
     
+    // TODO doesn't work for inner classes/enums
     shared actual ClassMirror? buildClassMirrorInternal(String name) {
         assert(exists _bootCp = bootCp);
         assert(exists _compilerCp = compilerCp);

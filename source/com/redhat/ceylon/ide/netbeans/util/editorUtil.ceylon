@@ -51,14 +51,16 @@ shared object editorUtil {
     
     shared Document? findOpenedDocument(FileObject fo) {
         for (tc in TopComponent.registry.opened) {
-            for (node in tc.activatedNodes) {
-                if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
-                    exists doc = cookie.document,
-                    EditorDocumentUtils.getFileObject(doc) == fo) {
-                    
-                    return doc;
-                }
-            }
+            if (exists activatedNodes = tc.activatedNodes) {
+	            for (node in activatedNodes) {
+	                if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
+	                    exists doc = cookie.document,
+	                    EditorDocumentUtils.getFileObject(doc) == fo) {
+	                    
+	                    return doc;
+	                }
+	            }
+	        }
         }
 
         return null;
