@@ -1,45 +1,55 @@
 import ceylon.interop.java {
-    javaClass,
-    JavaRunnable
+	javaClass,
+	JavaRunnable
 }
 
 import com.redhat.ceylon.ide.common.model {
-    ModelListenerAdapter,
-    ChangeAware,
-    ModelAliases
+	ModelListenerAdapter,
+	ChangeAware,
+	ModelAliases
 }
 import com.redhat.ceylon.ide.netbeans.platform {
-    nbPlatformServices
+	nbPlatformServices
+}
+import com.redhat.ceylon.ide.netbeans.problems {
+	ProjectMsg,
+	SourceMsg,
+	ProblemsViewTopComponent
 }
 import com.redhat.ceylon.ide.netbeans.util {
-    ProgressHandleMonitor,
-    editorUtil
+	ProgressHandleMonitor,
+	editorUtil
 }
 
 import java.util {
-    Timer,
-    TimerTask
+	Timer,
+	TimerTask
 }
 
 import org.netbeans.api.progress {
-    ProgressHandle
+	ProgressHandle
 }
 import org.netbeans.api.project {
-    Project
+	Project
 }
 import org.openide.filesystems {
-    FileObject,
-    FileChangeListener,
-    FileAttributeEvent,
-    FileEvent,
-    FileRenameEvent,
-    FileUtil
+	FileObject,
+	FileChangeListener,
+	FileAttributeEvent,
+	FileEvent,
+	FileRenameEvent,
+	FileUtil
 }
 import org.openide.util {
-    Lookup,
-    RequestProcessor {
-        requestProcessor=default
-    }
+	Lookup,
+	RequestProcessor {
+		requestProcessor=default
+	}
+}
+import org.openide.windows {
+	WindowManager {
+		windowManager=default
+	}
 }
 
 shared class CeylonModelManager()
@@ -89,6 +99,20 @@ shared class CeylonModelManager()
         } finally {
             handle.finish();
         }
+    }
+    
+    shared actual void buildMessagesChanged(CeylonProjectAlias project,
+        {SourceMsg*}? frontendMessages, {SourceMsg*}? backendMessages, {ProjectMsg*}? projectMessages) {
+		
+		windowManager.invokeWhenUIReady(JavaRunnable(() {
+			if (is NbCeylonProject project,
+				is ProblemsViewTopComponent view = windowManager.findTopComponent("ProblemsViewTopComponent")) {
+
+				view.open();
+				view.buildMessagesChanged(project, frontendMessages, backendMessages, projectMessages);			
+			}
+		}));
+
     }
     
     // File changes

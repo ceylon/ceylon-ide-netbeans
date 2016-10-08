@@ -21,6 +21,7 @@ module com.redhat.ceylon.ide.netbeansDependencies "current" {
     shared import org.netbeans.modules.parsing.api "current";
     shared import org.netbeans.modules.projectapi "current";
     shared import org.netbeans.modules.projectuiapi.base "current";
+	shared import org.netbeans.modules.settings "current";
     shared import org.netbeans.spi.editor.hints "current";
     shared import org.openide.dialogs "current";
     shared import org.openide.awt "current";

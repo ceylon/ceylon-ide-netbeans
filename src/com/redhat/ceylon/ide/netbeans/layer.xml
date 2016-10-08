@@ -15,6 +15,17 @@
                 <attr boolvalue="false" name="noIconInMenu"/>
             </file>
         </folder>
+        <folder name="Window">
+            <file name="com-redhat-ceylon-ide-netbeans-problems-ProblemsViewTopComponent.instance">
+                <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
+                <attr
+                    methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
+                <attr name="component" newvalue="com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent"/>
+                <attr name="preferredID" stringvalue="ProblemsViewTopComponent"/>
+                <attr name="displayName" stringvalue="Ceylon Problems"/>
+                <attr name="iconBase" stringvalue="icons/ceylon.png"/>
+            </file>
+        </folder>
     </folder>
     <folder name="Menu">
         <folder name="Tools">
@@ -29,6 +40,12 @@
                 <!--com.redhat.ceylon.ide.netbeans.editor.OrganizeImportsActions-->
                 <attr name="originalFile" stringvalue="Editors/text/x-ceylon/Actions/organize-imports.instance"/>
                 <attr intvalue="2430" name="position"/>
+            </file>
+        </folder>
+        <folder name="Window">
+            <file name="com-redhat-ceylon-ide-netbeans-problems-ProblemsViewTopComponent.shadow">
+                <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
+                <attr name="originalFile" stringvalue="Actions/Window/com-redhat-ceylon-ide-netbeans-problems-ProblemsViewTopComponent.instance"/>
             </file>
         </folder>
     </folder>
@@ -198,6 +215,72 @@
                     <attr name="template" boolvalue="true"/>
                     <attr name="instantiatingWizardURL" urlvalue="nbresloc:/com/redhat/ceylon/ide/netbeans/project/templates/CeylonApp.html"/>
                     <attr name="instantiatingIterator" methodvalue="com.redhat.ceylon.ide.netbeans.project.CeylonProjectWizardFactory.wizard"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="ProblemsViewTopComponent.settings">
+                <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+  <instance class="com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent"/>
+</settings>
+]]></file>
+        </folder>
+        <folder name="Modes">
+            <folder name="output">
+                <file name="ProblemsViewTopComponent.wstcref">
+                    <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
+<tc-ref version="2.0">
+  <tc-id id="ProblemsViewTopComponent"/>
+  <state opened="false"/>
+</tc-ref>
+]]></file>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="xml">
+        <folder name="entities">
+            <folder name="com_redhat_ceylon_ide_netbeans_problems">
+                <file name="ProblemsView" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
+                    <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
+                    <attr name="hint.originalPublicID" stringvalue="-//com.redhat.ceylon.ide.netbeans.problems//ProblemsView//EN"/>
+                </file>
+            </folder>
+        </folder>
+        <folder name="memory">
+            <folder name="com">
+                <folder name="redhat">
+                    <folder name="ceylon">
+                        <folder name="ide">
+                            <folder name="netbeans">
+                                <folder name="problems">
+                                    <file name="ProblemsViewTopComponent">
+                                    <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
+                                    <attr
+                                    name="settings.providerPath" stringvalue="xml/lookups//com_redhat_ceylon_ide_netbeans_problems/ProblemsView.instance"/>
+                                    </file>
+                                </folder>
+                            </folder>
+                        </folder>
+                    </folder>
+                </folder>
+            </folder>
+        </folder>
+        <folder name="lookups">
+            <folder name="com_redhat_ceylon_ide_netbeans_problems">
+                <file name="ProblemsView.instance">
+                    <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
+                    <attr
+                        methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
+                    <attr
+                        methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
+                    <attr name="settings.instanceClass" stringvalue="com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent"/>
+                    <attr name="settings.instanceOf" stringvalue="com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent"/>
+                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
                 </file>
             </folder>
         </folder>

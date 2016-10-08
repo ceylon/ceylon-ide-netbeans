@@ -69,6 +69,10 @@ shared object nbIcons {
     shared Image types => loadIcon("icons/ceylonTypes.png");
     shared Image correct => loadIcon("icons/redo.png");
 
+    shared Image error => loadIcon("icons/error.png");
+    shared Image warning => loadIcon("icons/warning.png");
+    shared Image info => loadIcon("icons/information.png");
+
     shared Image? forDeclaration(Tree.Declaration|Declaration decl) {
         return switch (decl)
             case (is Tree.AnyClass)
