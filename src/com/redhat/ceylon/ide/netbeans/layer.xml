@@ -113,6 +113,12 @@
                     <!--com.redhat.ceylon.ide.netbeans.editor.CeylonSyntaxErrorHighlightingTaskFactory-->
                     <attr name="instanceOf" stringvalue="org.netbeans.modules.parsing.spi.TaskFactory"/>
                 </file>
+                <folder name="HyperlinkProviders">
+                    <file name="com-redhat-ceylon-ide-netbeans-navigation-CeylonHyperlinkProvider.instance">
+                        <!--com.redhat.ceylon.ide.netbeans.navigation.CeylonHyperlinkProvider-->
+                        <attr name="instanceOf" stringvalue="org.netbeans.lib.editor.hyperlink.spi.HyperlinkProviderExt"/>
+                    </file>
+                </folder>
             </folder>
         </folder>
     </folder>

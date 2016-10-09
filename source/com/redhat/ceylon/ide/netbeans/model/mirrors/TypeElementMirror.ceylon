@@ -1,3 +1,6 @@
+import com.redhat.ceylon.ide.common.model.mirror {
+	IdeClassMirror
+}
 import com.redhat.ceylon.model.loader {
 	AbstractModelLoader {
 		getCacheKeyByModule
@@ -12,6 +15,9 @@ import com.redhat.ceylon.model.loader.mirror {
 }
 import com.redhat.ceylon.model.typechecker.model {
 	Module
+}
+import com.sun.tools.javac.code {
+	Symbol
 }
 
 import java.util {
@@ -38,7 +44,7 @@ shared class TypeElementMirror(shared TypeElement te,
                                enclosingClass = null,
                                enclosingMethod = null)
 		extends AnnotatedMirror(te)
-        satisfies ClassMirror {
+        satisfies IdeClassMirror {
     
     variable String? cacheKey = null;
 
@@ -154,5 +160,14 @@ shared class TypeElementMirror(shared TypeElement te,
     
     typeParameters
              => transform<TypeParameterElement,MTypeParameterMirror>(te.typeParameters, TypeParameterMirror);
+
+    fileName => if (is Symbol.ClassSymbol te) then te.classfile.name else "unknown";
     
+    fullPath => if (is Symbol.ClassSymbol te) 
+    	then te.classfile.toUri().string.removeInitial("jar:file:")
+    	else "unknown";
+    
+    isBinary => true;
+    
+    isCeylon => findAnnotation(te, Annotations.ceylon) exists;
 }

@@ -41,4 +41,5 @@ module com.redhat.ceylon.ide.netbeansDependencies "current" {
     shared import org.netbeans.modules.editor.settings "current";
     shared import org.netbeans.api.java.classpath "current";
     //shared import org.netbeans.modules.java.j2seproject "current";
+    shared import nb.javac.impl "current";
 }
