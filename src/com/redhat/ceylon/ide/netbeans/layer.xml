@@ -119,6 +119,10 @@
                         <attr name="instanceOf" stringvalue="org.netbeans.lib.editor.hyperlink.spi.HyperlinkProviderExt"/>
                     </file>
                 </folder>
+                <file name="com-redhat-ceylon-ide-netbeans-editor-MarkOccurrencesHighlightsLayerFactory.instance">
+                    <!--com.redhat.ceylon.ide.netbeans.editor.MarkOccurrencesHighlightsLayerFactory-->
+                    <attr name="instanceOf" stringvalue="org.netbeans.spi.editor.highlighting.HighlightsLayerFactory"/>
+                </file>
             </folder>
         </folder>
     </folder>

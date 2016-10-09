@@ -16,6 +16,7 @@
         <add module="java.desktop" version="7"/>
         <add module="org.netbeans.modules.editor.lib" version="current"/>
         <add module="org.openide.text" version="current"/>
+        <add module="org.openide.loaders" version="current"/>
     </module>
     <module module="org.netbeans.modules.parsing.api">
         <add module="org.openide.filesystems" version="current"/>
