@@ -13,7 +13,6 @@
     <property name="out.repo" location="modules" />
 
     <property name="ceylon.repo.dir" location="${user.home}/.ceylon/repo" />
-    <property name="nb.repo.dir" location="${basedir}/flat-repo" />
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
@@ -35,7 +34,7 @@
 
         <reposet id="reposet.compile">
             <repo url="${out.repo}" />
-            <repo url="flat:${nb.repo.dir}"/>
+            <repo url="aether:./settings.xml"/>
             <repo url="${basedir}/../ceylon-ide-common/repo"/>
             <repo url="${ceylon.repo.dir}" />
         </reposet>
@@ -43,7 +42,6 @@
 
     <!-- Clean -->
     <target name="clean-ceylon">
-        <delete dir="${basedir}/flat-repo"/>
         <delete dir="${basedir}/modules"/>
     </target>
     <target name="clean" depends="clean-ceylon,projectized-common.clean"/>    
@@ -57,19 +55,6 @@
                 <include name="project.properties"/>
             </srcfiles>
         </uptodate>
-    </target>
-    <target name="ceylon-init-flatrepo" depends="nb-deps-up-to-date" unless="nb.deps.uptodate">
-        <echo message="Preparing flat repository"/>
-        <mkdir dir="${basedir}/flat-repo"/>
-        <foreach target="copy-netbeans-dep" param="filepath">
-            <fileset dir="${basedir}/build/public-package-jars" casesensitive="yes">
-                <include name="*.jar"/>
-            </fileset>
-        </foreach>
-        <copy file="${netbeans.home}/../ide/modules/org-netbeans-modules-parsing-api.jar"
-                tofile="${basedir}/flat-repo/org.netbeans.modules.parsing.api-current.jar"/>
-        <copy file="${netbeans.home}/../java/modules/ext/nb-javac-impl.jar"
-                tofile="${basedir}/flat-repo/nb.javac.impl-current.jar"/>
     </target>
     <target name="ceylon-init-cluster">
         <echo message="Gathering Ceylon dependencies"/>
@@ -89,21 +74,7 @@
             <fileset dir="${basedir}/../ceylon/dist/dist"/>
         </copy>
     </target>
-    <target name="copy-netbeans-dep">
-        <basename property="filename" file="${filepath}" />
-        <propertyregex property="filename2"
-                       input="${filename}"
-                       regexp="-"
-                       replace="."
-                       global="yes"/>
-        <propertyregex property="filename3"
-                       input="${filename2}"
-                       regexp="\.jar"
-                       replace="-current.jar"/>
-        <copy file="${filepath}"
-              tofile="${basedir}/flat-repo/${filename3}"/>
-    </target>
-    <target name="init" depends="harness.init,ceylon-init-flatrepo,ceylon-init-cluster"/>
+    <target name="init" depends="harness.init,ceylon-init-cluster"/>
 
     <!-- Compile -->
     <target name="compile-ceylon" depends="ceylondefs">
