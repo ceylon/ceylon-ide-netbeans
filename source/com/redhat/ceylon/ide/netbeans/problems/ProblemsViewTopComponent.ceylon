@@ -65,6 +65,10 @@ shared class ProblemsViewTopComponent()
 		return treeModel.model;
 	}
 	
+	shared void closeProject(NbCeylonProject project) {
+		treeModel.closeProject(project);
+	}
+	
 	shared void buildMessagesChanged(NbCeylonProject project, {SourceMsg*}? frontendMessages,
 		{SourceMsg*}? backendMessages, {ProjectMsg*}? projectMessages) {
 
@@ -80,14 +84,12 @@ shared class ProblemsViewTopComponent()
 	}
 	
 	"Used to serialize the component's state by reflection."
-	suppressWarnings("unusedDeclaration")
-	void writeProperties(Properties p) {
+	shared void writeProperties(Properties p) {
 		//p.setProperty("version", "1.0");
 	}
 	
 	"Used to deserialize the component's state by reflection."
-	suppressWarnings("unusedDeclaration")
-	void readProperties(Properties p) {
+	shared void readProperties(Properties p) {
 		//String version = p.getProperty("version");
 	}
 	
