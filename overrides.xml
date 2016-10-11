@@ -1,59 +1,59 @@
 <overrides xmlns="http://www.ceylon-lang.org/xsd/overrides">
     <module module="org.netbeans.api:org-openide-filesystems">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82" shared="true"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81" shared="true"/>
     </module>
     <module module="org.netbeans.api:org-openide-text">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82" shared="true"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81" shared="true"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-modules-editor-lib">
-        <add module="org.netbeans.api:org-netbeans-modules-editor-document" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-netbeans-modules-editor-document" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-modules-editor-document">
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-modules-editor">
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
         <add module="java.desktop" version="7"/>
-        <add module="org.netbeans.api:org-netbeans-modules-editor-lib" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-text" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-loaders" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-netbeans-modules-editor-lib" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-text" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-loaders" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-modules-parsing-api">
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-modules-projectapi">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-modules-csl-api">
-        <add module="org.netbeans.api:org-netbeans-modules-csl-types" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-netbeans-modules-parsing-api" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-netbeans-modules-lexer" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-netbeans-modules-editor-indent" version="RELEASE82"/>
+        <!--add module="org.netbeans.api:org-netbeans-modules-csl-types" version="RELEASE81"/-->
+        <add module="org.netbeans.api:org-netbeans-modules-parsing-api" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-netbeans-modules-lexer" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-netbeans-modules-editor-indent" version="RELEASE81"/>
         <filter>
         	<exclude path="org/netbeans/modules/csl/api/OffsetRange"/>
         </filter>
     </module>
     <module module="org.netbeans.api:org-openide-nodes">
-        <add module="org.netbeans.api:org-openide-awt" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-text" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-awt" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-text" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-modules-editor-mimelookup">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-openide-util-lookup">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-openide-dialogs">
-        <add module="org.netbeans.api:org-netbeans-api-progress" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-netbeans-api-progress" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
     </module>
     
     <module module="org.netbeans.api:org-openide-loaders">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-nodes" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-nodes" version="RELEASE81"/>
         <filter>
             <exclude path="org/openide/text/**"/>
         </filter>
@@ -66,33 +66,33 @@
     </module>
     
     <module module="org.netbeans.api:org-netbeans-api-java-classpath">
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
     </module>
     
     <module module="org.netbeans.api:org-netbeans-modules-java-source">
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-netbeans-api-java-classpath" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-netbeans-libs-javacapi" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-netbeans-api-java-classpath" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-netbeans-libs-javacapi" version="RELEASE81"/>
     </module>
     
     <module module="org.netbeans.api:org-netbeans-modules-java-project">
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-openide-windows">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-nodes" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-nodes" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-spi-editor-hints">
-        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-core-multiview">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
-        <add module="org.netbeans.api:org-openide-awt" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
+        <add module="org.netbeans.api:org-openide-awt" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.api:org-netbeans-api-visual">
-        <add module="org.netbeans.api:org-openide-util" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-openide-util" version="RELEASE81"/>
     </module>
     <module module="org.netbeans.modules:org-netbeans-libs-javacimpl">
-        <add module="org.netbeans.api:org-netbeans-libs-javacapi" version="RELEASE82"/>
+        <add module="org.netbeans.api:org-netbeans-libs-javacapi" version="RELEASE81"/>
     </module>
 </overrides>
