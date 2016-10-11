@@ -70,6 +70,9 @@
     </module>
     
     <module module="org.netbeans.api:org-netbeans-modules-java-source">
+        <filter>
+            <exclude path="org/netbeans/api/java/source/*"/>
+        </filter>
         <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
         <add module="org.netbeans.api:org-netbeans-api-java-classpath" version="RELEASE81"/>
         <add module="org.netbeans.api:org-netbeans-libs-javacapi" version="RELEASE81"/>
