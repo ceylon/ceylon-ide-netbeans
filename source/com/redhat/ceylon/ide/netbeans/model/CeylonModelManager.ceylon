@@ -135,7 +135,6 @@ shared class CeylonModelManager()
     
     shared actual void fileChanged(FileEvent evt) {
         if (!evt.file.virtual) {
-            print("file changed: " + evt.file.string);
             notifyChanges({NativeFileContentChange(evt.file)});
         }
     }

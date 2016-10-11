@@ -101,7 +101,6 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         
         variable TypeElement? te = null;
         
-        // TODO is this expensive?
         js.runUserActionTask(object satisfies Task<CompilationController> {
             shared actual void run(CompilationController ctrl) {
                 te = ctrl.elements.getTypeElement(javaString(unparameterized));

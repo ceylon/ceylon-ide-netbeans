@@ -122,17 +122,21 @@ class ProblemsTree() {
 			
 			if (obj == errorsNode) {
 				icon = ImageIcon(nbIcons.error);
-				text = "``errorsNode.childCount`` errors in project";
+				text = "``problemsModel.countErrors()`` errors in project";
 			} else if (obj == warningsNode) {
 				icon = ImageIcon(nbIcons.warning);
-				text = "``warningsNode.childCount`` warnings in project";
+				text = "``problemsModel.countWarnings()`` warnings in project";
 			} else if (obj == messagesNode) {
 				icon = ImageIcon(nbIcons.info);
-				text = "``messagesNode.childCount`` messages in project";
+				text = "``problemsModel.count(Severity.info)`` messages in project";
 			} else if (is DefaultMutableTreeNode obj) {
 				if (is SourceMsg val = obj.userObject) {
-					value html = highlightQuotedMessage("'//grey' " + val.message);
-					text = html.replaceFirst("//grey", val.startLine.string);
+					if (hasFocus) {
+						text = val.startLine.string + " " + val.message;
+					} else {
+						value html = highlightQuotedMessage("'//grey' " + val.message);
+						text = html.replaceFirst("//grey", val.startLine.string);
+					}
 					icon = switch(val.severity)
 					case (Severity.error) ImageIcon(nbIcons.error)
 					case (Severity.warning) ImageIcon(nbIcons.warning)
