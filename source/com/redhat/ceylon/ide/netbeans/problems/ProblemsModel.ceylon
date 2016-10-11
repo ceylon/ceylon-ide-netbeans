@@ -87,6 +87,10 @@ class ProblemsModel() {
 			=> problemsByProject.items.fold(0)((sum, item) => sum + item.countErrors());
 	
 	shared {BuildMsg*} allMessages => expand(problemsByProject.items.map(Problems.allMessages));
+	
+	shared void delete(NbCeylonProject project) {
+		problemsByProject.remove(project);
+	}
 }
 
 class ProblemsTree() {
@@ -143,17 +147,11 @@ class ProblemsTree() {
 		}
 	};
 	
-	shared void updateMessages(NbCeylonProject project, {SourceMsg*}? frontendMessages,
-		{SourceMsg*}? backendMessages, {ProjectMsg*}? projectMessages) {
-		
-		problemsModel.updateProblems(project, frontendMessages, backendMessages, projectMessages);
-		
+	void updateTree() {
 		errorsNode.removeAllChildren();
 		warningsNode.removeAllChildren();
 		messagesNode.removeAllChildren();
-
 		value bySeverity = problemsModel.allMessages.group((msg) => msg.severity);
-		
 		for (severity -> messages in bySeverity) {
 			value byFile = messages.group((msg) => if (is SourceMsg msg) then msg.file else noFile);
 			
@@ -185,7 +183,19 @@ class ProblemsTree() {
 				}
 			}
 		}
-		
 		model.reload();
+	}
+	
+	shared void updateMessages(NbCeylonProject project, {SourceMsg*}? frontendMessages,
+		{SourceMsg*}? backendMessages, {ProjectMsg*}? projectMessages) {
+		
+		problemsModel.updateProblems(project, frontendMessages, backendMessages, projectMessages);
+		
+		updateTree();
+	}
+	
+	shared void closeProject(NbCeylonProject project) {
+		problemsModel.delete(project);
+		updateTree();
 	}
 }

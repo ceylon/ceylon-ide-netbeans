@@ -1,20 +1,42 @@
-import org.netbeans.spi.project.ui {
-    ProjectOpenedHook
+import ceylon.interop.java {
+	cls=javaClass,
+	JavaRunnable
 }
+
+import com.redhat.ceylon.ide.netbeans.problems {
+	ProblemsViewTopComponent
+}
+
 import org.netbeans.api.project {
-    Project
+	Project
+}
+import org.netbeans.spi.project.ui {
+	ProjectOpenedHook
 }
 import org.openide.util {
-    Lookup
+	Lookup
 }
-import ceylon.interop.java {
-    cls=javaClass
+import org.openide.windows {
+	WindowManager {
+		windowManager=default
+	}
 }
 
 shared class NbCeylonProjectHook(Project project) extends ProjectOpenedHook() {
 
     shared actual void projectClosed() {
         value projects = Lookup.default.lookup(cls<NbCeylonProjects>());
+
+        if (exists ceylonProject = projects.getProject(project)) {
+            windowManager.invokeWhenUIReady(JavaRunnable(() {
+                if (is NbCeylonProject ceylonProject,
+                    is ProblemsViewTopComponent view = windowManager.findTopComponent("ProblemsViewTopComponent")) {
+                    
+                    view.closeProject(ceylonProject);			
+                }
+            }));
+        }
+
         projects.removeProject(project);
     }
     

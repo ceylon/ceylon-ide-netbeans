@@ -61,6 +61,9 @@ import org.openide.windows {
 import java.util.concurrent {
 	Future
 }
+import java.lang.ref {
+	WeakReference
+}
 
 
 shared CeylonParseController? findParseController(Document doc) {
@@ -69,11 +72,12 @@ shared CeylonParseController? findParseController(Document doc) {
     if (is NbEditorDocument doc) {
         CeylonParseController cpc;
 
-        if (is CeylonParseController existing = doc.getProperty(docProperty)) {
-            cpc = existing;
+        if (is WeakReference<out Anything> existing = doc.getProperty(docProperty),
+            is CeylonParseController c = existing.get()) {
+            cpc = c;
         } else {
             cpc = CeylonParseController(doc);
-            doc.putProperty(docProperty, cpc);
+            doc.putProperty(docProperty, WeakReference(cpc));
         }
         
         return cpc;
