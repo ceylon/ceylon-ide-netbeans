@@ -6,3 +6,5 @@
 /nbproject/private/
 /src/rebel.xml
 /.ceylon/attachments.properties
+/release/embeddedDist/
+/release/modules/
