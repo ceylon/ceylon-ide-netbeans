@@ -41,7 +41,7 @@ import javax.lang.model.type {
 }
 
 shared class TypeElementMirror(shared TypeElement te,
-                               enclosingClass = null,
+							   ClassMirror? forcedEnclosingClass = null,
                                enclosingMethod = null)
 		extends AnnotatedMirror(te)
         satisfies IdeClassMirror {
@@ -105,7 +105,11 @@ shared class TypeElementMirror(shared TypeElement te,
         return mirrors;
     }
     
-    shared actual ClassMirror? enclosingClass;
+    enclosingClass 
+            => forcedEnclosingClass 
+    			else (if (is TypeElement parent = te.enclosingElement)
+    			then TypeElementMirror(parent)
+    			else null);
     
     shared actual MethodMirror? enclosingMethod;
     
