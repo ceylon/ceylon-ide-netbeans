@@ -55,10 +55,13 @@ shared class CeylonSemanticAnalyzer()
             shared actual void visitImportPath(Tree.ImportPath path) {
                 super.visitImportPath(path);
                 
-                value start = path.startIndex.intValue();
-                value end = path.endIndex.intValue();
-                value range = OffsetRange(start, end);
-                highlights.put(range, singleton(ColoringAttributes.custom1));
+                if (exists startIndex = path.startIndex,
+                	exists endIndex = path.endIndex) {
+	                value start = startIndex.intValue();
+	                value end = endIndex.intValue();
+	                value range = OffsetRange(start, end);
+	                highlights.put(range, singleton(ColoringAttributes.custom1));
+	            }
             }
 
             shared actual void visitQualifiedMemberExpression(
