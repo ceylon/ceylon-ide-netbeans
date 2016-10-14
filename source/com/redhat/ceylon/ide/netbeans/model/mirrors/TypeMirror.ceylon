@@ -1,61 +1,77 @@
+import com.redhat.ceylon.ide.common.model {
+	unknownClassMirror
+}
 import com.redhat.ceylon.model.loader.mirror {
-    MTypeMirror=TypeMirror,
-    TypeParameterMirror,
-    ClassMirror,
-    MTypeKind=TypeKind
+	MTypeMirror=TypeMirror,
+	MTypeKind=TypeKind
 }
 
 import java.util {
-    List,
-    Collections
+	Collections,
+	Arrays
 }
 
 import javax.lang.model.element {
-    TypeElement
+	TypeElement,
+	TypeParameterElement
 }
 import javax.lang.model.type {
-    JTypeMirror=TypeMirror,
-    DeclaredType,
-    ArrayType
-}
-import com.redhat.ceylon.ide.common.model {
-    unknownClassMirror
+	JTypeMirror=TypeMirror,
+	DeclaredType,
+	ArrayType,
+	WildcardType,
+	TypeVariable
 }
 
 class TypeMirror(JTypeMirror type) satisfies MTypeMirror {
     
-    shared actual MTypeMirror? componentType {
-        if (is ArrayType type) {
-            return TypeMirror(type.componentType);
-        }
-        return null;
-    }
+    componentType =>
+        if (is ArrayType type) 
+        then TypeMirror(type.componentType)
+        else null;
     
-    shared actual ClassMirror? declaredClass {
+    declaredClass =>
         if (is DeclaredType type,
-            is TypeElement el = type.asElement()) {
-            
-            return TypeElementMirror(el);
-        }
-        return unknownClassMirror;
-    }
+            is TypeElement el = type.asElement())
+        then TypeElementMirror(el)
+        else unknownClassMirror;
     
-    shared actual MTypeKind? kind => MTypeKind.valueOf(type.kind.name());
+    kind => MTypeKind.valueOf(type.kind.name());
     
-    shared actual MTypeMirror? lowerBound => null;
+    lowerBound =>
+        if (is WildcardType type,
+    		exists bound = type.superBound)
+    	then TypeMirror(bound)
+    	else null;
     
     primitive => type.kind.primitive;
     
-    shared actual String qualifiedName => type.string; // TODO
+    qualifiedName =>
+        if (exists pos = type.string.firstOccurrence('<'))
+        then type.string.spanTo(pos - 1)
+        else type.string;
     
-    shared actual MTypeMirror? qualifyingType => null;
+    shared actual MTypeMirror? qualifyingType => null; // TODO probably?
     
-    shared actual Boolean raw => false;
+    shared actual Boolean raw => false; // TODO I think
     
-    shared actual List<MTypeMirror> typeArguments
-            => Collections.emptyList<MTypeMirror>();
+    typeArguments =>
+            if (is DeclaredType type)
+    		then Arrays.asList<MTypeMirror>(
+        		for (arg in type.typeArguments)
+        		TypeMirror(arg)
+    		)
+    		else Collections.emptyList<MTypeMirror>();
     
-    shared actual TypeParameterMirror? typeParameter => null;
+    typeParameter => 
+            if (is TypeVariable type,
+    			is TypeParameterElement element = type.asElement())
+    		then TypeParameterMirror(element)
+    		else null;
     
-    shared actual MTypeMirror? upperBound => null;
+    upperBound =>
+        if (is WildcardType type,
+    		exists bound = type.extendsBound)
+    	then TypeMirror(bound)
+    	else null;
 }

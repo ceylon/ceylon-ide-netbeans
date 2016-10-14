@@ -21,8 +21,7 @@ import com.sun.tools.javac.code {
 }
 
 import java.util {
-	List,
-	ArrayList
+	Arrays
 }
 
 import javax.lang.model.element {
@@ -65,45 +64,28 @@ shared class TypeElementMirror(shared TypeElement te,
     
     defaultAccess => !(public || protected || te.modifiers.contains(Modifier.private));
     
-    shared actual List<FieldMirror> directFields {
-        value mirrors = ArrayList<FieldMirror>();
-        
-        for (el in te.enclosedElements) {
-            if (el.kind.field, is VariableElement el) {
-                mirrors.add(FieldElementMirror(el));
-            }
-        }
-        
-        return mirrors;
-    }
+    directFields => 
+            Arrays.asList<FieldMirror>(
+		        for (el in te.enclosedElements)
+	            if (el.kind.field, is VariableElement el)
+	            FieldElementMirror(el)
+		    );
     
-    shared actual List<ClassMirror> directInnerClasses {
-        value mirrors = ArrayList<ClassMirror>();
-        
-        for (el in te.enclosedElements) {
-            if (el.kind in [ElementKind.\iCLASS, ElementKind.\iINTERFACE],
-                is TypeElement el) {
-                
-                mirrors.add(TypeElementMirror(el, this));
-            }
-        }
-        
-        return mirrors;
-    }
+    directInnerClasses => 
+            Arrays.asList<ClassMirror>(
+		        for (el in te.enclosedElements)
+	            if (el.kind in [ElementKind.\iCLASS, ElementKind.\iINTERFACE],
+	                is TypeElement el)
+	            TypeElementMirror(el, this)
+		    );
     
-    shared actual List<MethodMirror> directMethods {
-        value mirrors = ArrayList<MethodMirror>();
-        
-        for (el in te.enclosedElements) {
-            if (el.kind in [ElementKind.method, ElementKind.constructor, ElementKind.staticInit],
-                is ExecutableElement el) {
-                
-                mirrors.add(ExecutableElementMirror(el, this));
-            }
-        }
-        
-        return mirrors;
-    }
+    directMethods =>
+        Arrays.asList<MethodMirror>(
+	        for (el in te.enclosedElements)
+	            if (el.kind in [ElementKind.method, ElementKind.constructor, ElementKind.staticInit],
+	                is ExecutableElement el)
+                ExecutableElementMirror(el, this)
+	    );
     
     enclosingClass 
             => forcedEnclosingClass 
@@ -160,7 +142,9 @@ shared class TypeElementMirror(shared TypeElement te,
     
     static => te.modifiers.contains(Modifier.static);
     
-    superclass => TypeMirror(te.superclass);
+    superclass => if (\iinterface || qualifiedName == "java.lang.Object")
+    	then null
+    	else TypeMirror(te.superclass);
     
     typeParameters
              => transform<TypeParameterElement,MTypeParameterMirror>(te.typeParameters, TypeParameterMirror);

@@ -1,52 +1,52 @@
 import ceylon.interop.java {
-    javaClass,
-    createJavaObjectArray,
-    javaString
+	javaClass,
+	createJavaObjectArray,
+	javaString
 }
 
 import com.redhat.ceylon.ide.common.model {
-    IdeModelLoader,
-    BaseIdeModule
+	IdeModelLoader,
+	BaseIdeModule
 }
 import com.redhat.ceylon.ide.netbeans.model.mirrors {
-    TypeElementMirror
+	TypeElementMirror
 }
 import com.redhat.ceylon.model.cmr {
-    ArtifactResult
+	ArtifactResult
 }
 import com.redhat.ceylon.model.loader.mirror {
-    ClassMirror,
-    MethodMirror
+	ClassMirror,
+	MethodMirror
 }
 import com.redhat.ceylon.model.typechecker.model {
-    Modules
+	Modules
 }
 
 import javax.lang.model.element {
-    TypeElement
+	TypeElement
 }
 
 import org.netbeans.api.java.classpath {
-    ClassPath
+	ClassPath
 }
 import org.netbeans.api.java.project.classpath {
-    ProjectClassPathModifier
+	ProjectClassPathModifier
 }
 import org.netbeans.api.java.source {
-    ClasspathInfo,
-    JavaSource,
-    Task,
-    CompilationController
+	ClasspathInfo,
+	JavaSource,
+	Task,
+	CompilationController
 }
 import org.netbeans.api.project {
-    Project
+	Project
 }
 import org.netbeans.spi.java.classpath {
-    ClassPathProvider
+	ClassPathProvider
 }
 import org.openide.filesystems {
-    FileObject,
-    FileUtil
+	FileObject,
+	FileUtil
 }
 
 class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceMapper msm, Modules modules)
@@ -111,7 +111,7 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
             return TypeElementMirror(_te);
         }
         
-        //print("not found ``simpleName`` => ``name``");
+        //print("not found ``unparameterized`` => ``name``");
         return null;
     }
     
