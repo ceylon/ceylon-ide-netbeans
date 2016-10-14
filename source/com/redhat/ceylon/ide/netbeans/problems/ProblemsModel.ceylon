@@ -131,7 +131,7 @@ class ProblemsTree() {
 				text = "``problemsModel.count(Severity.info)`` messages in project";
 			} else if (is DefaultMutableTreeNode obj) {
 				if (is SourceMsg val = obj.userObject) {
-					if (hasFocus) {
+					if (sel) {
 						text = val.startLine.string + " " + val.message;
 					} else {
 						value html = highlightQuotedMessage("'//grey' " + val.message);
