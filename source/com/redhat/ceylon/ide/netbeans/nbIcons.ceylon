@@ -46,9 +46,11 @@ shared object nbIcons {
         return image;
     }
 
+    shared Image ceylon => loadIcon("icons/ceylon.png");
     shared Image ceylonFile => loadIcon("icons/ceylonFile.png");
     shared Image modules => loadIcon("icons/descriptor.png");
     shared Image packages => loadIcon("icons/packageDescriptor.png");
+    shared Image sourceBadge => loadIcon("icons/jarSourceBadge.png");
     
     shared Image classes => loadIcon("icons/class.png");
     shared Image interfaces => loadIcon("icons/interface.png");

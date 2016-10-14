@@ -22,6 +22,7 @@ import org.openide.windows {
 	}
 }
 
+"Bootstraps a global Ceylon model if this [[project]] is a Ceylon project."
 shared class NbCeylonProjectHook(Project project) extends ProjectOpenedHook() {
 
     shared actual void projectClosed() {
