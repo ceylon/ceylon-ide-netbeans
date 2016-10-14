@@ -15,12 +15,15 @@ import javax.lang.model.element {
 import javax.lang.model.type {
     JTypeMirror=TypeMirror
 }
+import ceylon.interop.java {
+	javaString
+}
 
 class AnnotationMirror(JAnnotationMirror ann) satisfies MAnnotationMirror {
     
     Anything convertValue(Anything val) {
         if (is VariableElement val) {
-            return val.constantValue; 
+            return val.constantValue else javaString(val.simpleName.string); 
         }
         if (is JAnnotationMirror val) {
             return AnnotationMirror(val);
