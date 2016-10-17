@@ -20,6 +20,7 @@ module com.redhat.ceylon.ide.netbeansDependencies "current" {
 	shared import maven:"org.netbeans.api:org-netbeans-modules-lexer" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-modules-parsing-api" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-modules-projectapi" "RELEASE81";
+	shared import maven:"org.netbeans.api:org-netbeans-modules-projectuiapi" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-modules-projectuiapi-base" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-modules-settings" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-spi-editor-hints" "RELEASE81";
@@ -35,12 +36,16 @@ module com.redhat.ceylon.ide.netbeansDependencies "current" {
 	shared import maven:"org.netbeans.api:org-openide-filesystems" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-openide-filesystems-compat8" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-openide-filesystems-nb" "RELEASE81";
+	shared import maven:"org.netbeans.api:org-netbeans-modules-java-platform" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-modules-java-project" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-modules-java-source" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-modules-java-source-base" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-modules-editor-settings" "RELEASE81";
 	shared import maven:"org.netbeans.api:org-netbeans-api-java-classpath" "RELEASE81";
-	//shared import org.netbeans.modules.java.j2seproject "RELEASE81";
-	
+
+	// Friend modules (not API)
+	shared import maven:"org.netbeans.modules:org-netbeans-modules-java-j2seproject" "RELEASE81";
+	shared import maven:"org.netbeans.modules:org-netbeans-modules-java-api-common" "RELEASE81";
+	shared import maven:"org.netbeans.api:org-netbeans-modules-project-ant" "RELEASE81";
 	shared import maven:"org.netbeans.external:nb-javac-impl" "RELEASE81";
 }

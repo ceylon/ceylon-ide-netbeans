@@ -1,6 +1,5 @@
 import ceylon.interop.java {
 	javaClass,
-	createJavaObjectArray,
 	javaString
 }
 
@@ -29,9 +28,6 @@ import javax.lang.model.element {
 import org.netbeans.api.java.classpath {
 	ClassPath
 }
-import org.netbeans.api.java.project.classpath {
-	ProjectClassPathModifier
-}
 import org.netbeans.api.java.source {
 	ClasspathInfo,
 	JavaSource,
@@ -45,8 +41,10 @@ import org.netbeans.spi.java.classpath {
 	ClassPathProvider
 }
 import org.openide.filesystems {
-	FileObject,
-	FileUtil
+	FileObject
+}
+import org.netbeans.modules.parsing.impl {
+	Utilities
 }
 
 class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceMapper msm, Modules modules)
@@ -77,16 +75,10 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
     
     shared actual void addModuleToClasspathInternal(ArtifactResult? artifact) {
         if (exists file = artifact?.artifact()) {         
-            value fo = FileUtil.toFileObject(file);
-            ProjectClassPathModifier.addRoots(
-                createJavaObjectArray({FileUtil.getArchiveRoot(fo).toURI()}),
-                project.sourceFolders.first?.nativeResource,
-                ClassPath.compile
-            );
+            project.addDependencyToClasspath(file);
         }
     }
     
-    // TODO doesn't work for inner classes/enums
     shared actual ClassMirror? buildClassMirrorInternal(String name) {
         assert(exists _bootCp = bootCp);
         assert(exists _compilerCp = compilerCp);
@@ -101,11 +93,17 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         
         variable TypeElement? te = null;
         
-        js.runUserActionTask(object satisfies Task<CompilationController> {
-            shared actual void run(CompilationController ctrl) {
-                te = ctrl.elements.getTypeElement(javaString(unparameterized));
-            }
-        }, true);
+        Utilities.acquireParserLock();
+        
+        try {
+	        js.runUserActionTask(object satisfies Task<CompilationController> {
+	            shared actual void run(CompilationController ctrl) {
+	                te = ctrl.elements.getTypeElement(javaString(unparameterized));
+	            }
+	        }, true);
+	    } finally {
+	        Utilities.releaseParserLock();
+	    }
         
         if (exists _te = te) {
             return TypeElementMirror(_te);

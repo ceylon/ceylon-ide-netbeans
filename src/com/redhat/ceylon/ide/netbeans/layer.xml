@@ -295,4 +295,14 @@
             </folder>
         </folder>
     </folder>
+	<folder name="Projects">
+        <folder name="com-redhat-ceylon-ide-netbeans-project">
+            <folder name="Nodes">
+                <file name="com-redhat-ceylon-ide-netbeans-project-CeylonProjectNodeFactory.instance">
+                    <!--com.redhat.ceylon.ide.netbeans.project.CeylonProjectNodeFactory-->
+                    <attr intvalue="10" name="position"/>
+                </file>
+            </folder>
+        </folder>
+	</folder>
 </filesystem>

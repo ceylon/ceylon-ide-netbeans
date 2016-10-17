@@ -1,30 +1,49 @@
+import ceylon.interop.java {
+	createJavaObjectArray
+}
+
+import com.redhat.ceylon.ide.netbeans {
+	nbIcons
+}
 import com.redhat.ceylon.ide.netbeans.model {
-    NbCeylonProjects
+	NbCeylonProjectHook
 }
 
 import java.beans {
-    PropertyChangeListener
+	PropertyChangeListener
+}
+import java.lang {
+	ObjectArray
 }
 
 import javax.swing {
-    Icon
+	Icon,
+	ImageIcon
+}
+import javax.swing.event {
+	ChangeListener
 }
 
 import org.netbeans.api.project {
-    Project,
-    ProjectInformation
+	Project,
+	ProjectInformation,
+	Sources,
+	SourceGroup
 }
 import org.netbeans.spi.project {
-    ProjectState
+	ProjectState
 }
 import org.openide.filesystems {
-    FileObject
+	FileObject
 }
 import org.openide.util {
-    Lookup
+	Lookup
 }
 import org.openide.util.lookup {
-    Lookups
+	Lookups
+}
+import org.netbeans.spi.project.support {
+	GenericSources
 }
 
 shared class CeylonProject(shared actual FileObject projectDirectory, ProjectState state)
@@ -32,24 +51,62 @@ shared class CeylonProject(shared actual FileObject projectDirectory, ProjectSta
 
     variable Lookup? _lazyLookup = null;
     
-    lookup => _lazyLookup else (_lazyLookup = Lookups.fixed(
-        NbCeylonProjects()
-    ));
+    lookup => _lazyLookup else (_lazyLookup = createLookup());
+
+    shared CeylonProject init() {
+        GenericSources.group(this, projectDirectory, "ceylon", "ceylon",
+            ImageIcon(nbIcons.ceylon), ImageIcon(nbIcons.ceylon));
+        return this;
+    }
+
+    Lookup createLookup() {
+    	return Lookups.fixed(
+        	Info(this),
+        	CeylonSources(),
+        	CeylonProjectLogicalView(this),
+        	CeylonIdeClasspathProvider().init(),
+        	NbCeylonProjectHook(this)
+        );
+    }
+    
+    class CeylonSources() satisfies Sources {
+        addChangeListener(ChangeListener? changeListener) => noop();
+        removeChangeListener(ChangeListener? changeListener)  => noop();
+        
+        shared actual ObjectArray<SourceGroup> getSourceGroups(String? string) {
+            return createJavaObjectArray<SourceGroup>({
+                object satisfies SourceGroup {
+                    addPropertyChangeListener(PropertyChangeListener listener)
+                            => noop();
+                    
+                    contains(FileObject fileObject) 
+                            => true;
+                    
+                    displayName => "Source";
+                    
+                    shared actual Icon getIcon(Boolean boolean) => ImageIcon(nbIcons.anonymousFunction);
+                    
+                    shared actual String name => "source";
+                    
+                    shared actual void removePropertyChangeListener(PropertyChangeListener? propertyChangeListener) {}
+                    
+                    shared actual FileObject rootFolder => projectDirectory.getFileObject("source");
+                }
+            });
+        }
+    }
+
 }
 
-class Info() satisfies ProjectInformation {
+class Info(shared actual CeylonProject project) satisfies ProjectInformation {
     
     shared actual void addPropertyChangeListener(PropertyChangeListener? propertyChangeListener) {}
     
     shared actual String displayName => name;
     
-    shared actual Icon icon => nothing;
+    shared actual Icon icon => ImageIcon(nbIcons.ceylon);
     
-    shared actual String name => nothing;
-    
-    shared actual Project project => nothing;
+    shared actual String name => project.projectDirectory.name;
     
     shared actual void removePropertyChangeListener(PropertyChangeListener? propertyChangeListener) {}
-    
-    
 }

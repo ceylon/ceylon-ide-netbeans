@@ -63,6 +63,12 @@ import org.openide.filesystems {
     FileObject,
     FileUtil
 }
+import com.redhat.ceylon.ide.netbeans.project {
+	CeylonIdeClasspathProvider
+}
+import org.netbeans.spi.java.classpath {
+	ClassPathProvider
+}
 
 shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
         extends CeylonProject<Project,FileObject,FileObject,FileObject>() {
@@ -97,12 +103,7 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
         shared actual void beforeClasspathResolution(CeylonProjectBuildAlias build, CeylonProjectBuildAlias.State state) {
             if (! languageModuleAdded) {
                 if (exists file = findLanguageCar()) {
-                    ProjectClassPathModifier.addRoots(
-                        createJavaObjectArray({FileUtil.getArchiveRoot(file.toURI().toURL()).toURI()}),
-                        sourceFolders.first?.nativeResource,
-                        ClassPath.compile
-                    );
-                    
+                    addDependencyToClasspath(file);
                     languageModuleAdded = true;
                 } else {
                     platformUtils.log(Status._ERROR, "Could not locate ceylon.language.car");
@@ -115,6 +116,19 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
         }
     }
 
+	shared void addDependencyToClasspath(File dependency) {
+		if (is CeylonIdeClasspathProvider provider = nativeProject.lookup.lookup(javaClass<ClassPathProvider>())) {
+			provider.addRoot(FileUtil.urlForArchiveOrDir(dependency), ClassPath.compile);
+		} else {
+			value fo = FileUtil.toFileObject(dependency);
+			ProjectClassPathModifier.addRoots(
+				createJavaObjectArray({FileUtil.getArchiveRoot(fo).toURI()}),
+				sourceFolders.first?.nativeResource,
+				ClassPath.compile
+			);
+		}
+	}
+	
     compileToJava => ideConfiguration.compileToJvm else false;
     
     compileToJs => ideConfiguration.compileToJs else false;
