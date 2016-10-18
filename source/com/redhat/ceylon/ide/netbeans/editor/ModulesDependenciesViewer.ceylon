@@ -10,14 +10,13 @@ import com.redhat.ceylon.ide.common.model {
     ModuleDependencies,
     BaseIdeModule
 }
-import com.redhat.ceylon.ide.netbeans {
-    nbIcons
-}
+
 import com.redhat.ceylon.ide.netbeans.model {
     findParseController
 }
 import com.redhat.ceylon.ide.netbeans.util {
-    editorUtil
+    editorUtil,
+	nbIcons
 }
 import com.redhat.ceylon.model.typechecker.model {
     Module
@@ -129,7 +128,7 @@ shared class ModulesDependenciesViewer(Lookup lkp)
         toolbar.add(layoutCombo);
         layoutCombo.addItemListener(object satisfies ItemListener {
             shared actual void itemStateChanged(ItemEvent evt) {
-                if (evt.stateChange == evt.selected) {
+                if (evt.stateChange == ItemEvent.selected) {
                     doLayout();
                 }
             }

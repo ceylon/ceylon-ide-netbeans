@@ -1,6 +1,6 @@
 package com.redhat.ceylon.ide.netbeans.lang;
 
-import com.redhat.ceylon.ide.netbeans.nbIcons_;
+import com.redhat.ceylon.ide.netbeans.util.nbIcons_;
 import com.redhat.ceylon.model.typechecker.util.ModuleManager;
 import java.awt.Image;
 import java.io.IOException;

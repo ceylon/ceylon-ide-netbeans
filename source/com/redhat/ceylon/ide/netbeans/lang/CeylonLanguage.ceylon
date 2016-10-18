@@ -10,7 +10,8 @@ import org.netbeans.api.lexer {
     Language
 }
 import org.netbeans.modules.csl.spi {
-    DefaultLanguageConfig
+    DefaultLanguageConfig,
+	languageRegistration
 }
 import org.netbeans.modules.csl.api {
     StructureScanner,
@@ -19,6 +20,9 @@ import org.netbeans.modules.csl.api {
 
 shared String mimeType = "text/x-ceylon";
 
+languageRegistration {
+	mimeType = {"text/x-ceylon"};
+}
 shared class CeylonLanguage() extends DefaultLanguageConfig() {
     
     shared default actual Language<CeylonTokenId> lexerLanguage

@@ -14,11 +14,10 @@ import com.redhat.ceylon.ide.common.doc {
 import com.redhat.ceylon.ide.common.typechecker {
     LocalAnalysisResult
 }
-import com.redhat.ceylon.ide.netbeans {
-    nbIcons
-}
+
 import com.redhat.ceylon.ide.netbeans.util {
-    utilHighlight=highlight
+    utilHighlight=highlight,
+	nbIcons
 }
 import com.redhat.ceylon.ide.netbeans.model {
     CeylonParseController

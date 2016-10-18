@@ -7,7 +7,7 @@ import org.netbeans.modules.csl.spi.LanguageRegistration;
 
 // That stupid annotation processor can't detect methods in superclasses,
 // so we have to override some of them to correctly fill the XML layer.
-@LanguageRegistration(mimeType = AnnotatedCeylonLanguage.MIME_TYPE)
+//@LanguageRegistration(mimeType = AnnotatedCeylonLanguage.MIME_TYPE)
 public class AnnotatedCeylonLanguage extends CeylonLanguage {
     public static final String MIME_TYPE = "text/x-ceylon";
     

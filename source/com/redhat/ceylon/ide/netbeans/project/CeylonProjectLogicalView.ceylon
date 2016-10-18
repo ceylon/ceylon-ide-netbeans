@@ -1,6 +1,4 @@
-import com.redhat.ceylon.ide.netbeans {
-	nbIcons
-}
+
 
 import org.netbeans.api.project {
 	Project
@@ -28,6 +26,9 @@ import org.openide.nodes {
 }
 import org.openide.util {
 	ImageUtilities
+}
+import com.redhat.ceylon.ide.netbeans.util {
+	nbIcons
 }
 
 class CeylonProjectLogicalView(CeylonProject project) satisfies LogicalViewProvider {

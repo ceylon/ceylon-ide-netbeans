@@ -6,9 +6,7 @@ import com.redhat.ceylon.ide.common.model {
 	Severity,
 	CeylonProjectBuild
 }
-import com.redhat.ceylon.ide.netbeans {
-	nbIcons
-}
+
 import com.redhat.ceylon.ide.netbeans.model {
 	NbCeylonProject
 }
@@ -31,7 +29,8 @@ import org.openide.filesystems {
 	FileObject
 }
 import com.redhat.ceylon.ide.netbeans.util {
-	highlightQuotedMessage
+	highlightQuotedMessage,
+	nbIcons
 }
 import org.netbeans.api.project {
 	Project

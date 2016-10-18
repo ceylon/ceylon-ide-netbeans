@@ -15,27 +15,27 @@ import org.openide.util.NbBundle.Messages;
 /**
  * Displays project errors in a tool window.
  */
-@ConvertAsProperties(
-        dtd = "-//com.redhat.ceylon.ide.netbeans.problems//ProblemsView//EN",
-        autostore = false
-)
-@TopComponent.Description(
-        preferredID = "ProblemsViewTopComponent",
-        iconBase = "icons/ceylon.png",
-        persistenceType = TopComponent.PERSISTENCE_ALWAYS
-)
-@TopComponent.Registration(mode = "bottomSlidingSide", openAtStartup = false)
-@ActionID(category = "Window", id = "com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent")
-@ActionReference(path = "Menu/Window" /*, position = 333 */)
-@TopComponent.OpenActionRegistration(
-        displayName = "#CTL_ProblemsViewAction",
-        preferredID = "ProblemsViewTopComponent"
-)
-@Messages({
-    "CTL_ProblemsViewAction=ProblemsView",
-    "CTL_ProblemsViewTopComponent=ProblemsView Window",
-    "HINT_ProblemsViewTopComponent=This is a ProblemsView window"
-})
+//@ConvertAsProperties(
+//        dtd = "-//com.redhat.ceylon.ide.netbeans.problems//ProblemsView//EN",
+//        autostore = false
+//)
+//@TopComponent.Description(
+//        preferredID = "ProblemsViewTopComponent",
+//        iconBase = "icons/ceylon.png",
+//        persistenceType = TopComponent.PERSISTENCE_ALWAYS
+//)
+//@TopComponent.Registration(mode = "bottomSlidingSide", openAtStartup = false)
+//@ActionID(category = "Window", id = "com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent")
+//@ActionReference(path = "Menu/Window" /*, position = 333 */)
+//@TopComponent.OpenActionRegistration(
+//        displayName = "#CTL_ProblemsViewAction",
+//        preferredID = "ProblemsViewTopComponent"
+//)
+//@Messages({
+//    "CTL_ProblemsViewAction=ProblemsView",
+//    "CTL_ProblemsViewTopComponent=ProblemsView Window",
+//    "HINT_ProblemsViewTopComponent=This is a ProblemsView window"
+//})
 public abstract class AbstractProblemsViewTopComponent extends TopComponent {
 
     public AbstractProblemsViewTopComponent() {

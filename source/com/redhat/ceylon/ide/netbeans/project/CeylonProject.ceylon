@@ -2,9 +2,7 @@ import ceylon.interop.java {
 	createJavaObjectArray
 }
 
-import com.redhat.ceylon.ide.netbeans {
-	nbIcons
-}
+
 import com.redhat.ceylon.ide.netbeans.model {
 	NbCeylonProjectHook
 }
@@ -44,6 +42,9 @@ import org.openide.util.lookup {
 }
 import org.netbeans.spi.project.support {
 	GenericSources
+}
+import com.redhat.ceylon.ide.netbeans.util {
+	nbIcons
 }
 
 shared class CeylonProject(shared actual FileObject projectDirectory, ProjectState state)

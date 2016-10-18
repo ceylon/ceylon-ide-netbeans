@@ -2,19 +2,6 @@
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
 <filesystem>
     <folder name="Actions">
-        <folder name="Tools">
-            <file name="com-redhat-ceylon-ide-netbeans-actions-ResetCeylonModelAction.instance">
-                <!--com.redhat.ceylon.ide.netbeans.actions.ResetCeylonModelAction-->
-                <attr stringvalue="Reset Ceylon model" name="displayName"/>
-                <attr methodvalue="org.openide.awt.Actions.context" name="instanceCreate"/>
-                <attr name="type" stringvalue="org.netbeans.api.project.Project"/>
-                <attr methodvalue="org.openide.awt.Actions.inject" name="delegate"/>
-                <attr name="injectable" stringvalue="com.redhat.ceylon.ide.netbeans.actions.ResetCeylonModelAction"/>
-                <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
-                <attr name="iconBase" stringvalue="icons/ceylon.png"/>
-                <attr boolvalue="false" name="noIconInMenu"/>
-            </file>
-        </folder>
         <folder name="Window">
             <file name="com-redhat-ceylon-ide-netbeans-problems-ProblemsViewTopComponent.instance">
                 <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
@@ -28,13 +15,6 @@
         </folder>
     </folder>
     <folder name="Menu">
-        <folder name="Tools">
-            <file name="com-redhat-ceylon-ide-netbeans-actions-ResetCeylonModelAction.shadow">
-                <!--com.redhat.ceylon.ide.netbeans.actions.ResetCeylonModelAction-->
-                <attr name="originalFile" stringvalue="Actions/Tools/com-redhat-ceylon-ide-netbeans-actions-ResetCeylonModelAction.instance"/>
-                <attr intvalue="1800" name="position"/>
-            </file>
-        </folder>
         <folder name="Source">
             <file name="organize-imports.shadow">
                 <!--com.redhat.ceylon.ide.netbeans.editor.OrganizeImportsActions-->

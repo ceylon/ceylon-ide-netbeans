@@ -18,7 +18,25 @@ import org.netbeans.api.project {
 import org.openide.util {
     Lookup
 }
+import org.openide.awt {
+	actionID,
+	actionRegistration,
+	actionReference
+}
 
+actionID {
+	category = "Tools";
+	id = "com.redhat.ceylon.ide.netbeans.actions.ResetCeylonModelAction";
+}
+actionRegistration {
+	displayName = "Reset Ceylon model";
+	iconBase = "icons/ceylon.png";
+	
+}
+actionReference {
+	path = "Menu/Tools";
+	position = 1800;
+}
 shared class ResetCeylonModelAction(Project context) satisfies ActionListener {
     
     shared actual void actionPerformed(ActionEvent ev) {

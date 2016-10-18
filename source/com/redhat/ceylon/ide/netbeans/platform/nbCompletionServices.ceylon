@@ -31,9 +31,7 @@ import com.redhat.ceylon.ide.common.settings {
 import com.redhat.ceylon.ide.common.typechecker {
     LocalAnalysisResult
 }
-import com.redhat.ceylon.ide.netbeans {
-    nbIcons
-}
+
 import com.redhat.ceylon.ide.netbeans.complete {
     CeylonCompletionItem
 }
@@ -50,6 +48,9 @@ import java.util.concurrent {
 }
 import com.redhat.ceylon.compiler.typechecker.context {
 	PhasedUnit
+}
+import com.redhat.ceylon.ide.netbeans.util {
+	nbIcons
 }
 
 // TODO

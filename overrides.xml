@@ -13,7 +13,7 @@
     </module>
     <module module="org.netbeans.api:org-netbeans-modules-editor">
         <add module="org.netbeans.api:org-openide-filesystems" version="RELEASE81"/>
-        <add module="java.desktop" version="7"/>
+        <!--add module="java.desktop" version="7" shared="false"/-->
         <add module="org.netbeans.api:org-netbeans-modules-editor-lib" version="RELEASE81"/>
         <add module="org.netbeans.api:org-openide-text" version="RELEASE81"/>
         <add module="org.netbeans.api:org-openide-loaders" version="RELEASE81"/>
@@ -30,6 +30,7 @@
         <add module="org.netbeans.api:org-netbeans-modules-parsing-api" version="RELEASE81"/>
         <add module="org.netbeans.api:org-netbeans-modules-lexer" version="RELEASE81"/>
         <add module="org.netbeans.api:org-netbeans-modules-editor-indent" version="RELEASE81"/>
+        <add module="org.netbeans.modules:org-netbeans-modules-editor-errorstripe" version="RELEASE81"/>
         <filter>
         	<exclude path="org/netbeans/modules/csl/api/OffsetRange"/>
         </filter>
