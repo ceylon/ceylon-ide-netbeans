@@ -28,7 +28,6 @@
         <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
 
         <moduleset id="modules.source">
-            <module name="com.redhat.ceylon.ide.netbeansDependencies" />
             <module name="com.redhat.ceylon.ide.netbeans" />
         </moduleset>
 

@@ -1,27 +1,28 @@
 import ceylon.interop.java {
-    javaClass
+	Unserialized,
+	javaClass
 }
 
 import com.redhat.ceylon.ide.netbeans.model {
-    CeylonModelManager,
-    NbCeylonProjects
+	CeylonModelManager,
+	NbCeylonProjects
 }
 
 import java.awt.event {
-    ActionEvent,
-    ActionListener
+	ActionEvent,
+	ActionListener
 }
 
 import org.netbeans.api.project {
-    Project
-}
-import org.openide.util {
-    Lookup
+	Project
 }
 import org.openide.awt {
 	actionID,
 	actionRegistration,
 	actionReference
+}
+import org.openide.util {
+	Lookup
 }
 
 actionID {
@@ -37,7 +38,7 @@ actionReference {
 	path = "Menu/Tools";
 	position = 1800;
 }
-shared class ResetCeylonModelAction(Project context) satisfies ActionListener {
+shared class ResetCeylonModelAction(Project context) extends Unserialized.create() satisfies ActionListener {
     
     shared actual void actionPerformed(ActionEvent ev) {
         value projects = Lookup.default.lookup(javaClass<NbCeylonProjects>());

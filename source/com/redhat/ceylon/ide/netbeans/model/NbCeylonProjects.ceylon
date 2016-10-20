@@ -1,14 +1,20 @@
 import com.redhat.ceylon.ide.common.model {
-    CeylonProjects
+	CeylonProjects
 }
 
 import org.netbeans.api.project {
-    Project
+	Project
 }
 import org.openide.filesystems {
-    FileObject
+	FileObject
+}
+import org.openide.util.lookup {
+	serviceProvider
 }
 
+serviceProvider {
+	service = `class NbCeylonProjects`;
+}
 shared class NbCeylonProjects()
         extends CeylonProjects<Project,FileObject,FileObject,FileObject>(){
     

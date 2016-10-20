@@ -29,11 +29,18 @@ import javax.swing.text {
 	Document
 }
 
+import org.netbeans.api.editor.mimelookup {
+	mimeRegistration
+}
 import org.netbeans.lib.editor.hyperlink.spi {
 	HyperlinkProviderExt,
 	HyperlinkType
 }
 
+mimeRegistration {
+	mimeType = "text/x-ceylon";
+	service = `interface HyperlinkProviderExt`;
+}
 shared class CeylonHyperlinkProvider() satisfies HyperlinkProviderExt {
 
 	variable Node? node = null;

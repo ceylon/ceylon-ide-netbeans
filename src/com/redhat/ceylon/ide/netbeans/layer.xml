@@ -1,51 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
 <filesystem>
-    <folder name="Actions">
-        <folder name="Window">
-            <file name="com-redhat-ceylon-ide-netbeans-problems-ProblemsViewTopComponent.instance">
-                <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
-                <attr
-                    methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
-                <attr name="component" newvalue="com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent"/>
-                <attr name="preferredID" stringvalue="ProblemsViewTopComponent"/>
-                <attr name="displayName" stringvalue="Ceylon Problems"/>
-                <attr name="iconBase" stringvalue="icons/ceylon.png"/>
-            </file>
-        </folder>
-    </folder>
-    <folder name="Menu">
-        <folder name="Source">
-            <file name="organize-imports.shadow">
-                <!--com.redhat.ceylon.ide.netbeans.editor.OrganizeImportsActions-->
-                <attr name="originalFile" stringvalue="Editors/text/x-ceylon/Actions/organize-imports.instance"/>
-                <attr intvalue="2430" name="position"/>
-            </file>
-        </folder>
-        <folder name="Window">
-            <file name="com-redhat-ceylon-ide-netbeans-problems-ProblemsViewTopComponent.shadow">
-                <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
-                <attr name="originalFile" stringvalue="Actions/Window/com-redhat-ceylon-ide-netbeans-problems-ProblemsViewTopComponent.instance"/>
-            </file>
-        </folder>
-    </folder>
     <folder name="Editors">
         <folder name="text">
             <folder name="x-ceylon">
-                <folder name="MultiView">
-                    <file name="com-redhat-ceylon-ide-netbeans-editor-ModulesDependenciesViewer.instance">
-                        <!--com.redhat.ceylon.ide.netbeans.editor.ModulesDependenciesViewer-->
-                        <attr
-                            methodvalue="org.netbeans.core.spi.multiview.MultiViewFactory.createMultiViewDescription" name="instanceCreate"/>
-                        <attr name="instanceClass" stringvalue="org.netbeans.core.multiview.ContextAwareDescription"/>
-                        <attr name="class" stringvalue="com.redhat.ceylon.ide.netbeans.editor.ModulesDependenciesViewer"/>
-                        <attr name="displayName" stringvalue="Dependencies" />
-                        <attr name="iconBase" stringvalue="icons/ceylonModule.png"/>
-                        <attr name="preferredID" stringvalue="CeylonVisual"/>
-                        <attr intvalue="2" name="persistenceType"/>
-                        <attr intvalue="2000" name="position"/>
-                    </file>
-                </folder>
                 <attr name="SystemFileSystem.localizingBundle" stringvalue="com.redhat.ceylon.ide.netbeans.Bundle"/>
                 <folder name="FontsColors">
                     <folder name="NetBeans">
@@ -56,53 +14,6 @@
                         </folder>
                     </folder>
                 </folder>
-                <folder name="CompletionProviders">
-                    <file name="com-redhat-ceylon-ide-netbeans-complete-CeylonCompletionProvider.instance">
-                        <!--com.redhat.ceylon.ide.netbeans.complete.CeylonCompletionProvider-->
-                        <attr name="instanceOf" stringvalue="org.netbeans.spi.editor.completion.CompletionProvider"/>
-                    </file>
-                </folder>
-                <folder name="Actions">
-                    <file name="organize-imports.instance">
-                        <!--com.redhat.ceylon.ide.netbeans.editor.OrganizeImportsActions-->
-                        <attr stringvalue="" name="displayName"/>
-                        <attr stringvalue="" name="ShortDescription"/>
-                        <attr stringvalue="Organize Imports" name="menuText"/>
-                        <attr stringvalue="Organize Imports" name="popupText"/>
-                        <attr name="Name" stringvalue="organize-imports"/>
-                        <attr name="helpID" stringvalue="organize-imports"/>
-                        <attr
-                            methodvalue="org.netbeans.modules.editor.lib2.actions.WrapperEditorAction.create" name="instanceCreate"/>
-                        <attr boolvalue="true" name="WrapperActionKey"/>
-                        <attr name="delegate" newvalue="com.redhat.ceylon.ide.netbeans.editor.OrganizeImportsActions"/>
-                    </file>
-                </folder>
-                <folder name="BracesMatchers">
-                    <file name="com-redhat-ceylon-ide-netbeans-editor-CeylonBraceMatcher.instance">
-                        <!--com.redhat.ceylon.ide.netbeans.editor.CeylonBraceMatcher-->
-                        <attr name="instanceOf" stringvalue="org.netbeans.spi.editor.bracesmatching.BracesMatcherFactory"/>
-                    </file>
-                </folder>
-                <folder name="FoldManager">
-                    <file name="com-redhat-ceylon-ide-netbeans-editor-CeylonFoldTypeProvider.instance">
-                        <!--com.redhat.ceylon.ide.netbeans.editor.CeylonFoldTypeProvider-->
-                        <attr name="instanceOf" stringvalue="org.netbeans.spi.editor.fold.FoldTypeProvider"/>
-                    </file>
-                </folder>
-                <file name="com-redhat-ceylon-ide-netbeans-editor-CeylonSyntaxErrorHighlightingTaskFactory.instance">
-                    <!--com.redhat.ceylon.ide.netbeans.editor.CeylonSyntaxErrorHighlightingTaskFactory-->
-                    <attr name="instanceOf" stringvalue="org.netbeans.modules.parsing.spi.TaskFactory"/>
-                </file>
-                <folder name="HyperlinkProviders">
-                    <file name="com-redhat-ceylon-ide-netbeans-navigation-CeylonHyperlinkProvider.instance">
-                        <!--com.redhat.ceylon.ide.netbeans.navigation.CeylonHyperlinkProvider-->
-                        <attr name="instanceOf" stringvalue="org.netbeans.lib.editor.hyperlink.spi.HyperlinkProviderExt"/>
-                    </file>
-                </folder>
-                <file name="com-redhat-ceylon-ide-netbeans-editor-MarkOccurrencesHighlightsLayerFactory.instance">
-                    <!--com.redhat.ceylon.ide.netbeans.editor.MarkOccurrencesHighlightsLayerFactory-->
-                    <attr name="instanceOf" stringvalue="org.netbeans.spi.editor.highlighting.HighlightsLayerFactory"/>
-                </file>
             </folder>
         </folder>
     </folder>
@@ -167,14 +78,6 @@
                         <attr name="position" intvalue="1200"/>
                     </file>
                 </folder>
-                <folder name="Factories">
-                    <file name="CeylonDataLoader.instance">
-                        <attr name="dataObjectClass" stringvalue="com.redhat.ceylon.ide.netbeans.lang.CeylonDataObject"/>
-                        <attr name="instanceCreate" methodvalue="org.openide.loaders.DataLoaderPool.factory"/>
-                        <attr name="mimeType" stringvalue="text/x-ceylon"/>
-                        <attr name="iconBase" stringvalue="org/netbeans/modules/html/htmlObject.png"/>
-                    </file>
-                </folder>
             </folder>
         </folder>
     </folder>
@@ -192,97 +95,4 @@
             </file>
         </folder>
     </folder>
-    <folder name="Templates">
-        <folder name="Project">
-            <folder name="Ceylon">
-                <attr name="displayName" stringvalue="Ceylon"/>
-                <attr name="position" intvalue="200"/>
-
-                <file name="default.ceylon">
-                    <attr name="displayName" stringvalue="Ceylon Application"/>
-                    <attr name="iconBase" stringvalue="icons/ceylon.png"/>
-                    <attr name="position" intvalue="305"/>
-                    <attr name="template" boolvalue="true"/>
-                    <attr name="instantiatingWizardURL" urlvalue="nbresloc:/com/redhat/ceylon/ide/netbeans/project/templates/CeylonApp.html"/>
-                    <attr name="instantiatingIterator" methodvalue="com.redhat.ceylon.ide.netbeans.project.CeylonProjectWizardFactory.wizard"/>
-                </file>
-            </folder>
-        </folder>
-    </folder>
-    <folder name="Windows2">
-        <folder name="Components">
-            <file name="ProblemsViewTopComponent.settings">
-                <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
-<settings version="1.0">
-  <instance class="com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent"/>
-</settings>
-]]></file>
-        </folder>
-        <folder name="Modes">
-            <folder name="output">
-                <file name="ProblemsViewTopComponent.wstcref">
-                    <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
-<tc-ref version="2.0">
-  <tc-id id="ProblemsViewTopComponent"/>
-  <state opened="false"/>
-</tc-ref>
-]]></file>
-            </folder>
-        </folder>
-    </folder>
-    <folder name="xml">
-        <folder name="entities">
-            <folder name="com_redhat_ceylon_ide_netbeans_problems">
-                <file name="ProblemsView" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
-                    <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
-                    <attr name="hint.originalPublicID" stringvalue="-//com.redhat.ceylon.ide.netbeans.problems//ProblemsView//EN"/>
-                </file>
-            </folder>
-        </folder>
-        <folder name="memory">
-            <folder name="com">
-                <folder name="redhat">
-                    <folder name="ceylon">
-                        <folder name="ide">
-                            <folder name="netbeans">
-                                <folder name="problems">
-                                    <file name="ProblemsViewTopComponent">
-                                    <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
-                                    <attr
-                                    name="settings.providerPath" stringvalue="xml/lookups//com_redhat_ceylon_ide_netbeans_problems/ProblemsView.instance"/>
-                                    </file>
-                                </folder>
-                            </folder>
-                        </folder>
-                    </folder>
-                </folder>
-            </folder>
-        </folder>
-        <folder name="lookups">
-            <folder name="com_redhat_ceylon_ide_netbeans_problems">
-                <file name="ProblemsView.instance">
-                    <!--com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent-->
-                    <attr
-                        methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
-                    <attr
-                        methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
-                    <attr name="settings.instanceClass" stringvalue="com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent"/>
-                    <attr name="settings.instanceOf" stringvalue="com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent"/>
-                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
-                </file>
-            </folder>
-        </folder>
-    </folder>
-	<folder name="Projects">
-        <folder name="com-redhat-ceylon-ide-netbeans-project">
-            <folder name="Nodes">
-                <file name="com-redhat-ceylon-ide-netbeans-project-CeylonProjectNodeFactory.instance">
-                    <!--com.redhat.ceylon.ide.netbeans.project.CeylonProjectNodeFactory-->
-                    <attr intvalue="10" name="position"/>
-                </file>
-            </folder>
-        </folder>
-	</folder>
 </filesystem>

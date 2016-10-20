@@ -1,18 +1,25 @@
 import java.lang {
-    Class
+	Class
 }
 import java.util {
-    Arrays,
-    Collection
+	Arrays,
+	Collection
 }
 
 import org.netbeans.api.editor.fold {
-    FoldType
+	FoldType
+}
+import org.netbeans.api.editor.mimelookup {
+	mimeRegistration
 }
 import org.netbeans.spi.editor.fold {
-    FoldTypeProvider
+	FoldTypeProvider
 }
 
+mimeRegistration {
+	mimeType = "text/x-ceylon";
+	service = `interface FoldTypeProvider`;
+}
 shared class CeylonFoldTypeProvider() satisfies FoldTypeProvider {
     
     shared actual Collection<FoldType> getValues(Class<out Object> type)

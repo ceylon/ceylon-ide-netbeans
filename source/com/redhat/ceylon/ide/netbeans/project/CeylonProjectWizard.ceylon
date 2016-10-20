@@ -22,9 +22,26 @@ import org.openide.filesystems {
 import java.io {
     File
 }
+import org.netbeans.api.templates {
+	templateRegistration
+}
 
-shared class CeylonProjectWizard() extends AmbiguousOverloadsResolver() {
+templateRegistration {
+	folder = "Project/Ceylon";
+	displayName = "Ceylon Application";
+	iconBase = "icons/ceylon.png";
+	position = 305;
+	description = "CeylonApp.html";
+}
+shared class CeylonProjectWizard extends AmbiguousOverloadsResolver {
     
+    shared static CeylonProjectWizard createIterator() {
+        return CeylonProjectWizard();
+    }
+
+    shared new () extends AmbiguousOverloadsResolver() {
+    }
+
     value panels = [ConfigureProjectPanel()];
     variable WizardDescriptor? wiz = null;
     

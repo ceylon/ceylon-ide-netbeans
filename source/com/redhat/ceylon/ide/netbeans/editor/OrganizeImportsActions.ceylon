@@ -1,25 +1,35 @@
 import com.redhat.ceylon.ide.common.imports {
-    AbstractImportsCleaner
+	AbstractImportsCleaner
 }
 import com.redhat.ceylon.ide.netbeans.model {
-    findParseController
+	findParseController
 }
 import com.redhat.ceylon.model.typechecker.model {
-    Declaration
+	Declaration
 }
 
 import java.awt.event {
-    ActionEvent
+	ActionEvent
 }
 
 import javax.swing.text {
-    JTextComponent
+	JTextComponent
 }
 
+import org.netbeans.api.editor {
+	editorActionRegistration
+}
 import org.netbeans.editor {
-    BaseAction
+	BaseAction
 }
 
+editorActionRegistration { 
+	name = "Organize Imports";
+	mimeType = "text/x-ceylon";
+	menuPath = "Source";
+	menuPosition = 2340;
+	menuText = "Organize Imports"; 
+}
 shared class OrganizeImportsActions() extends BaseAction()
         satisfies AbstractImportsCleaner {
     

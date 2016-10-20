@@ -1,5 +1,3 @@
-
-
 import org.netbeans.api.project {
 	Project
 }
@@ -10,7 +8,9 @@ import org.netbeans.spi.project.ui.support {
 	NodeFactorySupport {
 		createCompositeChildren
 	},
-	NodeFactory,
+	NodeFactory {
+		nodeFactoryRegistration=registration
+	},
 	NodeList
 }
 import org.openide.filesystems {
@@ -51,7 +51,10 @@ class CeylonProjectLogicalView(CeylonProject project) satisfies LogicalViewProvi
 	}
 }
 
-// @NodeFactory.Registration(projectType = "com-redhat-ceylon-ide-netbeans-project", position = 10)
+nodeFactoryRegistration {
+	projectType = {"com-redhat-ceylon-ide-netbeans-project"};
+	position = 10;
+}
 shared class CeylonProjectNodeFactory() satisfies NodeFactory {
 	
 	shared actual NodeList<out Object> createNodes(Project project) {

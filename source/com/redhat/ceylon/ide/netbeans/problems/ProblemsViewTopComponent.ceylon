@@ -26,7 +26,40 @@ import org.openide.cookies {
 import org.openide.text {
 	Line
 }
+import org.openide.windows {
+	TopComponent {
+		description,
+		registration,
+		openActionRegistration
+	}
+}
+import org.openide.awt {
+	actionID,
+	actionReference
+}
 
+"Displays project errors in a tool window."
+description {
+	preferredID = "ProblemsViewTopComponent";
+	iconBase = "icons/ceylon.png";
+	persistenceType = TopComponent.persistenceAlways;
+}
+registration {
+	mode = "bottomSlidingSide";
+	openAtStartup = false;
+}
+actionID {
+	category = "Window";
+	id = "com.redhat.ceylon.ide.netbeans.problems.ProblemsViewTopComponent";
+}
+actionReference {
+	path = "Menu/Window";
+	/*position = 333; */
+}
+openActionRegistration {
+	displayName = "Ceylon Problems";
+	preferredID = "ProblemsViewTopComponent";
+}
 shared class ProblemsViewTopComponent()
 		extends AbstractProblemsViewTopComponent() {
 	

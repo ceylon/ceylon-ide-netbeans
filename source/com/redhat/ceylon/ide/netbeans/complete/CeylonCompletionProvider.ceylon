@@ -31,7 +31,14 @@ import org.netbeans.spi.editor.completion.support {
     AsyncCompletionQuery,
     AsyncCompletionTask
 }
+import org.netbeans.api.editor.mimelookup {
+	mimeRegistration
+}
 
+mimeRegistration {
+	mimeType = "text/x-ceylon";
+	service = `interface CompletionProvider`;
+}
 shared class CeylonCompletionProvider() satisfies CompletionProvider {
     
     shared actual CompletionTask? createTask(Integer queryType, JTextComponent jtc) {

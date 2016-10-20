@@ -1,90 +1,101 @@
 import ceylon.interop.java {
-    createJavaObjectArray,
-    javaClass,
-    javaString,
-    CeylonIterable,
-    createJavaStringArray
+	createJavaObjectArray,
+	javaClass,
+	javaString,
+	CeylonIterable,
+	createJavaStringArray
 }
 
 import com.redhat.ceylon.ide.common.model {
-    ModuleDependencies,
-    BaseIdeModule
+	ModuleDependencies,
+	BaseIdeModule
 }
-
 import com.redhat.ceylon.ide.netbeans.model {
-    findParseController
+	findParseController
 }
 import com.redhat.ceylon.ide.netbeans.util {
-    editorUtil,
+	editorUtil,
 	nbIcons
 }
 import com.redhat.ceylon.model.typechecker.model {
-    Module
+	Module
 }
 
 import java.awt {
-    BorderLayout,
-    Color,
-    FlowLayout
+	BorderLayout,
+	Color,
+	FlowLayout
 }
 import java.awt.event {
-    ItemListener,
-    ItemEvent
+	ItemListener,
+	ItemEvent
 }
 import java.util {
-    ArrayList
+	ArrayList
 }
 
 import javax.swing {
-    JPanel,
-    Action,
-    JScrollPane,
-    JComboBox
+	JPanel,
+	Action,
+	JScrollPane,
+	JComboBox
 }
 
 import org.netbeans.api.visual.action {
-    ActionFactory
+	ActionFactory
 }
 import org.netbeans.api.visual.anchor {
-    AnchorShape,
-    AnchorFactory
+	AnchorShape,
+	AnchorFactory
 }
 import org.netbeans.api.visual.border {
-    BorderFactory
+	BorderFactory
 }
 import org.netbeans.api.visual.graph {
-    GraphScene
+	GraphScene
 }
 import org.netbeans.api.visual.graph.layout {
-    GraphLayoutFactory
+	GraphLayoutFactory
 }
 import org.netbeans.api.visual.layout {
-    LayoutFactory
+	LayoutFactory
 }
 import org.netbeans.api.visual.widget {
-    Widget,
-    LayerWidget,
-    ConnectionWidget,
-    LabelWidget
+	Widget,
+	LayerWidget,
+	ConnectionWidget,
+	LabelWidget
 }
 import org.netbeans.api.visual.widget.general {
-    IconNodeWidget
+	IconNodeWidget
 }
 import org.netbeans.core.spi.multiview {
-    MultiViewElement,
-    CloseOperationState,
-    MultiViewElementCallback
+	MultiViewElement {
+		multiViewElementRegistration=registration
+	},
+	CloseOperationState,
+	MultiViewElementCallback
 }
 import org.openide.awt {
-    UndoRedo
+	UndoRedo
 }
 import org.openide.loaders {
-    MultiDataObject
+	MultiDataObject
 }
 import org.openide.util {
-    Lookup
+	Lookup
+}
+import org.openide.windows {
+	TopComponent
 }
 
+multiViewElementRegistration {
+	displayName = "Dependencies";
+	mimeType = {"text/x-ceylon"};
+	persistenceType = TopComponent.persistenceNever;
+	preferredID = "CeylonVisual";
+	position = 2000;
+}
 shared class ModulesDependenciesViewer(Lookup lkp) 
         extends JPanel()
         satisfies MultiViewElement {

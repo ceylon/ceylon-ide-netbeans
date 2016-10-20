@@ -2,9 +2,8 @@
 [compiler]
 source=source
 resource=resource
-#apt=org.netbeans.api:org-netbeans-modules-editor-mimelookup/RELEASE81
 apt=org.netbeans.api:org-netbeans-modules-csl-api/RELEASE81
-#apt=org.netbeans.api:org-openide-util/RELEASE81
+apt=org.netbeans.api:org-netbeans-modules-projectuiapi/RELEASE81
 
 suppresswarning=inferredNotNull
 

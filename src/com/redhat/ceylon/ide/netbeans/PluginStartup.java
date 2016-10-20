@@ -46,8 +46,10 @@ import org.openide.util.Lookup;
 
 @OnStart
 public class PluginStartup implements Runnable {
-    private static final Pattern moduleArchivePattern = 
-            Pattern.compile("(.+)-([^\\-]+)\\.(j|J|c|C)ar");
+    private static final Pattern moduleArchivePatternCar 
+            = Pattern.compile("([^\\-]+)-(.+)\\.(c|C)ar");
+    private static final Pattern moduleArchivePatternJar 
+            = Pattern.compile("(.+)-([^\\-]+)\\.(j|J)ar");
 
     private static final Map<String, String> registeredModules = new HashMap<>();
 
@@ -183,24 +185,50 @@ public class PluginStartup implements Runnable {
         RepositoryManager repoManager = builder.buildRepository();
 
         for (File file : getArchives(archiveDirectory, embeddedDist)) {
-            Matcher matcher = moduleArchivePattern.matcher(file.getName());
-            
-            if (matcher.matches()) {
-                ArtifactContext ctx = new ArtifactContext(
-                        null,
-                        matcher.group(1),
-                        matcher.group(2),
-                        matcher.group(3).equalsIgnoreCase("C") ?
-                                ArtifactContext.CAR : ArtifactContext.JAR
-                );
-                ArtifactResult result = repoManager.getArtifactResult(ctx);
+            File dir = file.getParentFile();
+            String name = file.getName();
+            String moduleName;
+            String moduleVersion;
+            String moduleType;
 
-                if (result == null) {
-                    throw new RuntimeException("Ceylon Metamodel Registering failed : module '"
-                            + ctx.getName() + "' could not be registered.");
-                } else {
-                    registerModule(result, getClass().getClassLoader());
+            if (dir.getName().equals("ext")) {
+                // try to guess name and version from file name
+                Matcher matcher = moduleArchivePatternCar.matcher(name);
+                if (!matcher.matches()) {
+                    matcher = moduleArchivePatternJar.matcher(name);
                 }
+                if (matcher.matches()) {
+                    moduleName = matcher.group(1);
+                    moduleVersion = matcher.group(2);
+                    moduleType = matcher.group(3).equalsIgnoreCase("C") ?
+                            ArtifactContext.CAR : ArtifactContext.JAR;
+                } else {
+                    continue;
+                }
+            } else if (name.endsWith(".car") || name.endsWith(".jar")){
+                // Use the repo layout to determine name and version
+                moduleVersion = dir.getName();
+                int versionPos = name.indexOf(moduleVersion);
+                moduleName = name.substring(0, versionPos - 1);
+                moduleType = name.endsWith(".car") ?
+                        ArtifactContext.CAR : ArtifactContext.JAR;
+            } else {
+                continue;
+            }
+
+            ArtifactContext ctx = new ArtifactContext(
+                    null,
+                    moduleName,
+                    moduleVersion,
+                    moduleType
+            );
+            ArtifactResult result = repoManager.getArtifactResult(ctx);
+
+            if (result == null) {
+                throw new RuntimeException("Ceylon Metamodel Registering failed : module '"
+                        + ctx.getName() + "' could not be registered.");
+            } else {
+                registerModule(result, getClass().getClassLoader());
             }
         }
     }

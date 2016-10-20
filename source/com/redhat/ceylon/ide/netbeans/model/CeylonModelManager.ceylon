@@ -46,12 +46,18 @@ import org.openide.util {
 		requestProcessor=default
 	}
 }
+import org.openide.util.lookup {
+	serviceProvider
+}
 import org.openide.windows {
 	WindowManager {
 		windowManager=default
 	}
 }
 
+serviceProvider {
+	service = `class CeylonModelManager`;
+}
 shared class CeylonModelManager()
         satisfies ModelListenerAdapter<Project,FileObject,FileObject,FileObject>
                 & ChangeAware<Project,FileObject,FileObject,FileObject>

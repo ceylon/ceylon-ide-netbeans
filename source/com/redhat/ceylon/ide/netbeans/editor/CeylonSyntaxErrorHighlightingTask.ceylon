@@ -57,6 +57,9 @@ import javax.swing.text {
 	Document
 }
 
+import org.netbeans.api.editor.mimelookup {
+	mimeRegistration
+}
 import org.netbeans.modules.parsing.api {
 	Snapshot
 }
@@ -81,6 +84,10 @@ import org.netbeans.spi.editor.hints {
 	LazyFixList
 }
 
+mimeRegistration {
+	mimeType = "text/x-ceylon";
+	service = `class TaskFactory`;
+}
 shared class CeylonSyntaxErrorHighlightingTaskFactory() extends TaskFactory() {
     shared actual Set<CeylonSyntaxErrorHighlightingTask> create(Snapshot snapshot)
         => Collections.singleton(CeylonSyntaxErrorHighlightingTask());

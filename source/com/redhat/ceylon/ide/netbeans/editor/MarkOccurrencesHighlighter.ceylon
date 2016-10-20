@@ -32,6 +32,9 @@ import javax.swing.text {
 	JTextComponent
 }
 
+import org.netbeans.api.editor.mimelookup {
+	mimeRegistration
+}
 import org.netbeans.api.editor.settings {
 	AttributesUtilities
 }
@@ -53,6 +56,10 @@ import org.openide.util {
 	RequestProcessor
 }
 
+mimeRegistration {
+	mimeType = "text/x-ceylon";
+	service = `interface HighlightsLayerFactory`;
+}
 shared class MarkOccurrencesHighlightsLayerFactory() satisfies HighlightsLayerFactory {
 	
 	MarkOccurrencesHighlighter getMarkOccurrencesHighlighter(Document doc) {
