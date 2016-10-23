@@ -15,8 +15,7 @@ import java.awt {
 	Color
 }
 import java.lang {
-	ObjectArray,
-	Runnable
+	ObjectArray
 }
 import java.lang.ref {
 	WeakReference
@@ -123,12 +122,12 @@ class MarkOccurrencesHighlighter(WeakReference<Document> doc) satisfies CaretLis
 	
 	shared void setupAutoRefresh() {
 		if (!exists t = lastRefreshTask) {
-			lastRefreshTask = rp.post(object satisfies Runnable {
-				shared actual void run() {
-					value doc = outer.doc.get();
+			lastRefreshTask = rp.post(
+				() {
+					value myDoc = doc.get();
 					
 					if (exists pos = comp?.caret?.dot,
-						exists controller = findParseController(doc),
+						exists controller = findParseController(myDoc),
 						exists lar = controller.lastAnalysis,
 						exists node = nodes.findNode(lar.parsedRootNode, lar.tokens, pos),
 						exists model = nodes.getReferencedModel(node)) {
@@ -158,7 +157,7 @@ class MarkOccurrencesHighlighter(WeakReference<Document> doc) satisfies CaretLis
 					
 					lastRefreshTask = null;
 				}
-			}, 100);
+			, 100);
 		}
 	}
 	

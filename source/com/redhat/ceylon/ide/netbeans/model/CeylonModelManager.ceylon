@@ -1,6 +1,5 @@
 import ceylon.interop.java {
-	javaClass,
-	JavaRunnable
+	javaClass
 }
 
 import com.redhat.ceylon.ide.common.model {
@@ -83,7 +82,7 @@ shared class CeylonModelManager()
     
     shared void startBuild(Boolean refreshEditors = true) {
         if (model.ceylonProjects.any((prj) => prj.build.somethingToDo)) {
-            requestProcessor.post(JavaRunnable(startBuildInternal(refreshEditors)));
+            requestProcessor.post(startBuildInternal(refreshEditors));
         }
     }
 
@@ -110,14 +109,14 @@ shared class CeylonModelManager()
     shared actual void buildMessagesChanged(CeylonProjectAlias project,
         {SourceMsg*}? frontendMessages, {SourceMsg*}? backendMessages, {ProjectMsg*}? projectMessages) {
 		
-		windowManager.invokeWhenUIReady(JavaRunnable(() {
+		windowManager.invokeWhenUIReady(() {
 			if (is NbCeylonProject project,
 				is ProblemsViewTopComponent view = windowManager.findTopComponent("ProblemsViewTopComponent")) {
 
 				view.open();
 				view.buildMessagesChanged(project, frontendMessages, backendMessages, projectMessages);			
 			}
-		}));
+		});
 
     }
     

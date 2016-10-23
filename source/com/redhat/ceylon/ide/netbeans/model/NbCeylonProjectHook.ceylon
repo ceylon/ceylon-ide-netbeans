@@ -1,6 +1,5 @@
 import ceylon.interop.java {
-	cls=javaClass,
-	JavaRunnable
+	cls=javaClass
 }
 
 import com.redhat.ceylon.ide.netbeans.problems {
@@ -29,13 +28,13 @@ shared class NbCeylonProjectHook(Project project) extends ProjectOpenedHook() {
         value projects = Lookup.default.lookup(cls<NbCeylonProjects>());
 
         if (exists ceylonProject = projects.getProject(project)) {
-            windowManager.invokeWhenUIReady(JavaRunnable(() {
+            windowManager.invokeWhenUIReady(() {
                 if (is NbCeylonProject ceylonProject,
                     is ProblemsViewTopComponent view = windowManager.findTopComponent("ProblemsViewTopComponent")) {
                     
                     view.closeProject(ceylonProject);			
                 }
-            }));
+            });
         }
 
         projects.removeProject(project);

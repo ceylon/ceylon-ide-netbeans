@@ -1,9 +1,6 @@
 import ceylon.collection {
     ArrayList
 }
-import ceylon.interop.java {
-    JavaRunnable
-}
 
 import com.redhat.ceylon.ide.common.platform {
     CommonDocument,
@@ -96,7 +93,7 @@ shared class NbTextChange(document) satisfies TextChange {
                 };
                 
                 if (is StyledDocument doc) {
-                    DocumentUtil.runAtomic(doc, JavaRunnable(run));
+                    DocumentUtil.runAtomic(doc, run);
                 } else {
                     run();
                 }

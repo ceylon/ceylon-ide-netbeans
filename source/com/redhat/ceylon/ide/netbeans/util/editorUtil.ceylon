@@ -1,6 +1,5 @@
 
 import ceylon.interop.java {
-	JavaRunnable,
 	javaClass
 }
 
@@ -37,7 +36,7 @@ shared object editorUtil {
     
     shared void updateSelection(DefaultRegion? selection) {
         if (exists selection) {
-            EventQueue.invokeAndWait(JavaRunnable(void () {
+            EventQueue.invokeAndWait(() {
                 if (TopComponent.registry.activatedNodes.size == 1,
                     exists ec = TopComponent.registry.activatedNodes
                             .get(0).getCookie(javaClass<EditorCookie>()),
@@ -45,7 +44,7 @@ shared object editorUtil {
                     
                     ec.openedPanes.get(0).select(selection.start, selection.end);
                 }
-            }));
+            });
         }
     }
     
