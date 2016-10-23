@@ -99,7 +99,4 @@
     <module module="org.netbeans.modules:org-netbeans-libs-javacimpl">
         <add module="org.netbeans.api:org-netbeans-libs-javacapi" version="RELEASE81"/>
     </module>
-    <module module="org.netbeans.modules:org-netbeans-modules-java-j2seproject">
-        <add module="org.netbeans.api:org-netbeans-modules-project-ant" version="RELEASE81"/>
-    </module>
 </overrides>

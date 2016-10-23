@@ -3,11 +3,10 @@ module com.redhat.ceylon.ide.netbeans "current" {
     shared import java.base "7";
     shared import java.desktop "7";
     
-    //shared import com.redhat.ceylon.ide.netbeansDependencies "current";
     shared import com.redhat.ceylon.ide.common "1.3.1-SNAPSHOT";
     shared import com.github.rjeschke.txtmark "0.13";
     
-    
+    // NetBeans dependencies
     shared import maven:"org.netbeans.api:org-netbeans-api-templates" "RELEASE81";
     shared import maven:"org.netbeans.api:org-netbeans-api-progress" "RELEASE81";
     shared import maven:"org.netbeans.api:org-netbeans-api-progress-nb" "RELEASE81";
@@ -52,9 +51,8 @@ module com.redhat.ceylon.ide.netbeans "current" {
     shared import maven:"org.netbeans.api:org-netbeans-api-java-classpath" "RELEASE81";
     
     // Friend modules (not API)
-    shared import maven:"org.netbeans.modules:org-netbeans-modules-java-j2seproject" "RELEASE81";
-    shared import maven:"org.netbeans.modules:org-netbeans-modules-java-api-common" "RELEASE81";
-    shared import maven:"org.netbeans.modules:org-netbeans-modules-editor-errorstripe" "RELEASE81";
-    shared import maven:"org.netbeans.api:org-netbeans-modules-project-ant" "RELEASE81";
     shared import maven:"org.netbeans.external:nb-javac-impl" "RELEASE81";
+
+	// Needed by LanguageRegistrationProcessor
+    shared import maven:"org.netbeans.modules:org-netbeans-modules-editor-errorstripe" "RELEASE81";
 }
