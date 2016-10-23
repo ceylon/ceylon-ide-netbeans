@@ -23,6 +23,10 @@
     <path id="ant-tasks">
         <pathelement location="${ceylon.ant.lib}" />
     </path>
+    
+    <tstamp>
+        <format property="buildnumber" pattern="yyyyMMddhhmm" timezone="UTC"/>
+    </tstamp>
 
     <target name="ceylondefs">
         <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
