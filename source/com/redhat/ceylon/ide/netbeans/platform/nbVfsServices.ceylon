@@ -86,11 +86,9 @@ object nbVfsServices
         else null;
     }
     
-    shared actual String? getProjectRelativePathString(FileObject resource, CeylonProjectAlias|Project project) {
-        value p = if (is Project project) then project else project.ideArtifact;
-        
-        return FileUtil.getRelativePath(p.projectDirectory, resource);
-    }
+    getProjectRelativePathString(FileObject resource, CeylonProjectAlias|Project project) =>
+        let(p = if (is Project project) then project else project.ideArtifact)
+        FileUtil.getRelativePath(p.projectDirectory, resource);
     
     getRootIsSourceProperty(CeylonProjectAlias ceylonProject, FileObject rootFolder)
             => if (is NbCeylonProject ceylonProject)

@@ -14,9 +14,6 @@ import com.redhat.ceylon.ide.netbeans.model {
 import java.awt {
 	Color
 }
-import java.lang {
-	ObjectArray
-}
 import java.lang.ref {
 	WeakReference
 }
@@ -74,8 +71,8 @@ shared class MarkOccurrencesHighlightsLayerFactory() satisfies HighlightsLayerFa
 		return highlighter;
 	}
 	
-	shared actual ObjectArray<HighlightsLayer> createLayers(HighlightsLayerFactory.Context context) {
-		return createJavaObjectArray({
+	createLayers(HighlightsLayerFactory.Context context) => 
+			createJavaObjectArray({
 				HighlightsLayer.create(
 					"MarkOccurrencesHighlighter",
 					ZOrder.caretRack.forPosition(2000),
@@ -83,7 +80,6 @@ shared class MarkOccurrencesHighlightsLayerFactory() satisfies HighlightsLayerFa
 					getMarkOccurrencesHighlighter(context.document).highlightsBag
 				)
 			});
-	}
 }
 
 class MarkOccurrencesHighlighter(WeakReference<Document> doc) satisfies CaretListener {

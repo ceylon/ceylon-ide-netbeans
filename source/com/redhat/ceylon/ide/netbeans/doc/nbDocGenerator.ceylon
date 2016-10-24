@@ -1,46 +1,45 @@
 import ceylon.interop.java {
-    javaClass
+	javaClass
 }
 
 import com.github.rjeschke.txtmark {
-    Configuration,
-    Processor
+	Configuration,
+	Processor
 }
 import com.redhat.ceylon.ide.common.doc {
-    DocGenerator,
-    Icons,
-    Colors
+	DocGenerator,
+	Icons,
+	Colors
 }
 import com.redhat.ceylon.ide.common.typechecker {
-    LocalAnalysisResult
-}
-
-import com.redhat.ceylon.ide.netbeans.util {
-    utilHighlight=highlight,
-	nbIcons
+	LocalAnalysisResult
 }
 import com.redhat.ceylon.ide.netbeans.model {
-    CeylonParseController
+	CeylonParseController
+}
+import com.redhat.ceylon.ide.netbeans.util {
+	utilHighlight=highlight,
+	nbIcons
 }
 import com.redhat.ceylon.model.typechecker.model {
-    Declaration,
-    Unit,
-    Referenceable,
-    Scope,
-    Constructor,
-    Package,
-    Module
+	Declaration,
+	Unit,
+	Referenceable,
+	Scope,
+	Constructor,
+	Package,
+	Module
 }
 import com.redhat.ceylon.model.typechecker.util {
-    TypePrinter
+	TypePrinter
 }
 
 import java.awt {
-    Image
+	Image
 }
 import java.io {
-    InputStreamReader,
-    BufferedReader
+	InputStreamReader,
+	BufferedReader
 }
 
 shared class NbDocGenerator(CeylonParseController cpc)
@@ -92,11 +91,10 @@ shared class NbDocGenerator(CeylonParseController cpc)
         builder.append(text).append("</div>");
     }
     
-    shared actual void appendJavadoc(Declaration model, StringBuilder buffer) {}
+    appendJavadoc(Declaration model, StringBuilder buffer) => noop();
     
-    shared actual void appendPageEpilog(StringBuilder builder) {
-        builder.append("</div>");
-    }
+    appendPageEpilog(StringBuilder builder) 
+            => builder.append("</div>");
     
     shared actual void appendPageProlog(StringBuilder builder) {
         value resource = "/com/redhat/ceylon/ide/netbeans/doc/prolog.html";
@@ -149,13 +147,13 @@ shared class NbDocGenerator(CeylonParseController cpc)
         return "<a href=\"``protocol``:``href``\">``text``</a>";
     }
     
-    shared actual String color(Object? what, Colors how)
+    color(Object? what, Colors how)
             => "<span style='color: blue'>`` what?.string else "" ``</span>"; // TODO proper highlight
     
-    shared actual String? getLiveValue(Declaration dec, Unit unit)
+    getLiveValue(Declaration dec, Unit unit)
             => null;
     
-    shared actual String highlight(String text, LocalAnalysisResult cmp)
+    highlight(String text, LocalAnalysisResult cmp)
             => "<code>``utilHighlight(text)``</code>";
     
     shared actual String markdown(String text, LocalAnalysisResult cmp, Scope? linkScope, Unit? unit) {
@@ -183,15 +181,15 @@ shared class NbDocGenerator(CeylonParseController cpc)
             return "&lt;unknown&gt;";
         }
         
-        shared actual String amp() => "&amp;";
-        shared actual String lt() => "&lt;";
-        shared actual String gt() => "&gt";
+        amp() => "&amp;";
+        lt() => "&lt;";
+        gt() => "&gt";
     }
     
-    shared actual Boolean showMembers => false;
+    showMembers => false;
     
-    shared actual Boolean supportsQuickAssists => false;
+    supportsQuickAssists => false;
 
-    shared actual TypePrinter verbosePrinter => nothing;
+    verbosePrinter => nothing;
     
 }

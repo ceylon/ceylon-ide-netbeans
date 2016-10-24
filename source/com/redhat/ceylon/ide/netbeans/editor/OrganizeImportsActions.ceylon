@@ -41,7 +41,7 @@ shared class OrganizeImportsActions() extends BaseAction()
         }
     }
     
-    shared actual Declaration? select(List<Declaration> proposals)
+    select(List<Declaration> proposals)
             => proposals.first; // TODO
     
 }

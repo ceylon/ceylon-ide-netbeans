@@ -106,5 +106,5 @@ class NbModule(NbModuleManager mm, NbModuleSourceMapper msm)
     
     moduleSourceMapper => msm;
     
-    shared actual void refreshJavaModel() {}
+    refreshJavaModel() => noop();
 }

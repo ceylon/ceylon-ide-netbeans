@@ -69,18 +69,13 @@ shared class NBCeylonParser() extends Parser() {
         }
     }
     
-    shared actual Result? getResult(Task task) {
-        return result;
-    }
+    getResult(Task task) => result;
     
-    shared actual void cancel() {
-    }
+    cancel() => noop();
     
-    shared actual void addChangeListener(ChangeListener changeListener) {
-    }
+    addChangeListener(ChangeListener changeListener) => noop();
     
-    shared actual void removeChangeListener(ChangeListener changeListener) {
-    }
+    removeChangeListener(ChangeListener changeListener) => noop();
     
     shared class CeylonParserResult(Snapshot snapshot, CeylonParser parser,
         shared Tree.CompilationUnit rootNode,
@@ -97,12 +92,8 @@ shared class NBCeylonParser() extends Parser() {
             return parser;
         }
         
-        shared actual void invalidate() {
-            valid = false;
-        }
+        invalidate() => valid = false;
         
-        shared actual List<out Error> diagnostics {
-            return Collections.emptyList<Error>();
-        }
+        diagnostics => Collections.emptyList<Error>();
     }
 }

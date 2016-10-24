@@ -72,9 +72,7 @@ shared class NbTextChange(document) satisfies TextChange {
     
     value edits = ArrayList<TextEdit>();
     
-    shared actual void addEdit(TextEdit change) {
-        edits.add(change);
-    }
+    addEdit(TextEdit change) => edits.add(change);
     
     shared actual void apply() {
         try {

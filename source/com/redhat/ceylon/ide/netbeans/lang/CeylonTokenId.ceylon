@@ -4,9 +4,9 @@ import org.netbeans.api.lexer {
 
 shared class CeylonTokenId(String myName, String category, Integer myOrdinal) satisfies TokenId {
     
-    shared actual String name() => myName;
+    name() => myName;
     
-    shared actual Integer ordinal() => myOrdinal;
+    ordinal() => myOrdinal;
     
-    shared actual String primaryCategory() => category;
+    primaryCategory() => category;
 }

@@ -43,14 +43,10 @@ import com.redhat.ceylon.ide.netbeans.model {
 import java.beans {
 	PropertyChangeListener
 }
-import java.lang {
-	Class
-}
 import java.util {
 	JArrayList=ArrayList,
 	JList=List,
-	Collections,
-	Set
+	Collections
 }
 
 import javax.swing.text {
@@ -89,7 +85,7 @@ mimeRegistration {
 	service = `class TaskFactory`;
 }
 shared class CeylonSyntaxErrorHighlightingTaskFactory() extends TaskFactory() {
-    shared actual Set<CeylonSyntaxErrorHighlightingTask> create(Snapshot snapshot)
+    create(Snapshot snapshot)
         => Collections.singleton(CeylonSyntaxErrorHighlightingTask());
 }
 
@@ -197,17 +193,13 @@ shared class CeylonSyntaxErrorHighlightingTask() extends ParserResultTask<Parser
         
         probablyContainsFixes() => true;
         
-        shared actual void removePropertyChangeListener(PropertyChangeListener? propertyChangeListener) {}
+        removePropertyChangeListener(PropertyChangeListener? propertyChangeListener)
+                => noop();
     }
     
-    shared actual Integer priority {
-        return 100;
-    }
+    priority => 100;
     
-    shared actual Class<out Scheduler> schedulerClass {
-        return Scheduler.editorSensitiveTaskScheduler;
-    }
+    schedulerClass => Scheduler.editorSensitiveTaskScheduler;
     
-    shared actual void cancel() {
-    }
+    cancel() => noop();
 }

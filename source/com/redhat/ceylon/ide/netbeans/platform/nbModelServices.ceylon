@@ -66,9 +66,8 @@ object nbModelServices
     resourceNativeFolders(CeylonProjectAlias ceylonProject)
             => listFolders(ceylonProject, sourcesTypeResources);
     
-    shared actual void scanRootFolder(RootFolderScanner<Project,FileObject,FileObject,FileObject> scanner) {
-        visit(scanner.nativeRootDir, scanner);
-    }
+    scanRootFolder(RootFolderScanner<Project,FileObject,FileObject,FileObject> scanner)
+        	=> visit(scanner.nativeRootDir, scanner);
     
     void visit(FileObject obj, RootFolderScanner<Project,FileObject,FileObject,FileObject> scanner) {
         scanner.visitNativeResource(obj);

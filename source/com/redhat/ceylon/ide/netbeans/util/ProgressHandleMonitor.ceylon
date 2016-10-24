@@ -41,20 +41,17 @@ shared class ProgressHandleMonitor extends ProgressMonitorImpl<ProgressHandle> {
         this.started = false;
     }
 
-    shared actual void subTask(String desc) {
-        handle.setDisplayName(desc);
-    }
+    subTask(String desc) => handle.setDisplayName(desc);
     
-    shared actual Boolean cancelled => false;
+    cancelled => false;
     
     shared actual ProgressHandleMonitor newChild(Integer allocatedWork) {
         parents.push([this.started, this.allocatedWork, this.cumulativeWorked]);
         return child(this, allocatedWork, started);
     }
     
-    shared actual void updateRemainingWork(Integer remainingWork) {
-        handle.switchToDeterminate(remainingWork);
-    }
+    updateRemainingWork(Integer remainingWork)
+        	=> handle.switchToDeterminate(remainingWork);
     
     shared actual void worked(Integer amount) {
         cumulativeWorked += amount;

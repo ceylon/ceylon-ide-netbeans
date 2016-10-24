@@ -1,44 +1,44 @@
 import ceylon.interop.java {
-    javaString
+	javaString
+}
+
+import com.redhat.ceylon.ide.netbeans.util {
+	highlight
 }
 
 import java.awt {
-    Color,
-    Font,
-    Graphics,
-    Image
+	Color,
+	Font,
+	Graphics,
+	Image
 }
 import java.awt.event {
-    KeyEvent
+	KeyEvent
 }
 
 import javax.swing {
-    ImageIcon
+	ImageIcon
 }
 import javax.swing.text {
-    BadLocationException,
-    JTextComponent,
-    StyledDocument
+	BadLocationException,
+	JTextComponent,
+	StyledDocument
 }
 
 import org.netbeans.api.editor.completion {
-    Completion
+	Completion
 }
 import org.netbeans.spi.editor.completion {
-    CompletionItem,
-    CompletionTask
+	CompletionItem
 }
 import org.netbeans.spi.editor.completion.support {
-    CompletionUtilities
+	CompletionUtilities
 }
 import org.openide.util {
-    Exceptions
+	Exceptions
 }
 import org.openide.xml {
-    XMLUtil
-}
-import com.redhat.ceylon.ide.netbeans.util {
-    highlight
+	XMLUtil
 }
 
 shared object nbCompletionItemPosition {
@@ -71,8 +71,7 @@ shared class CeylonCompletionItem(String text, String desc,
         }
     }
     
-    shared actual void processKeyEvent(KeyEvent ke) {
-    }
+    processKeyEvent(KeyEvent ke) => noop();
     
     getPreferredWidth(Graphics graphics, Font font)
             => CompletionUtilities.getPreferredWidth(escape(desc), null, graphics, font);
@@ -90,9 +89,9 @@ shared class CeylonCompletionItem(String text, String desc,
             width, height, selected);
     }
     
-    shared default actual CompletionTask? createDocumentationTask() => null;
+    createDocumentationTask() => null;
     
-    shared actual CompletionTask? createToolTipTask() => null;
+    createToolTipTask() => null;
     
     instantSubstitution(JTextComponent jtc) => false;
     

@@ -56,6 +56,6 @@ class AnnotationMirror(JAnnotationMirror ann) satisfies MAnnotationMirror {
         return null;
     }
     
-    shared actual Object? \ivalue => getValue("value");
+    \ivalue => getValue("value");
     
 }

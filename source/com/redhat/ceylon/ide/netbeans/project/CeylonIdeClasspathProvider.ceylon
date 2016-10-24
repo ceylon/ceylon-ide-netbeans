@@ -69,9 +69,8 @@ shared class CeylonIdeClasspathProvider() satisfies ClassPathProvider {
 		}
 	}
 	
-	shared actual ClassPath? findClassPath(FileObject file, String type) {
-		return classpaths.get(type);
-	}
+	findClassPath(FileObject file, String type)
+			=> classpaths.get(type);
 	
 	class CeylonClassPaths(String type) satisfies ClassPathImplementation {
 		addPropertyChangeListener(PropertyChangeListener listener)

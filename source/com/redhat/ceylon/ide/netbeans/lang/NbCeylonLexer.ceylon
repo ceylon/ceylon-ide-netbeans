@@ -34,7 +34,7 @@ class NbCeylonLexer(LexerRestartInfo<CeylonTokenId> info) satisfies Lexer<Ceylon
         return resultToken;
     }
     
-    shared actual void release() {}
+    release() => noop();
     
-    shared actual Object? state() => null;
+    state() => null;
 }

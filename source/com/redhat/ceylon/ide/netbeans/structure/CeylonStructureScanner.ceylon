@@ -23,7 +23,7 @@ import org.netbeans.modules.csl.spi {
 
 shared object ceylonStructureScanner satisfies StructureScanner {
     
-    shared actual StructureScanner.Configuration? configuration => null;
+    configuration => null;
     
     shared actual Map<JString,List<OffsetRange>> folds(ParserResult result) {
         value myFolds = HashMap<JString,List<OffsetRange>>();

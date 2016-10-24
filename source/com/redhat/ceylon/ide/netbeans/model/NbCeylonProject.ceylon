@@ -73,7 +73,7 @@ import org.netbeans.spi.java.classpath {
 shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
         extends CeylonProject<Project,FileObject,FileObject,FileObject>() {
 
-    shared actual Boolean loadBinariesFirst => true;
+    loadBinariesFirst => true;
 
     variable Boolean languageModuleAdded = false;
 
@@ -111,9 +111,8 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
             }
         }
         
-        shared actual void repositoryManagerReset(CeylonProjectAlias ceylonProject) {
-            languageModuleAdded = false;
-        }
+        repositoryManagerReset(CeylonProjectAlias ceylonProject)
+                => languageModuleAdded = false;
     }
 
 	shared void addDependencyToClasspath(File dependency) {
@@ -133,20 +132,24 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
     
     compileToJs => ideConfiguration.compileToJs else false;
     
-    shared actual void completeCeylonModelParsing(BaseProgressMonitorChild monitor) {}
+    completeCeylonModelParsing(BaseProgressMonitorChild monitor)
+            => noop();
     
-    shared actual void createNewOutputFolder(String folderProjectRelativePath) {}
+    createNewOutputFolder(String folderProjectRelativePath)
+            => noop();
     
-    shared actual void createOverridesProblemMarker(Exception theOverridesException,
-        File absoluteFile, Integer overridesLine, Integer overridesColumn) {}
+    createOverridesProblemMarker(Exception theOverridesException,
+        File absoluteFile, Integer overridesLine, Integer overridesColumn)
+            => noop();
     
-    shared actual void deleteOldOutputFolder(String folderProjectRelativePath) {}
+    deleteOldOutputFolder(String folderProjectRelativePath)
+            => noop();
     
-    shared actual Boolean hasConfigFile => true;
+    hasConfigFile => true;
     
     ideArtifact => nativeProject;
     
-    shared actual NbCeylonProjects model => projects;
+    model => projects;
     
     moduleManagerFactory => object satisfies ModuleManagerFactory {
         createModuleManager(Context context)
@@ -161,17 +164,17 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
     
     name => nativeProject.lookup.lookup(javaClass<ProjectInformation>()).name;
     
-    shared actual void refreshConfigFile(String projectRelativePath) {}
+    refreshConfigFile(String projectRelativePath)
+            => noop();
     
-    shared actual void removeOverridesProblemMarker() {}
+    removeOverridesProblemMarker()
+            => noop();
     
     rootDirectory => FileUtil.toFile(nativeProject.projectDirectory);
     
     synchronizedWithConfiguration => true;
     
-    shared actual String systemRepository
-            => "/Users/bastien/Dev/ceylon/ceylon/dist/dist/repo"; // TODO
+    systemRepository => "/Users/bastien/Dev/ceylon/ceylon/dist/dist/repo"; // TODO
         
     buildHooks => {addModuleArchiveHook};
-
 }

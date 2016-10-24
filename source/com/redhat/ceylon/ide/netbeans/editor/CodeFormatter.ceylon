@@ -55,9 +55,9 @@ shared object codeFormatter satisfies Formatter {
         // TODO
     }
     
-    shared actual Boolean needsParserResult() => true;
+    needsParserResult() => true;
     
-    shared actual Integer indentSize() => 4;
+    indentSize() => 4;
     
-    shared actual Integer hangingIndentSize() => 4;
+    hangingIndentSize() => 4;
 }

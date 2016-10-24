@@ -22,8 +22,7 @@ class NbModuleSourceMapper(Context context, NbModuleManager manager)
     
     defaultCharset => "UTF-8";
     
-    shared actual void logModuleResolvingError(BaseIdeModule mod, Exception e) {
+    logModuleResolvingError(BaseIdeModule mod, Exception e) =>
         platformUtils.log(Status._ERROR,
             "Failed to resolve module " + mod.signature, e);
-    }
 }

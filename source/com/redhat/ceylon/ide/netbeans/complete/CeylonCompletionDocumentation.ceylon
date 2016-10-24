@@ -1,44 +1,40 @@
 import ceylon.interop.java {
-    CeylonIterable,
-    javaClass
+	CeylonIterable,
+	javaClass
 }
 
 import com.redhat.ceylon.ide.netbeans.doc {
-    NbDocGenerator
+	NbDocGenerator
 }
 import com.redhat.ceylon.ide.netbeans.model {
-    CeylonParseController
+	CeylonParseController
 }
 import com.redhat.ceylon.model.typechecker.model {
-    Scope,
-    Referenceable,
-    TypedDeclaration,
-    Value
+	Scope,
+	Referenceable,
+	TypedDeclaration,
+	Value
 }
 
 import java.io {
-    File
+	File
 }
 import java.net {
-    URL
-}
-
-import javax.swing {
-    Action
+	URL
 }
 
 import org.netbeans.spi.editor.completion {
-    CompletionDocumentation
+	CompletionDocumentation
 }
 import org.openide.cookies {
-    OpenCookie
+	OpenCookie
 }
 import org.openide.filesystems {
-    FileUtil,
-    URLMapper
+	FileUtil,
+	URLMapper
 }
 import org.openide.loaders {
-    DataObject
+	DataObject
 }
 
 class CeylonCompletionDocumentation(text, cpc)
@@ -47,7 +43,7 @@ class CeylonCompletionDocumentation(text, cpc)
     CeylonParseController cpc;
     shared actual String text;
     
-    shared actual Action? gotoSourceAction => null;
+    gotoSourceAction => null;
     
     shared actual CompletionDocumentation? resolveLink(String link) {
         value bits = link.split(':'.equals).sequence();
@@ -118,5 +114,5 @@ class CeylonCompletionDocumentation(text, cpc)
         return "";
     }
     
-    shared actual URL? url => null;
+    url => null;
 }

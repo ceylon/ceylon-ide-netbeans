@@ -1,3 +1,7 @@
+import com.redhat.ceylon.ide.netbeans.util {
+	nbIcons
+}
+
 import org.netbeans.api.project {
 	Project
 }
@@ -10,8 +14,7 @@ import org.netbeans.spi.project.ui.support {
 	},
 	NodeFactory {
 		nodeFactoryRegistration=registration
-	},
-	NodeList
+	}
 }
 import org.openide.filesystems {
 	FileObject
@@ -26,9 +29,6 @@ import org.openide.nodes {
 }
 import org.openide.util {
 	ImageUtilities
-}
-import com.redhat.ceylon.ide.netbeans.util {
-	nbIcons
 }
 
 class CeylonProjectLogicalView(CeylonProject project) satisfies LogicalViewProvider {
@@ -57,12 +57,11 @@ nodeFactoryRegistration {
 }
 shared class CeylonProjectNodeFactory() satisfies NodeFactory {
 	
-	shared actual NodeList<out Object> createNodes(Project project) {
-		return NodeFactorySupport.fixedNodeList(
+	createNodes(Project project) => 
+		NodeFactorySupport.fixedNodeList(
 			for (child in orderedChildren(project))
 			CeylonNode(DataObject.find(child).nodeDelegate)
 		);
-	}
 	
 	FileObject[] orderedChildren(Project project) {
 		value children = project.projectDirectory.children.array.coalesced;

@@ -1,56 +1,56 @@
 import ceylon.collection {
-    ArrayList
+	ArrayList
 }
 
 import com.redhat.ceylon.cmr.api {
-    ModuleVersionDetails,
-    ModuleSearchResult
-}
-import com.redhat.ceylon.compiler.typechecker.tree {
-    Tree,
-    Node
-}
-import com.redhat.ceylon.ide.common.completion {
-    ProposalsHolder,
-    CompletionContext,
-    ProposalKind
-}
-import com.redhat.ceylon.ide.common.doc {
-    Icons
-}
-import com.redhat.ceylon.ide.common.platform {
-    CompletionServices,
-    TextChange
-}
-import com.redhat.ceylon.ide.common.refactoring {
-    DefaultRegion
-}
-import com.redhat.ceylon.ide.common.settings {
-    CompletionOptions
-}
-import com.redhat.ceylon.ide.common.typechecker {
-    LocalAnalysisResult
-}
-
-import com.redhat.ceylon.ide.netbeans.complete {
-    CeylonCompletionItem
-}
-import com.redhat.ceylon.model.typechecker.model {
-    Declaration,
-    Unit,
-    Package,
-    Type,
-    Scope,
-    Reference
-}
-import java.util.concurrent {
-	Future
+	ModuleVersionDetails,
+	ModuleSearchResult
 }
 import com.redhat.ceylon.compiler.typechecker.context {
 	PhasedUnit
 }
+import com.redhat.ceylon.compiler.typechecker.tree {
+	Tree,
+	Node
+}
+import com.redhat.ceylon.ide.common.completion {
+	ProposalsHolder,
+	CompletionContext,
+	ProposalKind
+}
+import com.redhat.ceylon.ide.common.doc {
+	Icons
+}
+import com.redhat.ceylon.ide.common.platform {
+	CompletionServices,
+	TextChange
+}
+import com.redhat.ceylon.ide.common.refactoring {
+	DefaultRegion
+}
+import com.redhat.ceylon.ide.common.settings {
+	CompletionOptions
+}
+import com.redhat.ceylon.ide.common.typechecker {
+	LocalAnalysisResult
+}
+import com.redhat.ceylon.ide.netbeans.complete {
+	CeylonCompletionItem
+}
 import com.redhat.ceylon.ide.netbeans.util {
 	nbIcons
+}
+import com.redhat.ceylon.model.typechecker.model {
+	Declaration,
+	Unit,
+	Package,
+	Type,
+	Scope,
+	Reference
+}
+
+import java.util.concurrent {
+	Future
 }
 
 // TODO

@@ -2,8 +2,7 @@ import java.lang {
 	Class
 }
 import java.util {
-	Arrays,
-	Collection
+	Arrays
 }
 
 import org.netbeans.api.editor.fold {
@@ -22,7 +21,7 @@ mimeRegistration {
 }
 shared class CeylonFoldTypeProvider() satisfies FoldTypeProvider {
     
-    shared actual Collection<FoldType> getValues(Class<out Object> type)
+    getValues(Class<out Object> type)
         => Arrays.asList(
             FoldType.\iimport, FoldType.codeBlock, FoldType.comment,
             FoldType.documentation, FoldType.nested

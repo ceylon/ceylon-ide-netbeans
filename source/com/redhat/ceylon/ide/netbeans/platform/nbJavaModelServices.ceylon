@@ -27,7 +27,7 @@ import javax.lang.model.element {
 
 object nbJavaModelServices satisfies JavaModelServices<TypeElement> {
     
-    shared actual TypeElement? getJavaClassRoot(ClassMirror classMirror)
+    getJavaClassRoot(ClassMirror classMirror)
             => if (is TypeElementMirror classMirror)
                 then classMirror.te
                 else null;

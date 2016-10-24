@@ -2,20 +2,18 @@ import ceylon.interop.java {
 	createJavaObjectArray
 }
 
-
 import com.redhat.ceylon.ide.netbeans.model {
 	NbCeylonProjectHook
+}
+import com.redhat.ceylon.ide.netbeans.util {
+	nbIcons
 }
 
 import java.beans {
 	PropertyChangeListener
 }
-import java.lang {
-	ObjectArray
-}
 
 import javax.swing {
-	Icon,
 	ImageIcon
 }
 import javax.swing.event {
@@ -31,6 +29,9 @@ import org.netbeans.api.project {
 import org.netbeans.spi.project {
 	ProjectState
 }
+import org.netbeans.spi.project.support {
+	GenericSources
+}
 import org.openide.filesystems {
 	FileObject
 }
@@ -39,12 +40,6 @@ import org.openide.util {
 }
 import org.openide.util.lookup {
 	Lookups
-}
-import org.netbeans.spi.project.support {
-	GenericSources
-}
-import com.redhat.ceylon.ide.netbeans.util {
-	nbIcons
 }
 
 shared class CeylonProject(shared actual FileObject projectDirectory, ProjectState state)
@@ -74,8 +69,8 @@ shared class CeylonProject(shared actual FileObject projectDirectory, ProjectSta
         addChangeListener(ChangeListener? changeListener) => noop();
         removeChangeListener(ChangeListener? changeListener)  => noop();
         
-        shared actual ObjectArray<SourceGroup> getSourceGroups(String? string) {
-            return createJavaObjectArray<SourceGroup>({
+        getSourceGroups(String? string) =>
+            createJavaObjectArray<SourceGroup>({
                 object satisfies SourceGroup {
                     addPropertyChangeListener(PropertyChangeListener listener)
                             => noop();
@@ -85,29 +80,30 @@ shared class CeylonProject(shared actual FileObject projectDirectory, ProjectSta
                     
                     displayName => "Source";
                     
-                    shared actual Icon getIcon(Boolean boolean) => ImageIcon(nbIcons.anonymousFunction);
+                    getIcon(Boolean boolean) => ImageIcon(nbIcons.anonymousFunction);
                     
-                    shared actual String name => "source";
+                    name => "source";
                     
-                    shared actual void removePropertyChangeListener(PropertyChangeListener? propertyChangeListener) {}
+                    removePropertyChangeListener(PropertyChangeListener? propertyChangeListener)
+                    	=> noop();
                     
-                    shared actual FileObject rootFolder => projectDirectory.getFileObject("source");
+                    rootFolder => projectDirectory.getFileObject("source");
                 }
             });
-        }
-    }
-
+	}
 }
 
 class Info(shared actual CeylonProject project) satisfies ProjectInformation {
     
-    shared actual void addPropertyChangeListener(PropertyChangeListener? propertyChangeListener) {}
+    addPropertyChangeListener(PropertyChangeListener? propertyChangeListener)
+    	=> noop();
     
-    shared actual String displayName => name;
+    displayName => name;
     
-    shared actual Icon icon => ImageIcon(nbIcons.ceylon);
+    icon => ImageIcon(nbIcons.ceylon);
     
-    shared actual String name => project.projectDirectory.name;
+    name => project.projectDirectory.name;
     
-    shared actual void removePropertyChangeListener(PropertyChangeListener? propertyChangeListener) {}
+    removePropertyChangeListener(PropertyChangeListener? propertyChangeListener)
+    	=> noop();
 }

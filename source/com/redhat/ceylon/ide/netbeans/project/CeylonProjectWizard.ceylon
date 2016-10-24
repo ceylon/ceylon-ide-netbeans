@@ -1,29 +1,27 @@
+import java.io {
+	File
+}
 import java.util {
-    Set,
-    LinkedHashSet
+	Set,
+	LinkedHashSet
 }
 
 import javax.swing.event {
-    ChangeListener
+	ChangeListener
 }
 
 import org.netbeans.api.progress {
-    ProgressHandle
-}
-import org.openide {
-    WizardDescriptor {
-        Panel
-    }
-}
-import org.openide.filesystems {
-    FileObject,
-    FileUtil
-}
-import java.io {
-    File
+	ProgressHandle
 }
 import org.netbeans.api.templates {
 	templateRegistration
+}
+import org.openide {
+	WizardDescriptor
+}
+import org.openide.filesystems {
+	FileObject,
+	FileUtil
 }
 
 templateRegistration {
@@ -45,13 +43,14 @@ shared class CeylonProjectWizard extends AmbiguousOverloadsResolver {
     value panels = [ConfigureProjectPanel()];
     variable WizardDescriptor? wiz = null;
     
-    shared actual void addChangeListener(ChangeListener changeListener) {}
+    addChangeListener(ChangeListener changeListener)
+            => noop();
     
-    shared actual Panel<WizardDescriptor> current() => panels.first;
+    current() => panels.first;
     
-    shared actual Boolean hasNext() => false;
+    hasNext() => false;
     
-    shared actual Boolean hasPrevious() => false;
+    hasPrevious() => false;
     
     shared actual void initialize(WizardDescriptor wizardDescriptor) {
         wiz = wizardDescriptor;
@@ -94,14 +93,15 @@ shared class CeylonProjectWizard extends AmbiguousOverloadsResolver {
         return files;
     }
     
-    shared actual String name() => "???";
+    name() => "???";
     
-    shared actual void nextPanel() {}
+    nextPanel() => noop();
     
-    shared actual void previousPanel() {}
+    previousPanel() => noop();
     
-    shared actual void removeChangeListener(ChangeListener changeListener) {}
+    removeChangeListener(ChangeListener changeListener)
+            => noop();
     
-    shared actual void uninitialize(WizardDescriptor wizardDescriptor) {}
-    
+    uninitialize(WizardDescriptor wizardDescriptor)
+            => noop();
 }

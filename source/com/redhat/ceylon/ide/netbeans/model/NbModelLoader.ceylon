@@ -31,20 +31,19 @@ import org.netbeans.api.java.classpath {
 import org.netbeans.api.java.source {
 	ClasspathInfo,
 	JavaSource,
-	Task,
 	CompilationController
 }
 import org.netbeans.api.project {
 	Project
+}
+import org.netbeans.modules.parsing.impl {
+	Utilities
 }
 import org.netbeans.spi.java.classpath {
 	ClassPathProvider
 }
 import org.openide.filesystems {
 	FileObject
-}
-import org.netbeans.modules.parsing.impl {
-	Utilities
 }
 
 class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceMapper msm, Modules modules)
@@ -66,11 +65,11 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
     shared actual class PackageLoader(BaseIdeModule ideModule)
              extends super.PackageLoader(ideModule) {
         
-        shared actual Boolean packageExists(String quotedPackageName) => false;
+        packageExists(String quotedPackageName) => false;
         
-        shared actual {TypeElement*}? packageMembers(String quotedPackageName) => null;
+        packageMembers(String quotedPackageName) => null;
         
-        shared actual Boolean shouldBeOmitted(TypeElement type) => false;
+        shouldBeOmitted(TypeElement type) => false;
     }
     
     shared actual void addModuleToClasspathInternal(ArtifactResult? artifact) {
@@ -96,11 +95,12 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         Utilities.acquireParserLock();
         
         try {
-	        js.runUserActionTask(object satisfies Task<CompilationController> {
-	            shared actual void run(CompilationController ctrl) {
+	        js.runUserActionTask(
+	            (CompilationController ctrl) {
 	                te = ctrl.elements.getTypeElement(javaString(unparameterized));
-	            }
-	        }, true);
+	            },
+	            true
+	        );
 	    } finally {
 	        Utilities.releaseParserLock();
 	    }
@@ -113,15 +113,12 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         return null;
     }
     
-    shared actual Boolean isOverloadingMethod(MethodMirror? methodMirror) {
-        return false;
-    }
+    isOverloadingMethod(MethodMirror? methodMirror) => false;
     
-    shared actual Boolean isOverridingMethod(MethodMirror? methodMirror) => false;
+    isOverridingMethod(MethodMirror? methodMirror) => false;
     
-    shared actual Boolean moduleContainsClass(BaseIdeModule ideModule, 
+    moduleContainsClass(BaseIdeModule ideModule, 
         String packageName, String className) => false;
-    
     
     typeExists(TypeElement type) => true;
     

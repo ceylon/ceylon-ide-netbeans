@@ -1,27 +1,32 @@
+import ceylon.interop.java {
+	javaClass
+}
+
 import com.redhat.ceylon.ide.netbeans.model {
 	NbCeylonProject
 }
 
+import java.awt.event {
+	MouseAdapter,
+	MouseEvent
+}
 import java.util {
 	Properties
 }
 
 import javax.swing.tree {
-	TreeModel,
 	DefaultMutableTreeNode
 }
-import java.awt.event {
-	MouseAdapter,
-	MouseEvent
-}
-import org.openide.loaders {
-	DataObject
-}
-import ceylon.interop.java {
-	javaClass
+
+import org.openide.awt {
+	actionID,
+	actionReference
 }
 import org.openide.cookies {
 	LineCookie
+}
+import org.openide.loaders {
+	DataObject
 }
 import org.openide.text {
 	Line
@@ -32,10 +37,6 @@ import org.openide.windows {
 		registration,
 		openActionRegistration
 	}
-}
-import org.openide.awt {
-	actionID,
-	actionReference
 }
 
 "Displays project errors in a tool window."
@@ -84,19 +85,15 @@ shared class ProblemsViewTopComponent()
 		}
 	});
 	
-	shared actual void componentOpened() {
-	}
+	componentOpened() => noop();
 	
-	shared actual void componentClosed() {
-	}
+	componentClosed() => noop();
 
 	shared actual void preInitComponents() {
 		treeModel = ProblemsTree();
 	}
 
-	shared actual TreeModel createModel() {
-		return treeModel.model;
-	}
+	createModel() => treeModel.model;
 	
 	shared void closeProject(NbCeylonProject project) {
 		treeModel.closeProject(project);

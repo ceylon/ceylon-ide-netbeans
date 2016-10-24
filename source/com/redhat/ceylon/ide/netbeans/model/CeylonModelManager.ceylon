@@ -106,8 +106,8 @@ shared class CeylonModelManager()
         }
     }
     
-    shared actual void buildMessagesChanged(CeylonProjectAlias project,
-        {SourceMsg*}? frontendMessages, {SourceMsg*}? backendMessages, {ProjectMsg*}? projectMessages) {
+    buildMessagesChanged(CeylonProjectAlias project,
+        {SourceMsg*}? frontendMessages, {SourceMsg*}? backendMessages, {ProjectMsg*}? projectMessages) =>
 		
 		windowManager.invokeWhenUIReady(() {
 			if (is NbCeylonProject project,
@@ -117,8 +117,6 @@ shared class CeylonModelManager()
 				view.buildMessagesChanged(project, frontendMessages, backendMessages, projectMessages);			
 			}
 		});
-
-    }
     
     // File changes
     

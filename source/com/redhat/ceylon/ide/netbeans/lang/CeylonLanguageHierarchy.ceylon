@@ -1,20 +1,22 @@
-import org.netbeans.spi.lexer {
-    LanguageHierarchy,
-    Lexer,
-    LexerRestartInfo
-}
-import java.util {
-    Collection,
-    Arrays
-}
-import com.redhat.ceylon.compiler.typechecker.parser {
-    CeylonLexer
+import ceylon.collection {
+	HashMap
 }
 import ceylon.interop.java {
-    CeylonIterable
+	CeylonIterable
 }
-import ceylon.collection {
-    HashMap
+
+import com.redhat.ceylon.compiler.typechecker.parser {
+	CeylonLexer
+}
+
+import java.util {
+	Collection,
+	Arrays
+}
+
+import org.netbeans.spi.lexer {
+	LanguageHierarchy,
+	LexerRestartInfo
 }
 
 shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>() {
@@ -159,11 +161,11 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
     shared CeylonTokenId? getToken(Integer id)
             => tokensById.get(id);
     
-    shared actual Lexer<CeylonTokenId> createLexer(LexerRestartInfo<CeylonTokenId> info)
+    createLexer(LexerRestartInfo<CeylonTokenId> info)
             => NbCeylonLexer(info);
     
-    shared actual Collection<CeylonTokenId> createTokenIds()
+    createTokenIds()
              => tokens;
     
-    shared actual String mimeType() => "text/x-ceylon";
+    mimeType() => package.mimeType;
 }

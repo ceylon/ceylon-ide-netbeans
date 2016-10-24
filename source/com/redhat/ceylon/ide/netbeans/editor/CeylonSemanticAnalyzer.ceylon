@@ -1,37 +1,34 @@
 import com.redhat.ceylon.compiler.typechecker.tree {
-    VisitorAdaptor,
-    Tree
+	VisitorAdaptor,
+	Tree
 }
 import com.redhat.ceylon.ide.netbeans.lang {
-    NBCeylonParser
+	NBCeylonParser
 }
 
-import java.lang {
-    Class
-}
 import java.util {
-    Set,
-    HashMap,
-    Collections {
-        singleton
-    }
+	Set,
+	HashMap,
+	Collections {
+		singleton
+	}
 }
 
 import org.netbeans.modules.csl.api {
-    SemanticAnalyzer,
-    ColoringAttributes,
-    OffsetRange
+	SemanticAnalyzer,
+	ColoringAttributes,
+	OffsetRange
 }
 import org.netbeans.modules.parsing.spi {
-    SchedulerEvent,
-    Scheduler
+	SchedulerEvent,
+	Scheduler
 }
 
 "Provides additional syntax highlights based on the parser result (for annotations, ...)"
 shared class CeylonSemanticAnalyzer()
         extends SemanticAnalyzer<NBCeylonParser.CeylonParserResult>() {
     
-    shared actual void cancel() {}
+    cancel() => noop();
     
     highlights = HashMap<OffsetRange, Set<ColoringAttributes>>();
     
@@ -80,6 +77,6 @@ shared class CeylonSemanticAnalyzer()
 
     }
     
-    shared actual Class<out Scheduler> schedulerClass
+    schedulerClass
             => Scheduler.editorSensitiveTaskScheduler;
 }

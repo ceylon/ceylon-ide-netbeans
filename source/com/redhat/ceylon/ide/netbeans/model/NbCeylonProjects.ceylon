@@ -18,6 +18,6 @@ serviceProvider {
 shared class NbCeylonProjects()
         extends CeylonProjects<Project,FileObject,FileObject,FileObject>(){
     
-    shared actual NbCeylonProject newNativeProject(Project nativeProject)
+    newNativeProject(Project nativeProject)
             => NbCeylonProject(this, nativeProject);
 }

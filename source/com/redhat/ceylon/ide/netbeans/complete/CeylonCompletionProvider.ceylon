@@ -51,9 +51,7 @@ shared class CeylonCompletionProvider() satisfies CompletionProvider {
         return null;
     }
     
-    shared actual Integer getAutoQueryTypes(JTextComponent jtc, String string) {
-        return 0;
-    }
+    getAutoQueryTypes(JTextComponent jtc, String string) => 0;
 
     AsyncCompletionTask createDocumentationTask(JTextComponent jtc) {
         return AsyncCompletionTask(object extends AsyncCompletionQuery() {
