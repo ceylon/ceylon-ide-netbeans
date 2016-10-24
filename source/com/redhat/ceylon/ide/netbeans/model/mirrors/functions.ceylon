@@ -18,7 +18,7 @@ List<Out> transform<In,Out>(List<out In> input, Out(In) transformer) {
 }
 
 JAnnotationMirror? findAnnotation(Element te, Annotations|String annotation) {
-    String name = switch(annotation)
+    value name = switch(annotation)
     case(is String) annotation
     else annotation.klazz.canonicalName;
     

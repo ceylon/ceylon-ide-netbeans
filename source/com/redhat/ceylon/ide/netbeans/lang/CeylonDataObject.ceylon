@@ -83,7 +83,7 @@ class CustomDataNode(DataObject obj, Children ch, Lookup? lookup = null)
 		extends DataNode(obj, ch, lookup) {
 	
 	shared actual Image getIcon(Integer type) {
-		String name = dataObject.primaryFile.nameExt;
+		value name = dataObject.primaryFile.nameExt;
 		if (name == ModuleManager.moduleFile) {
 			return nbIcons.modules;
 		}

@@ -76,7 +76,7 @@ void iterateTokens(String description, Boolean eliminateQuotes,
 				consume(tok, null);
 			}
 			while (tokens.hasMoreTokens()) {
-				String token = tokens.nextToken();
+				value token = tokens.nextToken();
 				if (token=="'") {
 					if (!eliminateQuotes) {
 						consume(token, null);
@@ -134,9 +134,9 @@ String color(Token<CeylonTokenId> token, FontColorSettings fcs) {
 }
 
 String toHex(Color c) {
-	String r = JInteger.toHexString(c.red);
-	String g = JInteger.toHexString(c.green);
-	String b = JInteger.toHexString(c.blue);
+	value r = JInteger.toHexString(c.red);
+	value g = JInteger.toHexString(c.green);
+	value b = JInteger.toHexString(c.blue);
     
     return (if (r.size < 2) then "0" else "") + r
              + (if (g.size < 2) then "0" else "") + g

@@ -33,7 +33,7 @@ class NbModule(NbModuleManager mm, NbModuleSourceMapper msm)
     value packageList = HashSet<String>();
     
     shared actual Set<String> listPackages() {
-        String name = nameAsString;
+        value name = nameAsString;
         if (JDKUtils.isJDKModule(name)) {
             packageList.addAll(CeylonStringIterable(
                 JDKUtils.getJDKPackagesByModule(name)));

@@ -92,7 +92,7 @@ class CeylonCompletionDocumentation(text, cpc)
                     if (b == "doc") {
                         return CeylonCompletionDocumentation(getDoc(t), cpc);
                     } else if (b == "dec") {
-                        String path = t.unit.fullPath;
+                        value path = t.unit.fullPath;
                         value fo = path.contains("!/")
                                     then URLMapper.findFileObject(URL("jar:file://" + path))
                                     else FileUtil.toFileObject(File(path));
