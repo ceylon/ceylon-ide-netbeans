@@ -10,5 +10,5 @@ encoding=UTF-8
 overrides=overrides.xml
 
 [repositories]
-lookup=aether:./settings.xml
+lookup=maven:./settings.xml
 lookup=../ceylon-ide-common/repo

@@ -3,7 +3,7 @@ module com.redhat.ceylon.ide.netbeans "current" {
     shared import java.base "7";
     shared import java.desktop "7";
     
-    shared import com.redhat.ceylon.ide.common "1.3.1-SNAPSHOT";
+    shared import com.redhat.ceylon.ide.common "1.3.4-SNAPSHOT";
     shared import com.github.rjeschke.txtmark "0.13";
     
     // NetBeans dependencies
