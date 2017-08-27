@@ -1,7 +1,5 @@
 import ceylon.interop.java {
 	createJavaObjectArray,
-	javaClass,
-	javaString,
 	CeylonIterable,
 	createJavaStringArray
 }
@@ -29,6 +27,9 @@ import java.awt {
 import java.awt.event {
 	ItemListener,
 	ItemEvent
+}
+import java.lang {
+	Types
 }
 import java.util {
 	ArrayList
@@ -100,7 +101,7 @@ shared class ModulesDependenciesViewer(Lookup lkp)
         extends JPanel()
         satisfies MultiViewElement {
     
-    value dataObject = lkp.lookup(javaClass<MultiDataObject>());
+    value dataObject = lkp.lookup(`MultiDataObject`);
     value scene = MyScene();
     value toolbar = JPanel(FlowLayout(FlowLayout.left, 0, 0));
     value layoutCombo = JComboBox(createJavaStringArray({
@@ -132,9 +133,9 @@ shared class ModulesDependenciesViewer(Lookup lkp)
         scene.init();
         this.layout = BorderLayout();
         value scrollPane = JScrollPane();
-        add(scrollPane, javaString(BorderLayout.center));
+        add(scrollPane, Types.nativeString(BorderLayout.center));
         scrollPane.setViewportView(scene.createView());
-        add(scene.createSatelliteView(), javaString(BorderLayout.west));
+        add(scene.createSatelliteView(), Types.nativeString(BorderLayout.west));
         
         toolbar.add(layoutCombo);
         layoutCombo.addItemListener(object satisfies ItemListener {

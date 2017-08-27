@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-	javaClass
-}
-
 import com.redhat.ceylon.ide.common.open {
 	AbstractNavigation
 }
@@ -39,7 +35,7 @@ object nbNavigation extends AbstractNavigation<Anything, FileObject>() {
 	filePath(FileObject file) => Path(file.path);
 	
 	shared actual void gotoFile(FileObject file, JInteger offset, JInteger length) {
-		if (exists cookie = DataObject.find(file).lookup.lookup(javaClass<EditorCookie>()),
+		if (exists cookie = DataObject.find(file).lookup.lookup(`EditorCookie`),
 			exists doc = cookie.openDocument()) {
 			
 			value line = NbEditorUtilities.getLine(doc, offset.intValue(), true);

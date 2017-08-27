@@ -1,8 +1,4 @@
 
-import ceylon.interop.java {
-	javaClass
-}
-
 import com.redhat.ceylon.ide.common.refactoring {
 	DefaultRegion
 }
@@ -39,7 +35,7 @@ shared object editorUtil {
             EventQueue.invokeAndWait(() {
                 if (TopComponent.registry.activatedNodes.size == 1,
                     exists ec = TopComponent.registry.activatedNodes
-                            .get(0).getCookie(javaClass<EditorCookie>()),
+                            .get(0).getCookie(`EditorCookie`),
                     ec.openedPanes.size > 0) {
                     
                     ec.openedPanes.get(0).select(selection.start, selection.end);
@@ -52,7 +48,7 @@ shared object editorUtil {
         for (tc in TopComponent.registry.opened) {
             if (exists activatedNodes = tc.activatedNodes) {
 	            for (node in activatedNodes) {
-	                if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
+	                if (exists cookie = node.getCookie(`EditorCookie`),
 	                    exists doc = cookie.document,
 	                    EditorDocumentUtils.getFileObject(doc) == fo) {
 	                    
@@ -68,7 +64,7 @@ shared object editorUtil {
     shared void updateAnnotations() {
         if (exists nodes = TopComponent.registry.currentNodes) {
 	        for (node in nodes) {
-	            if (exists cookie = node.getCookie(javaClass<EditorCookie>()),
+	            if (exists cookie = node.getCookie(`EditorCookie`),
 	                is AbstractDocument doc = cookie.document,
 	            	exists fo = EditorDocumentUtils.getFileObject(doc)) {
 	

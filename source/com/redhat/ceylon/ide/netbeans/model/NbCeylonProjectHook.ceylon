@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-	cls=javaClass
-}
-
 import com.redhat.ceylon.ide.netbeans.problems {
 	ProblemsViewTopComponent
 }
@@ -25,7 +21,7 @@ import org.openide.windows {
 shared class NbCeylonProjectHook(Project project) extends ProjectOpenedHook() {
 
     shared actual void projectClosed() {
-        value projects = Lookup.default.lookup(cls<NbCeylonProjects>());
+        value projects = Lookup.default.lookup(`NbCeylonProjects`);
 
         if (exists ceylonProject = projects.getProject(project)) {
             windowManager.invokeWhenUIReady(() {
@@ -41,10 +37,10 @@ shared class NbCeylonProjectHook(Project project) extends ProjectOpenedHook() {
     }
     
     shared actual void projectOpened() {
-        value projects = Lookup.default.lookup(cls<NbCeylonProjects>());
+        value projects = Lookup.default.lookup(`NbCeylonProjects`);
         
         // We make sure the model manager is instantiated and ready
-        Lookup.default.lookup(cls<CeylonModelManager>()).initializeIfNeeded();
+        Lookup.default.lookup(`CeylonModelManager`).initializeIfNeeded();
         
         // TODO better detection of Ceylon projects
         if (exists ceylonDir = project.projectDirectory.getFileObject(".ceylon"),

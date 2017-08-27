@@ -1,29 +1,31 @@
 import com.redhat.ceylon.model.loader.mirror {
-    MAnnotationMirror=AnnotationMirror
+	MAnnotationMirror=AnnotationMirror
 }
 
+import java.lang {
+	Types {
+		nativeString
+	}
+}
 import java.util {
-    List,
-    ArrayList
+	List,
+	ArrayList
 }
 
 import javax.lang.model.element {
-    JAnnotationMirror=AnnotationMirror,
-    AnnotationValue,
-    VariableElement
+	JAnnotationMirror=AnnotationMirror,
+	AnnotationValue,
+	VariableElement
 }
 import javax.lang.model.type {
-    JTypeMirror=TypeMirror
-}
-import ceylon.interop.java {
-	javaString
+	JTypeMirror=TypeMirror
 }
 
 class AnnotationMirror(JAnnotationMirror ann) satisfies MAnnotationMirror {
     
     Anything convertValue(Anything val) {
         if (is VariableElement val) {
-            return val.constantValue else javaString(val.simpleName.string); 
+            return val.constantValue else nativeString(val.simpleName.string); 
         }
         if (is JAnnotationMirror val) {
             return AnnotationMirror(val);

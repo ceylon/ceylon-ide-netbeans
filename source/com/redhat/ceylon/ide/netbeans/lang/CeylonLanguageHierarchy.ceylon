@@ -1,16 +1,12 @@
 import ceylon.collection {
 	HashMap
 }
-import ceylon.interop.java {
-	CeylonIterable
-}
 
 import com.redhat.ceylon.compiler.typechecker.parser {
 	CeylonLexer
 }
 
 import java.util {
-	Collection,
 	Arrays
 }
 
@@ -23,7 +19,7 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
     
     shared Integer badToken = 1337;
     
-    Collection<CeylonTokenId> tokens = Arrays.asList(
+    value tokens = [
         CeylonTokenId("ADD_SPECIFY", "other", CeylonLexer.\iADD_SPECIFY),
         CeylonTokenId("AIDENTIFIER", "other", CeylonLexer.\iAIDENTIFIER),
         CeylonTokenId("ALIAS", "keyword", CeylonLexer.\iALIAS),
@@ -45,7 +41,6 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
         CeylonTokenId("CLASS_DEFINITION", "keyword", CeylonLexer.\iCLASS_DEFINITION),
         CeylonTokenId("COMMA", "other", CeylonLexer.\iCOMMA),
         CeylonTokenId("COMPARE_OP", "other", CeylonLexer.\iCOMPARE_OP),
-        CeylonTokenId("COMPILER_ANNOTATION", "other", CeylonLexer.\iCOMPILER_ANNOTATION),
         CeylonTokenId("COMPLEMENT_OP", "other", CeylonLexer.\iCOMPLEMENT_OP),
         CeylonTokenId("COMPLEMENT_SPECIFY", "other", CeylonLexer.\iCOMPLEMENT_SPECIFY),
         CeylonTokenId("COMPUTE", "other", CeylonLexer.\iCOMPUTE),
@@ -152,10 +147,10 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
         CeylonTokenId("WHILE_CLAUSE", "keyword", CeylonLexer.\iWHILE_CLAUSE),
         CeylonTokenId("WS", "whitespace", CeylonLexer.\iWS),
         CeylonTokenId("BAD_TOKEN", "badcode", badToken)
-    );
+    ];
     
     value tokensById = HashMap {
-        entries => CeylonIterable(tokens).map((tok) => tok.ordinal() -> tok);
+        entries => tokens.map((tok) => tok.ordinal() -> tok);
      };
     
     shared CeylonTokenId? getToken(Integer id)
@@ -165,7 +160,7 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
             => NbCeylonLexer(info);
     
     createTokenIds()
-             => tokens;
+             => Arrays.asList(*tokens);
     
     mimeType() => package.mimeType;
 }

@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-	javaClass
-}
-
 import com.github.rjeschke.txtmark {
 	Configuration,
 	Processor
@@ -40,6 +36,9 @@ import java.awt {
 import java.io {
 	InputStreamReader,
 	BufferedReader
+}
+import java.lang {
+	Types
 }
 
 shared class NbDocGenerator(CeylonParseController cpc)
@@ -98,7 +97,7 @@ shared class NbDocGenerator(CeylonParseController cpc)
     
     shared actual void appendPageProlog(StringBuilder builder) {
         value resource = "/com/redhat/ceylon/ide/netbeans/doc/prolog.html";
-        if (exists stream = javaClass<CeylonParseController>().getResourceAsStream(resource)) {
+        if (exists stream = Types.classForType<CeylonParseController>().getResourceAsStream(resource)) {
             value reader = BufferedReader(InputStreamReader(stream));
             
             while (true) {

@@ -1,6 +1,5 @@
 import ceylon.interop.java {
-	createJavaObjectArray,
-	javaClass
+	createJavaObjectArray
 }
 
 import com.redhat.ceylon.ide.common.util {
@@ -60,11 +59,11 @@ shared class MarkOccurrencesHighlightsLayerFactory() satisfies HighlightsLayerFa
 	
 	MarkOccurrencesHighlighter getMarkOccurrencesHighlighter(Document doc) {
 		assert (is MarkOccurrencesHighlighter? highlighter
-					= doc.getProperty(javaClass<MarkOccurrencesHighlighter>()));
+					= doc.getProperty(`MarkOccurrencesHighlighter`));
 		if (!exists highlighter) {
 			value h = MarkOccurrencesHighlighter(WeakReference(doc));
 			h.setup();
-			doc.putProperty(javaClass<MarkOccurrencesHighlighter>(), h);
+			doc.putProperty(`MarkOccurrencesHighlighter`, h);
 			return h;
 		}
 		
@@ -89,14 +88,14 @@ class MarkOccurrencesHighlighter(WeakReference<Document> doc) satisfies CaretLis
 	value declColors =
 			AttributesUtilities.createImmutable(StyleConstants.\iBackground, Color(236, 200, 163));
 	value bag = OffsetsBag(doc.get());
-	value rp = RequestProcessor(javaClass<MarkOccurrencesHighlighter>());
+	value rp = RequestProcessor(`MarkOccurrencesHighlighter`);
 	variable RequestProcessor.Task? lastRefreshTask = null;
 
 	late JTextComponent? comp;
 	
 	shared void setup() {
 		if (exists dobj = NbEditorUtilities.getDataObject(doc.get())) {
-			value pane = dobj.lookup.lookup(javaClass<EditorCookie>());
+			value pane = dobj.lookup.lookup(`EditorCookie`);
 			if (exists panes = pane.openedPanes,
 				panes.size > 0) {
 				

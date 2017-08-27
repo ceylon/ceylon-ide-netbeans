@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-	javaClass
-}
-
 import com.redhat.ceylon.ide.netbeans.model {
 	NbCeylonProject
 }
@@ -77,7 +73,7 @@ shared class ProblemsViewTopComponent()
 				is DefaultMutableTreeNode node = path.lastPathComponent,
 				is SourceMsg msg = node.userObject,
 				exists dobj = DataObject.find(msg.file),
-				is LineCookie cookie = dobj.getCookie(javaClass<LineCookie>())) {
+				is LineCookie cookie = dobj.getCookie(`LineCookie`)) {
 				
 				value line = cookie.lineSet.getOriginal(msg.startLine - 1);
 				line.show(Line.ShowOpenType.open, Line.ShowVisibilityType.focus, msg.startCol);

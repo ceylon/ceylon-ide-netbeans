@@ -23,6 +23,9 @@ import org.openide.filesystems {
 	FileObject,
 	FileUtil
 }
+import java.lang {
+	overloaded
+}
 
 templateRegistration {
 	folder = "Project/Ceylon";
@@ -60,10 +63,10 @@ shared class CeylonProjectWizard extends AmbiguousOverloadsResolver {
     // Should not be called because we implement
     //  WizardDescriptor.ProgressInstantiatingIterator
     suppressWarnings("expressionTypeNothing")
-    shared actual Set<out Object> instantiate() => nothing;
+    shared actual overloaded Set<out Object> instantiate() => nothing;
 
     // TODO this does not create and open a new project, atm it only creates files
-    shared actual Set<FileObject> instantiate(ProgressHandle handle) {
+    shared actual overloaded Set<FileObject> instantiate(ProgressHandle handle) {
         assert(exists wizard = wiz);
         assert(is File projectDir = wizard.getProperty("projdir"));
 

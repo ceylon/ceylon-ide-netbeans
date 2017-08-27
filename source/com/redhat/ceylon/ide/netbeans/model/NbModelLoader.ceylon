@@ -1,8 +1,3 @@
-import ceylon.interop.java {
-	javaClass,
-	javaString
-}
-
 import com.redhat.ceylon.ide.common.model {
 	IdeModelLoader,
 	BaseIdeModule
@@ -19,6 +14,10 @@ import com.redhat.ceylon.model.loader.mirror {
 }
 import com.redhat.ceylon.model.typechecker.model {
 	Modules
+}
+
+import java.lang {
+	Types
 }
 
 import javax.lang.model.element {
@@ -51,7 +50,7 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         (mm, msm, modules) {
     
     value cpProvider = project.ideArtifact.lookup
-            .lookup(javaClass<ClassPathProvider>());
+            .lookup(`ClassPathProvider`);
     value bootCp => findClasspath(ClassPath.boot);
     value compilerCp => findClasspath(ClassPath.compile);
     
@@ -97,7 +96,7 @@ class NbModelLoader(NbCeylonProject project, NbModuleManager mm, NbModuleSourceM
         try {
 	        js.runUserActionTask(
 	            (CompilationController ctrl) {
-	                te = ctrl.elements.getTypeElement(javaString(unparameterized));
+	                te = ctrl.elements.getTypeElement(Types.nativeString(unparameterized));
 	            },
 	            true
 	        );

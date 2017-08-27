@@ -1,14 +1,11 @@
-import ceylon.interop.java {
-	javaClassFromInstance
-}
-
 import com.redhat.ceylon.ide.common.platform {
 	IdeUtils,
 	Status
 }
 
 import java.lang {
-	RuntimeException
+	RuntimeException,
+	Types
 }
 import java.util.logging {
 	Logger,
@@ -41,7 +38,7 @@ object nbIdeUtils satisfies IdeUtils {
     // TODO
     isExceptionToPropagateInVisitors(Exception exception) => false;
     
-    pluginClassLoader => javaClassFromInstance(this).classLoader;
+    pluginClassLoader => Types.classForInstance(this).classLoader;
 }
 
 class NbOperationCancelledException(String message)

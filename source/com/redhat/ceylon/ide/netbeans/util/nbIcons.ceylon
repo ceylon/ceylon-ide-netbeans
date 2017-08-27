@@ -1,34 +1,34 @@
 import ceylon.collection {
-    HashMap
-}
-import ceylon.interop.java {
-    javaClass
+	HashMap
 }
 
 import com.redhat.ceylon.compiler.typechecker.tree {
-    Tree
+	Tree
+}
+import com.redhat.ceylon.ide.common.doc {
+	Icons
 }
 import com.redhat.ceylon.ide.netbeans.model {
-    CeylonParseController
+	CeylonParseController
 }
 import com.redhat.ceylon.model.typechecker.model {
-    ModelUtil,
-    NothingType,
-    Class,
-    Value,
-    Declaration,
-    Function,
-    TypeParameter,
-    Interface,
-    TypeAlias
+	ModelUtil,
+	NothingType,
+	Class,
+	Value,
+	Declaration,
+	Function,
+	TypeParameter,
+	Interface,
+	TypeAlias
 }
 
 import java.awt {
-    Toolkit,
-    Image
+	Toolkit,
+	Image
 }
-import com.redhat.ceylon.ide.common.doc {
-    Icons
+import java.lang {
+	Types
 }
 
 shared object nbIcons {
@@ -36,7 +36,7 @@ shared object nbIcons {
     value paths = HashMap<Image, String>();
 
     Image loadIcon(String path) {
-        value res = javaClass<CeylonParseController>().classLoader.getResource(path);
+        value res = Types.classForType<CeylonParseController>().classLoader.getResource(path);
         value image = Toolkit.defaultToolkit.getImage(res);
         
         // TODO we should only do this on hidpi screens

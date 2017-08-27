@@ -1,41 +1,37 @@
-import ceylon.interop.java {
-    javaString,
-    javaClass
-}
-
 import com.redhat.ceylon.ide.common.doc {
-    convertToHTML
+	convertToHTML
 }
 import com.redhat.ceylon.ide.netbeans.lang {
-    ceylonLanguageHierarchy,
-    CeylonTokenId
+	ceylonLanguageHierarchy,
+	CeylonTokenId
 }
 
 import java.awt {
-    Color
+	Color
 }
 import java.lang {
-    JInteger=Integer,
-	StringBuffer
-}
-
-import javax.swing.text {
-    AttributeSet,
-    StyleConstants
-}
-
-import org.netbeans.api.editor.mimelookup {
-    MimeLookup
-}
-import org.netbeans.api.editor.settings {
-    FontColorSettings
-}
-import org.netbeans.api.lexer {
-    TokenHierarchy,
-    Token
+	JInteger=Integer,
+	StringBuffer,
+	Types
 }
 import java.util {
 	StringTokenizer
+}
+
+import javax.swing.text {
+	AttributeSet,
+	StyleConstants
+}
+
+import org.netbeans.api.editor.mimelookup {
+	MimeLookup
+}
+import org.netbeans.api.editor.settings {
+	FontColorSettings
+}
+import org.netbeans.api.lexer {
+	TokenHierarchy,
+	Token
 }
 
 // TODO extract this and iterateTokens in ide-common
@@ -104,12 +100,12 @@ void iterateTokens(String description, Boolean eliminateQuotes,
 
 shared String highlight(String rawText) {
     value lang = ceylonLanguageHierarchy.language();
-    value hierarchy = TokenHierarchy.create(javaString(rawText), lang);
+    value hierarchy = TokenHierarchy.create(Types.nativeString(rawText), lang);
     
     value ts = hierarchy.tokenSequence(lang);
     value sb = StringBuilder();
     value fcs = MimeLookup.getLookup(lang.mimeType())
-            .lookup(javaClass<FontColorSettings>());
+            .lookup(`FontColorSettings`);
     
     while (ts.moveNext()) {
         sb.append(color(ts.token(), fcs));

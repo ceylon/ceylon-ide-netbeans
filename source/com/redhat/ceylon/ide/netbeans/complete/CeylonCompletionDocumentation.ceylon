@@ -1,6 +1,5 @@
 import ceylon.interop.java {
-	CeylonIterable,
-	javaClass
+	CeylonIterable
 }
 
 import com.redhat.ceylon.ide.netbeans.doc {
@@ -84,7 +83,8 @@ class CeylonCompletionDocumentation(text, cpc)
                     }
                 }
                 
-                if (exists t = target, exists b = bits[0]) {
+                if (exists t = target) {
+                    value b = bits[0];
                     if (b == "doc") {
                         return CeylonCompletionDocumentation(getDoc(t), cpc);
                     } else if (b == "dec") {
@@ -93,7 +93,7 @@ class CeylonCompletionDocumentation(text, cpc)
                                     then URLMapper.findFileObject(URL("jar:file://" + path))
                                     else FileUtil.toFileObject(File(path));
 
-                        DataObject.find(fo).lookup.lookup(javaClass<OpenCookie>()).open();
+                        DataObject.find(fo).lookup.lookup(`OpenCookie`).open();
                     }
                 }
             }

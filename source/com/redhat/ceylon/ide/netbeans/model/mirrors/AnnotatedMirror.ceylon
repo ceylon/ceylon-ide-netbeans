@@ -1,13 +1,12 @@
-import ceylon.interop.java {
-	javaString
-}
-
 import com.redhat.ceylon.model.loader.mirror {
 	MAnnotatedMirror=AnnotatedMirror
 }
 
 import java.lang {
-	JString=String
+	JString=String,
+	Types {
+		nativeString
+	}
 }
 import java.util {
 	Set,
@@ -29,7 +28,7 @@ shared abstract class AnnotatedMirror(Element el) satisfies MAnnotatedMirror {
 		value set = HashSet<JString>();
 		
 		for (mirr in el.annotationMirrors) {
-			set.add(javaString(mirr.annotationType.string));
+			set.add(nativeString(mirr.annotationType.string));
 		}
 		
 		return set;

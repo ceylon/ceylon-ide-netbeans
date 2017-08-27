@@ -1,29 +1,26 @@
-import ceylon.interop.java {
-    javaString
-}
-
 import com.redhat.ceylon.compiler.typechecker.tree {
-    VisitorAdaptor,
-    Tree
+	VisitorAdaptor,
+	Tree
 }
 
 import java.lang {
-    JString=String
+	JString=String,
+	Types
 }
 import java.util {
-    Map,
-    List,
-    Collections {
-        singletonList
-    },
-    ArrayList
+	Map,
+	List,
+	Collections {
+		singletonList
+	},
+	ArrayList
 }
 
 import org.netbeans.api.editor.fold {
-    FoldType
+	FoldType
 }
 import org.netbeans.modules.csl.api {
-    OffsetRange
+	OffsetRange
 }
 
 class FoldingVisitor(Map<JString,List<OffsetRange>> folds) extends VisitorAdaptor() {
@@ -93,5 +90,5 @@ class FoldingVisitor(Map<JString,List<OffsetRange>> folds) extends VisitorAdapto
         return ranges;
     }
 
-    JString code(FoldType type) => javaString(type.code());
+    JString code(FoldType type) => Types.nativeString(type.code());
 }

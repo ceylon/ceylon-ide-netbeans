@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-    javaClass
-}
-
 import com.redhat.ceylon.compiler.typechecker.context {
     PhasedUnit
 }
@@ -65,7 +61,6 @@ import java.lang.ref {
 	WeakReference
 }
 
-
 shared CeylonParseController? findParseController(Document doc) {
     value docProperty = "CeylonParseController";
 
@@ -91,11 +86,11 @@ shared class CeylonParseController(NbEditorDocument doc) {
     shared Project project {
         value lookup = TopComponent.registry.activated.lookup;
         
-        if (exists p = lookup.lookup(javaClass<Project>())) {
+        if (exists p = lookup.lookup(`Project`)) {
             return p;
         }
         
-        if (exists dob = lookup.lookup(javaClass<DataObject>())) {
+        if (exists dob = lookup.lookup(`DataObject`)) {
             return FileOwnerQuery.getOwner(dob.primaryFile);
         }
         
@@ -105,7 +100,7 @@ shared class CeylonParseController(NbEditorDocument doc) {
 
     shared variable LocalAnalysisResult? lastAnalysis = null;
     
-    value projects = Lookup.default.lookup(javaClass<NbCeylonProjects>());
+    value projects = Lookup.default.lookup(`NbCeylonProjects`);
     assert(is NbCeylonProject _p = projects.getProject(project));
     shared NbCeylonProject ceylonProject = _p;
     

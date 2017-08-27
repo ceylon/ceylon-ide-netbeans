@@ -1,46 +1,42 @@
-import ceylon.interop.java {
-    javaClass
-}
-
 import com.redhat.ceylon.ide.common.platform {
-    VfsServices
+	VfsServices
 }
 import com.redhat.ceylon.ide.common.util {
-    Path
+	Path
 }
 import com.redhat.ceylon.ide.common.vfs {
-    FileVirtualFile,
-    FolderVirtualFile,
-    ResourceVirtualFile
+	FileVirtualFile,
+	FolderVirtualFile,
+	ResourceVirtualFile
 }
 import com.redhat.ceylon.ide.netbeans.model {
-    NbCeylonProjects,
-    NbCeylonProject
+	NbCeylonProjects,
+	NbCeylonProject
 }
 import com.redhat.ceylon.model.typechecker.model {
-    Package
+	Package
 }
 
 import java.io {
-    File
+	File
 }
 import java.lang.ref {
-    WeakReference
+	WeakReference
 }
 import java.util {
-    List,
-    ArrayList
+	List,
+	ArrayList
 }
 
 import org.netbeans.api.project {
-    Project
+	Project
 }
 import org.openide.filesystems {
-    FileObject,
-    FileUtil
+	FileObject,
+	FileUtil
 }
 import org.openide.util {
-    Lookup
+	Lookup
 }
 
 object nbVfsServices
@@ -162,7 +158,7 @@ shared class NbFileVirtualFile(Project project, FileObject fo)
         satisfies FileVirtualFile<Project,FileObject,FileObject,FileObject> {
     
     ceylonProject
-            => let (model = Lookup.default.lookup(javaClass<NbCeylonProjects>()))
+            => let (model = Lookup.default.lookup(`NbCeylonProjects`))
                 model.getProject(project);
     
     charset => null;
@@ -189,7 +185,7 @@ shared class NbFolderVirtualFile(Project project, FileObject fo)
         satisfies FolderVirtualFile<Project,FileObject,FileObject,FileObject> {
     
     ceylonProject
-            => let (model = Lookup.default.lookup(javaClass<NbCeylonProjects>()))
+            => let (model = Lookup.default.lookup(`NbCeylonProjects`))
                 model.getProject(project);
     
     shared actual List<out ResourceVirtualFile<Project,FileObject,FileObject,FileObject>> children {

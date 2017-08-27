@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-	javaClass
-}
-
 import com.redhat.ceylon.ide.common.model {
 	ModelListenerAdapter,
 	ChangeAware,
@@ -63,7 +59,7 @@ shared class CeylonModelManager()
                 & ModelAliases<Project,FileObject,FileObject,FileObject>
                 & FileChangeListener {
     
-    value model => Lookup.default.lookup(javaClass<NbCeylonProjects>());
+    value model => Lookup.default.lookup(`NbCeylonProjects`);
     variable value initialized = false;
     
     variable Timer? timer = null;

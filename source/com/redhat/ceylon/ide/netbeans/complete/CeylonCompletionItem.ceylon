@@ -1,7 +1,3 @@
-import ceylon.interop.java {
-	javaString
-}
-
 import com.redhat.ceylon.ide.netbeans.util {
 	highlight
 }
@@ -14,6 +10,11 @@ import java.awt {
 }
 import java.awt.event {
 	KeyEvent
+}
+import java.lang {
+	Types {
+		nativeString
+	}
 }
 
 import javax.swing {
@@ -97,9 +98,9 @@ shared class CeylonCompletionItem(String text, String desc,
     
     sortPriority => nbCompletionItemPosition.next();
     
-    sortText => javaString(text);
+    sortText => nativeString(text);
     
-    insertPrefix => javaString(text);
+    insertPrefix => nativeString(text);
     
     String escape(String text) => XMLUtil.toElementContent(text);
 }
