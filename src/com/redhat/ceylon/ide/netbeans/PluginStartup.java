@@ -11,7 +11,8 @@ import com.redhat.ceylon.common.Constants;
 import com.redhat.ceylon.compiler.java.runtime.metamodel.Metamodel;
 import com.redhat.ceylon.model.cmr.ArtifactResult;
 import com.redhat.ceylon.model.cmr.ArtifactResultType;
-import com.redhat.ceylon.model.cmr.ImportType;
+import com.redhat.ceylon.model.cmr.Exclusion;
+import com.redhat.ceylon.model.cmr.ModuleScope;
 import com.redhat.ceylon.model.cmr.PathFilter;
 import com.redhat.ceylon.model.cmr.Repository;
 import com.redhat.ceylon.model.cmr.VisibilityType;
@@ -121,11 +122,6 @@ public class PluginStartup implements Runnable {
             }
 
             @Override
-            public ImportType importType() {
-                return ImportType.EXPORT;
-            }
-
-            @Override
             public ArtifactResultType type() {
                 return ArtifactResultType.CEYLON;
             }
@@ -164,6 +160,41 @@ public class PluginStartup implements Runnable {
             public String namespace() {
                 return null;
             }
+
+            @Override
+            public boolean optional() {
+                return false;
+            }
+
+            @Override
+            public boolean exported() {
+                return false;
+            }
+
+            @Override
+            public ModuleScope moduleScope() {
+                return null;
+            }
+
+            @Override
+            public List<Exclusion> getExclusions() {
+                return Collections.emptyList();
+            }
+
+            @Override
+            public String groupId() {
+                return null;
+            }
+
+            @Override
+            public String artifactId() {
+                return moduleName;
+            }
+
+            @Override
+            public String classifier() {
+                return null;
+            }
         };
         
         registerModule(artifactResult, getClass().getClassLoader());
@@ -173,6 +204,8 @@ public class PluginStartup implements Runnable {
         File archiveDirectory = getDirectory("modules/ext");
         File embeddedDist = getDirectory("embeddedDist/repo");
         
+        Logger.getLogger("PluginStartup").info("Scanning archives in " 
+        		+ archiveDirectory + " and " + embeddedDist);
         RepositoryManagerBuilder builder = new RepositoryManagerBuilder(
                 archiveDirectory, new CMRJULLogger(), true,
                 Constants.DEFAULT_TIMEOUT, Proxy.NO_PROXY);

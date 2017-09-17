@@ -1,73 +1,66 @@
 import ceylon.collection {
-    HashMap
-}
-import ceylon.interop.java {
-    javaClass,
-    createJavaObjectArray
+	HashMap
 }
 
 import com.redhat.ceylon.cmr.api {
-    ArtifactContext
+	ArtifactContext
 }
 import com.redhat.ceylon.compiler.typechecker {
-    TypeChecker
+	TypeChecker
 }
 import com.redhat.ceylon.compiler.typechecker.analyzer {
-    ModuleSourceMapper
+	ModuleSourceMapper
 }
 import com.redhat.ceylon.compiler.typechecker.context {
-    Context
+	Context
 }
 import com.redhat.ceylon.compiler.typechecker.util {
-    ModuleManagerFactory
+	ModuleManagerFactory
 }
 import com.redhat.ceylon.ide.common.model {
-    CeylonProject,
-    BuildHook
+	CeylonProject,
+	BuildHook
 }
 import com.redhat.ceylon.ide.common.platform {
-    platformUtils,
-    Status
+	platformUtils,
+	Status
 }
 import com.redhat.ceylon.ide.common.util {
-    BaseProgressMonitorChild
+	BaseProgressMonitorChild
 }
 import com.redhat.ceylon.ide.common.vfs {
-    FolderVirtualFile
-}
-import com.redhat.ceylon.model.typechecker.model {
-    Package
-}
-import com.redhat.ceylon.model.typechecker.util {
-    ModuleManager
-}
-
-import java.io {
-    File
-}
-import java.lang.ref {
-    WeakReference
-}
-
-import org.netbeans.api.java.classpath {
-    ClassPath
-}
-import org.netbeans.api.java.project.classpath {
-    ProjectClassPathModifier
-}
-import org.netbeans.api.project {
-    Project,
-    ProjectInformation
-}
-import org.openide.filesystems {
-    FileObject,
-    FileUtil
+	FolderVirtualFile
 }
 import com.redhat.ceylon.ide.netbeans.project {
 	CeylonIdeClasspathProvider
 }
+import com.redhat.ceylon.model.typechecker.model {
+	Package
+}
+import com.redhat.ceylon.model.typechecker.util {
+	ModuleManager
+}
+
+import java.io {
+	File
+}
+import java.lang.ref {
+	WeakReference
+}
+
+import org.netbeans.api.java.classpath {
+	ClassPath
+}
+import org.netbeans.api.project {
+	Project,
+	ProjectInformation
+}
 import org.netbeans.spi.java.classpath {
 	ClassPathProvider
+}
+import org.openide.filesystems {
+	FileObject,
+	FileUtil
 }
 
 shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
@@ -116,15 +109,26 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
     }
 
 	shared void addDependencyToClasspath(File dependency) {
-		if (is CeylonIdeClasspathProvider provider = nativeProject.lookup.lookup(javaClass<ClassPathProvider>())) {
+		value provider = {
+			for (lkp in nativeProject.lookup.lookupAll(`Object`))
+			if (is CeylonIdeClasspathProvider lkp)
+			lkp
+		}.first;
+		
+		if (is CeylonIdeClasspathProvider provider) {
 			provider.addRoot(FileUtil.urlForArchiveOrDir(dependency), ClassPath.compile);
 		} else {
-			value fo = FileUtil.toFileObject(dependency);
-			ProjectClassPathModifier.addRoots(
-				createJavaObjectArray({FileUtil.getArchiveRoot(fo).toURI()}),
-				sourceFolders.first?.nativeResource,
-				ClassPath.compile
-			);
+			print("Project has no instance of CeylonIdeClasspathProvider in its lookup");
+			//value fo = FileUtil.toFileObject(dependency);
+			//for (group in ProjectUtils.getSources(nativeProject)
+			//		.getSourceGroups(JavaProjectConstants.sourcesTypeJava)) {
+			//	//group.
+			//}
+			//ProjectClassPathModifier.addRoots(
+			//	createJavaObjectArray({FileUtil.getArchiveRoot(fo).toURI()}),
+			//	nativeProject.projectDirectory,
+			//	ClassPath.compile
+			//);
 		}
 	}
 	
@@ -162,7 +166,7 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
         }
     };
     
-    name => nativeProject.lookup.lookup(javaClass<ProjectInformation>()).name;
+    name => nativeProject.lookup.lookup(`ProjectInformation`).name;
     
     refreshConfigFile(String projectRelativePath)
             => noop();

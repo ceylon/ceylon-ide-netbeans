@@ -20,6 +20,7 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
     shared Integer badToken = 1337;
     
     value tokens = [
+    		CeylonTokenId("ABSTRACTED_TYPE", "other", CeylonLexer.\iABSTRACTED_TYPE),
         CeylonTokenId("ADD_SPECIFY", "other", CeylonLexer.\iADD_SPECIFY),
         CeylonTokenId("AIDENTIFIER", "other", CeylonLexer.\iAIDENTIFIER),
         CeylonTokenId("ALIAS", "keyword", CeylonLexer.\iALIAS),
@@ -29,6 +30,7 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
         CeylonTokenId("ASSERT", "keyword", CeylonLexer.\iASSERT),
         CeylonTokenId("ASSIGN", "keyword", CeylonLexer.\iASSIGN),
         CeylonTokenId("ASTRING_LITERAL", "annotationStringAttribute", CeylonLexer.\iASTRING_LITERAL),
+        CeylonTokenId("AT", "other", CeylonLexer.at),
         CeylonTokenId("AVERBATIM_STRING", "annotationStringAttribute", CeylonLexer.\iAVERBATIM_STRING),
         CeylonTokenId("BACKTICK", "typeLiteralAttribute", CeylonLexer.\iBACKTICK),
         CeylonTokenId("BREAK", "keyword", CeylonLexer.\iBREAK),
@@ -49,6 +51,7 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
         CeylonTokenId("DECREMENT_OP", "other", CeylonLexer.\iDECREMENT_OP),
         CeylonTokenId("DIFFERENCE_OP", "other", CeylonLexer.\iDIFFERENCE_OP),
         CeylonTokenId("DIVIDE_SPECIFY", "other", CeylonLexer.\iDIVIDE_SPECIFY),
+        CeylonTokenId("DOLLAR", "other", CeylonLexer.dollar),
         CeylonTokenId("DYNAMIC", "keyword", CeylonLexer.\iDYNAMIC),
         CeylonTokenId("Digit", "other", CeylonLexer.\iDigit),
         CeylonTokenId("Digits", "other", CeylonLexer.\iDigits),
@@ -65,6 +68,8 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
         CeylonTokenId("FOR_CLAUSE", "keyword", CeylonLexer.\iFOR_CLAUSE),
         CeylonTokenId("FUNCTION_MODIFIER", "keyword", CeylonLexer.\iFUNCTION_MODIFIER),
         CeylonTokenId("FractionalMagnitude", "other", CeylonLexer.\iFractionalMagnitude),
+        CeylonTokenId("HexDigit", "other", CeylonLexer.hexDigit),
+        CeylonTokenId("HexDigits", "other", CeylonLexer.hexDigits),
         CeylonTokenId("IDENTICAL_OP", "other", CeylonLexer.\iIDENTICAL_OP),
         CeylonTokenId("IF_CLAUSE", "keyword", CeylonLexer.\iIF_CLAUSE),
         CeylonTokenId("IMPORT", "keyword", CeylonLexer.\iIMPORT),
@@ -154,7 +159,7 @@ shared object ceylonLanguageHierarchy extends LanguageHierarchy<CeylonTokenId>()
      };
     
     shared CeylonTokenId? getToken(Integer id)
-            => tokensById.get(id);
+            => tokensById.get(id) else tokens.last;
     
     createLexer(LexerRestartInfo<CeylonTokenId> info)
             => NbCeylonLexer(info);
