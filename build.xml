@@ -98,4 +98,21 @@
         <copy file="${basedir}/modules/com/redhat/ceylon/ide/netbeans/current/com.redhat.ceylon.ide.netbeans-current.car" todir="${basedir}/release/modules/ext"/>
     </target>
     <target name="compile" depends="compile-ceylon,projectized-common.compile"/>
+    
+    <target name="create-update-center" depends="harness.taskdefs, nbm"> 
+        <pathfileset id="updater.jar"> 
+            <path refid="cluster.path.id"/> 
+            <filename name="modules/ext/updater.jar"/> 
+        </pathfileset> 
+        <makeupdatedesc desc="./build/updates.xml" distbase="." 
+                        automaticgrouping="true" 
+                        uselicenseurl="${use.license.url.in.catalog}"> 
+            <fileset dir="./build"> 
+                <include name="*.nbm"/> 
+            </fileset> 
+            <updaterjar> 
+                <resources refid="updater.jar"/> 
+            </updaterjar> 
+        </makeupdatedesc> 
+    </target> 
 </project>
