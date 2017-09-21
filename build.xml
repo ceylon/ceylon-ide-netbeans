@@ -26,10 +26,11 @@
     
     <tstamp>
         <format property="buildnumber" pattern="yyyyMMddHHmm" timezone="UTC"/>
+        <format property="specnumber" pattern="yyMMddHHmm" timezone="UTC"/>
     </tstamp>
 
     <property name="ceylon.version" value="1.3.4"/>
-    <property name="spec.version.base" value="${ceylon.version}.${buildnumber}"/>
+    <property name="spec.version.base" value="${ceylon.version}.${specnumber}"/>
 
     <target name="ceylondefs">
         <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
