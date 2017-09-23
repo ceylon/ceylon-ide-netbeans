@@ -88,11 +88,4 @@
             </folder>
         </folder>
     </folder>
-    <folder name="Services">
-        <folder name="MIMEResolver">
-            <file name="CeylonResolver.xml" url="CeylonResolver.xml">
-                <attr name="displayName" bundlevalue="com.redhat.ceylon.ide.netbeans.Bundle#Services/MIMEResolver/CeylonResolver.xml"/>
-            </file>
-        </folder>
-    </folder>
 </filesystem>
