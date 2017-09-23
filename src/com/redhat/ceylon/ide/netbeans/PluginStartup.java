@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.openide.modules.Dependency;
 import org.openide.modules.InstalledFileLocator;
@@ -201,8 +200,8 @@ public class PluginStartup implements Runnable {
     }
 
     private void registerCeylonModules() throws RuntimeException {
-        File archiveDirectory = getDirectory("modules/ext");
-        File embeddedDist = getDirectory("embeddedDist/repo");
+        File archiveDirectory = getDirectory("ceylon/embeddedRepo");
+        File embeddedDist = getDirectory("ceylon/embeddedDist/repo");
         
         Logger.getLogger("PluginStartup").info("Scanning archives in " 
         		+ archiveDirectory + " and " + embeddedDist);
@@ -224,21 +223,7 @@ public class PluginStartup implements Runnable {
             String moduleVersion;
             String moduleType;
 
-            if (dir.getName().equals("ext")) {
-                // try to guess name and version from file name
-                Matcher matcher = moduleArchivePatternCar.matcher(name);
-                if (!matcher.matches()) {
-                    matcher = moduleArchivePatternJar.matcher(name);
-                }
-                if (matcher.matches()) {
-                    moduleName = matcher.group(1);
-                    moduleVersion = matcher.group(2);
-                    moduleType = matcher.group(3).equalsIgnoreCase("C") ?
-                            ArtifactContext.CAR : ArtifactContext.JAR;
-                } else {
-                    continue;
-                }
-            } else if (name.endsWith(".car") || name.endsWith(".jar")){
+            if (name.endsWith(".car") || name.endsWith(".jar")){
                 // Use the repo layout to determine name and version
                 moduleVersion = dir.getName();
                 int versionPos = name.indexOf(moduleVersion);
