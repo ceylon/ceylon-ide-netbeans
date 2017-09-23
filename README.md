@@ -19,10 +19,14 @@ to NetBeans.
 
 ## How to build
 
-1. Clone this project
-2. Run the Ant build using `ant clean netbeans`
-3. Open the project in Eclipse<sup>1</sup> to make changes to Ceylon files in `source`
-4. Open the project in NetBeans, to make changes to Java files in `src` and run the NetBeans module
+1. Clone the [Ceylon distribution](https://github.com/ceylon/ceylon)
+2. From the `ceylon` directory, run `ant setup-sdk setup-ide` to pull all the 
+required dependencies
+3. Build the Ceylon distribution, SDK etc. by running `ant clean-all dist sdk intellij`
+4. Clone this project
+5. Build the NetBeans plugin using `ant clean create-update-center`
+6. Open the project in Eclipse<sup>1</sup> to make changes to Ceylon files in `source`
+7. Open the project in NetBeans to make changes to Java files in `src` and run the NetBeans module
 
 <sup>1</sup> This is needed because most of the plugin is written in Ceylon, and
 the plugin cannot build Ceylon code yet.
