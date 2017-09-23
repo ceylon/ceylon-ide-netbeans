@@ -59,6 +59,9 @@ import org.openide.filesystems {
 	FileObject,
 	FileUtil
 }
+import org.openide.modules {
+	InstalledFileLocator
+}
 
 shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
         extends CeylonProject<Project,FileObject,FileObject,FileObject>() {
@@ -175,7 +178,12 @@ shared class NbCeylonProject(NbCeylonProjects projects, Project nativeProject)
     
     synchronizedWithConfiguration => true;
     
-    systemRepository => "/Users/bastien/Dev/ceylon/ceylon/dist/dist/repo"; // TODO
+    systemRepository => 
+            InstalledFileLocator.default.locate(
+                "ceylon/embeddedDist/repo",
+                "com.redhat.ceylon.ide.netbeans",
+                false
+            ).absolutePath;
         
     buildHooks => {addModuleArchiveHook};
 }

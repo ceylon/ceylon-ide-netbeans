@@ -38,7 +38,7 @@ actionReference {
 shared nonbean class ResetCeylonModelAction(Project context) satisfies ActionListener {
 	
 	shared actual void actionPerformed(ActionEvent ev) {
-		value projects = Lookup.default.lookup(^NbCeylonProjects);
+		value projects = Lookup.default.lookup(`NbCeylonProjects`);
 		
 		if (exists project = projects.getProject(context)) {
 			project.build.requestFullBuild();

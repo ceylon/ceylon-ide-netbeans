@@ -34,6 +34,7 @@ module com.redhat.ceylon.ide.netbeans "current" {
     shared import maven:"org.netbeans.api:org-openide-dialogs" "RELEASE81";
     shared import maven:"org.netbeans.api:org-openide-awt" "RELEASE81";
     shared import maven:"org.netbeans.api:org-openide-loaders" "RELEASE81";
+    shared import maven:"org.netbeans.api:org-openide-modules" "RELEASE81";
     shared import maven:"org.netbeans.api:org-openide-nodes" "RELEASE81";
     shared import maven:"org.netbeans.api:org-openide-text" "RELEASE81";
     shared import maven:"org.netbeans.api:org-openide-util" "RELEASE81";
