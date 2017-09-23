@@ -18,6 +18,7 @@ import org.netbeans.spi.editor.fold {
 mimeRegistration {
 	mimeType = "text/x-ceylon";
 	service = `interface FoldTypeProvider`;
+	position = 1000;
 }
 shared class CeylonFoldTypeProvider() satisfies FoldTypeProvider {
     

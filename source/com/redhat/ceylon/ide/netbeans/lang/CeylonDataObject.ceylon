@@ -45,11 +45,13 @@ mimeResolverExtensionRegistration {
 	displayName = "Ceylon files";
 	mimeType = "text/x-ceylon";
 	extension = {"ceylon"};
+	position = 1000;
 }
 dataObjectRegistration {
 	displayName = "Ceylon files";
 	mimeType = "text/x-ceylon";
 	iconBase = "icons/ceylon.png";
+	position = 1000;
 }
 shared class CeylonDataObject extends MultiDataObject {
 	

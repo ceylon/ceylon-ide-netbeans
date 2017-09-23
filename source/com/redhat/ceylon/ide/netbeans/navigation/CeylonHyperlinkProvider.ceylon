@@ -40,6 +40,7 @@ import org.netbeans.lib.editor.hyperlink.spi {
 mimeRegistration {
 	mimeType = "text/x-ceylon";
 	service = `interface HyperlinkProviderExt`;
+	position = 1000;
 }
 shared class CeylonHyperlinkProvider() satisfies HyperlinkProviderExt {
 

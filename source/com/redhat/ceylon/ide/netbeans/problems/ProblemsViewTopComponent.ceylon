@@ -51,7 +51,7 @@ actionID {
 }
 actionReference {
 	path = "Menu/Window";
-	/*position = 333; */
+	position = 333;
 }
 openActionRegistration {
 	displayName = "Ceylon Problems";

@@ -12,6 +12,7 @@ import org.netbeans.spi.editor.bracesmatching.support {
 mimeRegistration {
 	mimeType = "text/x-ceylon";
 	service = `interface BracesMatcherFactory`;
+	position = 1000;
 }
 shared class CeylonBraceMatcher() satisfies BracesMatcherFactory {
 	

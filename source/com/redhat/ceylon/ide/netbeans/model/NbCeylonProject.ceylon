@@ -55,9 +55,6 @@ import org.netbeans.api.project {
 	Project,
 	ProjectInformation
 }
-import org.netbeans.spi.java.classpath {
-	ClassPathProvider
-}
 import org.openide.filesystems {
 	FileObject,
 	FileUtil
