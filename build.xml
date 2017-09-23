@@ -102,8 +102,34 @@
         <copy file="${basedir}/modules/com/redhat/ceylon/ide/netbeans/current/com.redhat.ceylon.ide.netbeans-current.car" todir="${basedir}/release/modules/ext"/>
     </target>
     <target name="compile" depends="compile-ceylon,projectized-common.compile"/>
-    
-    <target name="create-update-center" depends="harness.taskdefs, nbm"> 
+
+    <!-- Rebuild update_tracking because some files were added after module.files was set -->    
+    <target name="netbeans" depends="-netbeans">
+        <pathconvert pathsep="," property="our.release.files">
+            <path>
+                <fileset dir="${release.dir}"/>
+            </path>
+            <filtermapper>
+                <replacestring from="${release.dir}${file.separator}" to=""/>
+                <replacestring from=" " to="?"/>
+            </filtermapper>
+        </pathconvert>
+        <patternset id="our.module.files" includes="${our.release.files},${release.files.extra},${extra.module.files}">
+            <include name="${module.jar}"/>
+            <include name="${javahelp.jar}" if="has.javahelp"/>
+            <include name="config/Modules/${code.name.base.dashes}.xml"/>
+            <include name="config/ModuleAutoDeps/${code.name.base.dashes}.xml" if="has.module.auto.deps"/>
+            <include name="ant/nblib/${code.name.base.dashes}.jar"/>
+        </patternset>
+        
+        <genlist outputfiledir="${cluster}" module="${module.jar}">
+            <fileset dir="${cluster}">
+                <patternset refid="our.module.files"/>
+            </fileset>
+        </genlist>
+    </target>
+
+    <target name="create-update-center" depends="nbm"> 
         <pathfileset id="updater.jar"> 
             <path refid="cluster.path.id"/> 
             <filename name="modules/ext/updater.jar"/> 
@@ -118,5 +144,5 @@
                 <resources refid="updater.jar"/> 
             </updaterjar> 
         </makeupdatedesc> 
-    </target> 
+    </target>
 </project>
