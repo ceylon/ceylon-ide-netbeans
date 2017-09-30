@@ -1,15 +1,15 @@
-import com.redhat.ceylon.compiler.typechecker.context {
+import org.eclipse.ceylon.compiler.typechecker.context {
     PhasedUnit
 }
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
     BaseIdeModuleSourceMapper
 }
-import com.redhat.ceylon.ide.common.typechecker {
+import org.eclipse.ceylon.ide.common.typechecker {
     LocalAnalysisResult,
     EditedPhasedUnit,
     ProjectPhasedUnit
 }
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
     SingleSourceUnitPackage
 }
 import com.redhat.ceylon.ide.netbeans.correct {
@@ -22,7 +22,7 @@ import com.redhat.ceylon.ide.netbeans.platform {
     NbFileVirtualFile,
     NbFolderVirtualFile
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
     Package
 }
 

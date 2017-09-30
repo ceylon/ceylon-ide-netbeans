@@ -1,7 +1,7 @@
-import com.redhat.ceylon.cmr.api {
+import org.eclipse.ceylon.cmr.api {
     RepositoryManager
 }
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
     IdeModuleManager,
     BaseIdeModelLoader,
     BaseIdeModuleManager,
@@ -9,7 +9,7 @@ import com.redhat.ceylon.ide.common.model {
     BaseIdeModule,
     BaseCeylonProject
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
     Modules,
     Module
 }

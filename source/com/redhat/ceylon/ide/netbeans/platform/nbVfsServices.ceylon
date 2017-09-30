@@ -1,10 +1,10 @@
-import com.redhat.ceylon.ide.common.platform {
+import org.eclipse.ceylon.ide.common.platform {
 	VfsServices
 }
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
 	Path
 }
-import com.redhat.ceylon.ide.common.vfs {
+import org.eclipse.ceylon.ide.common.vfs {
 	FileVirtualFile,
 	FolderVirtualFile,
 	ResourceVirtualFile
@@ -13,7 +13,7 @@ import com.redhat.ceylon.ide.netbeans.model {
 	NbCeylonProjects,
 	NbCeylonProject
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
 	Package
 }
 

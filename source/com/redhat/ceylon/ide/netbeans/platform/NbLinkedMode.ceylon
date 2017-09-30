@@ -1,10 +1,10 @@
 import com.redhat.ceylon.ide.netbeans.correct {
     NbDocument
 }
-import com.redhat.ceylon.ide.common.platform {
+import org.eclipse.ceylon.ide.common.platform {
     LinkedMode
 }
-import com.redhat.ceylon.ide.common.completion {
+import org.eclipse.ceylon.ide.common.completion {
     ProposalsHolder
 }
 

@@ -1,4 +1,4 @@
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
     CeylonBinaryUnit,
     IJavaModelAware,
     CrossProjectBinaryUnit,
@@ -7,13 +7,13 @@ import com.redhat.ceylon.ide.common.model {
     CrossProjectJavaCompilationUnit,
     BaseCeylonProject
 }
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
     BaseProgressMonitor
 }
-import com.redhat.ceylon.model.loader.model {
+import org.eclipse.ceylon.model.loader.model {
     LazyPackage
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
     Package,
     Declaration
 }

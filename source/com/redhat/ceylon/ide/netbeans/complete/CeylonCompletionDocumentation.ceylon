@@ -8,7 +8,7 @@ import com.redhat.ceylon.ide.netbeans.doc {
 import com.redhat.ceylon.ide.netbeans.model {
 	CeylonParseController
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
 	Scope,
 	Referenceable,
 	TypedDeclaration,

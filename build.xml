@@ -33,7 +33,7 @@
     <property name="spec.version.base" value="${ceylon.version}.${specnumber}"/>
 
     <target name="ceylondefs">
-        <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
+        <typedef resource="org/eclipse/ceylon/ant/antlib.xml" classpathref="ant-tasks" />
 
         <moduleset id="modules.source">
             <module name="com.redhat.ceylon.ide.netbeans" />
@@ -82,8 +82,8 @@
                      includes="${ceylon.dist.version}/**.car"/>
         </copy>
 
-        <copy todir="${basedir}/release/ceylon/embeddedRepo/com/redhat/ceylon/ide/common/">
-            <fileset dir="${basedir}/../ceylon-ide-common/modules/com/redhat/ceylon/ide/common/" 
+        <copy todir="${basedir}/release/ceylon/embeddedRepo/org/eclipse/ceylon/ide/common/">
+            <fileset dir="${basedir}/../ceylon-ide-common/modules/org/eclipse/ceylon/ide/common/" 
                      includes="${ceylon.dist.version}/**.car"/>
         </copy>
         <copy todir="${basedir}/release/ceylon/embeddedRepo/org/jgrapht/core/">

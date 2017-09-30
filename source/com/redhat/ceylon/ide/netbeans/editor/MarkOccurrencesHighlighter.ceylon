@@ -2,7 +2,7 @@ import ceylon.interop.java {
 	createJavaObjectArray
 }
 
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
 	FindReferencesVisitor,
 	nodes
 }

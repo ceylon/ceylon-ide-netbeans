@@ -1,17 +1,17 @@
-import com.redhat.ceylon.ide.common.platform {
+import org.eclipse.ceylon.ide.common.platform {
     PlatformServices,
     VfsServices,
     ModelServices,
     CommonDocument,
     JavaModelServices
 }
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
     unsafeCast
 }
 import com.redhat.ceylon.ide.netbeans.correct {
     NbDocument
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
     Unit
 }
 

@@ -2,30 +2,30 @@ import ceylon.collection {
     MutableList
 }
 
-import com.redhat.ceylon.compiler.typechecker.context {
+import org.eclipse.ceylon.compiler.typechecker.context {
     PhasedUnit
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Message,
     Tree,
     Node
 }
-import com.redhat.ceylon.ide.common.correct {
+import org.eclipse.ceylon.ide.common.correct {
     QuickFixData,
     QuickFixKind
 }
-import com.redhat.ceylon.ide.common.doc {
+import org.eclipse.ceylon.ide.common.doc {
     Icons
 }
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
     BaseCeylonProject
 }
-import com.redhat.ceylon.ide.common.platform {
+import org.eclipse.ceylon.ide.common.platform {
     TextChange,
     platformUtils,
     Status
 }
-import com.redhat.ceylon.ide.common.refactoring {
+import org.eclipse.ceylon.ide.common.refactoring {
     DefaultRegion
 }
 import com.redhat.ceylon.ide.netbeans.util {
@@ -43,10 +43,10 @@ import org.netbeans.spi.editor.hints {
     Fix,
     ChangeInfo
 }
-import com.redhat.ceylon.cmr.api {
+import org.eclipse.ceylon.cmr.api {
     ModuleVersionDetails
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
     Referenceable
 }
 

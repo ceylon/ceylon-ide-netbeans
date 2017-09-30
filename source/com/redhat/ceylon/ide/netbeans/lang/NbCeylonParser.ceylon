@@ -1,8 +1,8 @@
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer,
     CeylonParser
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree
 }
 
@@ -39,7 +39,7 @@ import org.netbeans.modules.parsing.spi {
 import org.openide.util {
     Exceptions
 }
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
     unsafeCast
 }
 

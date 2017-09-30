@@ -1,7 +1,7 @@
 import com.redhat.ceylon.ide.netbeans.util {
 	nbIcons
 }
-import com.redhat.ceylon.model.typechecker.util {
+import org.eclipse.ceylon.model.typechecker.util {
 	ModuleManager
 }
 

@@ -5,27 +5,27 @@ import ceylon.interop.java {
 	JavaList
 }
 
-import com.redhat.ceylon.compiler.typechecker.analyzer {
+import org.eclipse.ceylon.compiler.typechecker.analyzer {
 	AnalysisError,
 	UsageWarning
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
 	RecognitionError
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
 	Message,
 	Node
 }
-import com.redhat.ceylon.ide.common.correct {
+import org.eclipse.ceylon.ide.common.correct {
 	ideQuickFixManager
 }
-import com.redhat.ceylon.ide.common.refactoring {
+import org.eclipse.ceylon.ide.common.refactoring {
 	DefaultRegion
 }
-import com.redhat.ceylon.ide.common.typechecker {
+import org.eclipse.ceylon.ide.common.typechecker {
 	LocalAnalysisResult
 }
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
 	ErrorVisitor,
 	nodes
 }

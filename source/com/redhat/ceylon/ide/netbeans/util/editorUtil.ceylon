@@ -1,5 +1,5 @@
 
-import com.redhat.ceylon.ide.common.refactoring {
+import org.eclipse.ceylon.ide.common.refactoring {
 	DefaultRegion
 }
 

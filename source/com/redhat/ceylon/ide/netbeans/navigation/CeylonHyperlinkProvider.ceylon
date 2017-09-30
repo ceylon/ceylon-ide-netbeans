@@ -2,10 +2,10 @@ import ceylon.interop.java {
 	createJavaIntArray
 }
 
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
 	Node
 }
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
 	nodes
 }
 import com.redhat.ceylon.ide.netbeans.model {
@@ -14,7 +14,7 @@ import com.redhat.ceylon.ide.netbeans.model {
 import com.redhat.ceylon.ide.netbeans.util {
 	highlight
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
 	Referenceable
 }
 

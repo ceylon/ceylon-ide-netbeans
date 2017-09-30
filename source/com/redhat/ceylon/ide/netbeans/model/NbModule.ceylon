@@ -1,4 +1,4 @@
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
     IdeModule,
     BaseIdeModule
 }
@@ -13,10 +13,10 @@ import org.openide.filesystems {
 import ceylon.collection {
     HashSet
 }
-import com.redhat.ceylon.model.cmr {
+import org.eclipse.ceylon.model.cmr {
     JDKUtils
 }
-import com.redhat.ceylon.cmr.api {
+import org.eclipse.ceylon.cmr.api {
     RepositoryManager,
     ArtifactContext
 }

@@ -1,4 +1,4 @@
-import com.redhat.ceylon.ide.common.doc {
+import org.eclipse.ceylon.ide.common.doc {
 	convertToHTML
 }
 import com.redhat.ceylon.ide.netbeans.lang {

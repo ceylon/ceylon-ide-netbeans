@@ -1,12 +1,12 @@
 package com.redhat.ceylon.ide.netbeans.model.mirrors;
 
 enum Annotations {
-    attribute(com.redhat.ceylon.compiler.java.metadata.Attribute.class),
-    object(com.redhat.ceylon.compiler.java.metadata.Object.class),
-    method(com.redhat.ceylon.compiler.java.metadata.Method.class),
-    container(com.redhat.ceylon.compiler.java.metadata.Container.class),
-    localContainer(com.redhat.ceylon.compiler.java.metadata.LocalContainer.class),
-    ceylon(com.redhat.ceylon.compiler.java.metadata.Ceylon.class);
+    attribute(org.eclipse.ceylon.compiler.java.metadata.Attribute.class),
+    object(org.eclipse.ceylon.compiler.java.metadata.Object.class),
+    method(org.eclipse.ceylon.compiler.java.metadata.Method.class),
+    container(org.eclipse.ceylon.compiler.java.metadata.Container.class),
+    localContainer(org.eclipse.ceylon.compiler.java.metadata.LocalContainer.class),
+    ceylon(org.eclipse.ceylon.compiler.java.metadata.Ceylon.class);
     
     final Class<?> klazz;
 

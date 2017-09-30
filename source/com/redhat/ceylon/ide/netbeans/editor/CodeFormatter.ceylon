@@ -5,10 +5,10 @@ import ceylon.formatter.options {
     os
 }
 
-import com.redhat.ceylon.ide.common.editor {
+import org.eclipse.ceylon.ide.common.editor {
     formatAction
 }
-import com.redhat.ceylon.ide.common.refactoring {
+import org.eclipse.ceylon.ide.common.refactoring {
     DefaultRegion
 }
 import com.redhat.ceylon.ide.netbeans.correct {

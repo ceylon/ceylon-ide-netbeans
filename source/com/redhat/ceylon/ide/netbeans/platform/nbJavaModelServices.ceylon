@@ -1,7 +1,7 @@
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
     BaseCeylonProject
 }
-import com.redhat.ceylon.ide.common.platform {
+import org.eclipse.ceylon.ide.common.platform {
     JavaModelServices
 }
 import com.redhat.ceylon.ide.netbeans.model {
@@ -14,10 +14,10 @@ import com.redhat.ceylon.ide.netbeans.model {
 import com.redhat.ceylon.ide.netbeans.model.mirrors {
     TypeElementMirror
 }
-import com.redhat.ceylon.model.loader.mirror {
+import org.eclipse.ceylon.model.loader.mirror {
     ClassMirror
 }
-import com.redhat.ceylon.model.loader.model {
+import org.eclipse.ceylon.model.loader.model {
     LazyPackage
 }
 

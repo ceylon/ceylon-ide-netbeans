@@ -2,7 +2,7 @@ import ceylon.collection {
     ArrayList
 }
 
-import com.redhat.ceylon.ide.common.platform {
+import org.eclipse.ceylon.ide.common.platform {
     CommonDocument,
     TextChange,
     TextEdit,

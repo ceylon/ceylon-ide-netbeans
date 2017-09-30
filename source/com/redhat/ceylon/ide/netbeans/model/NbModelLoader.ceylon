@@ -1,18 +1,18 @@
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
 	IdeModelLoader,
 	BaseIdeModule
 }
 import com.redhat.ceylon.ide.netbeans.model.mirrors {
 	TypeElementMirror
 }
-import com.redhat.ceylon.model.cmr {
+import org.eclipse.ceylon.model.cmr {
 	ArtifactResult
 }
-import com.redhat.ceylon.model.loader.mirror {
+import org.eclipse.ceylon.model.loader.mirror {
 	ClassMirror,
 	MethodMirror
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
 	Modules
 }
 

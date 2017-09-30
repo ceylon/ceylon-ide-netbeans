@@ -2,12 +2,12 @@ import com.github.rjeschke.txtmark {
 	Configuration,
 	Processor
 }
-import com.redhat.ceylon.ide.common.doc {
+import org.eclipse.ceylon.ide.common.doc {
 	DocGenerator,
 	Icons,
 	Colors
 }
-import com.redhat.ceylon.ide.common.typechecker {
+import org.eclipse.ceylon.ide.common.typechecker {
 	LocalAnalysisResult
 }
 import com.redhat.ceylon.ide.netbeans.model {
@@ -17,7 +17,7 @@ import com.redhat.ceylon.ide.netbeans.util {
 	utilHighlight=highlight,
 	nbIcons
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
 	Declaration,
 	Unit,
 	Referenceable,
@@ -26,7 +26,7 @@ import com.redhat.ceylon.model.typechecker.model {
 	Package,
 	Module
 }
-import com.redhat.ceylon.model.typechecker.util {
+import org.eclipse.ceylon.model.typechecker.util {
 	TypePrinter
 }
 

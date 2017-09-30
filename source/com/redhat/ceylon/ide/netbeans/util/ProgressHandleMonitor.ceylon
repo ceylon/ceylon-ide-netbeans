@@ -2,7 +2,7 @@ import ceylon.collection {
     ArrayList
 }
 
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
     ProgressMonitorImpl
 }
 

@@ -1,4 +1,4 @@
-import com.redhat.ceylon.model.loader.mirror {
+import org.eclipse.ceylon.model.loader.mirror {
     PackageMirror
 }
 import javax.lang.model.element {

@@ -1,4 +1,4 @@
-import com.redhat.ceylon.ide.common.completion {
+import org.eclipse.ceylon.ide.common.completion {
     completionManager
 }
 import com.redhat.ceylon.ide.netbeans.doc {

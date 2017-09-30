@@ -1,12 +1,12 @@
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
     ProjectSourceFile,
     EditedSourceFile,
     CrossProjectSourceFile
 }
-import com.redhat.ceylon.ide.common.model.parsing {
+import org.eclipse.ceylon.ide.common.model.parsing {
     RootFolderScanner
 }
-import com.redhat.ceylon.ide.common.platform {
+import org.eclipse.ceylon.ide.common.platform {
     ModelServices
 }
 import com.redhat.ceylon.ide.netbeans.model {

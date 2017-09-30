@@ -1,10 +1,10 @@
-import com.redhat.ceylon.ide.common.open {
+import org.eclipse.ceylon.ide.common.open {
 	AbstractNavigation
 }
-import com.redhat.ceylon.ide.common.util {
+import org.eclipse.ceylon.ide.common.util {
 	Path
 }
-import com.redhat.ceylon.model.typechecker.model {
+import org.eclipse.ceylon.model.typechecker.model {
 	Declaration
 }
 

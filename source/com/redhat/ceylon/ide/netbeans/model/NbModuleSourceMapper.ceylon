@@ -1,4 +1,4 @@
-import com.redhat.ceylon.ide.common.model {
+import org.eclipse.ceylon.ide.common.model {
     IdeModuleSourceMapper,
     BaseIdeModule
 }
@@ -8,10 +8,10 @@ import org.netbeans.api.project {
 import org.openide.filesystems {
     FileObject
 }
-import com.redhat.ceylon.compiler.typechecker.context {
+import org.eclipse.ceylon.compiler.typechecker.context {
     Context
 }
-import com.redhat.ceylon.ide.common.platform {
+import org.eclipse.ceylon.ide.common.platform {
     platformUtils,
     Status
 }
